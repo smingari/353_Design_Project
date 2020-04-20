@@ -47,6 +47,8 @@ void EnableInterrupts(void)
 int 
 main(void)
 {
-
+		//initialize_serial_debug();
+		initialize_hardware();
+	
     while(1){};
 }
