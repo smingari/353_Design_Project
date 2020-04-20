@@ -1,0 +1,227 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     main.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           __main
+    6 00000000         
+    7 00000000         ;**********************************************
+    8 00000000         ; SRAM
+    9 00000000         ;**********************************************
+   10 00000000                 AREA             SRAM, READWRITE
+   11 00000000                 align
+   12 00000000         
+   13 00000000         ;**********************************************
+   14 00000000         ; Constant Variables (FLASH) Segment
+   15 00000000         ;**********************************************
+   16 00000000                 AREA             FLASH, CODE, READONLY
+   17 00000000                 align
+   18 00000000         
+   19 00000000         ;**********************************************
+   20 00000000         ; Code (FLASH) Segment
+   21 00000000         ; main assembly program
+   22 00000000         ;**********************************************
+   23 00000000         __main  PROC
+   24 00000000         
+   25 00000000         ; Initialization of R0 and R1
+   26 00000000 F04F 000F       MOV              R0, #15
+   27 00000004 F04F 0164       MOV              R1, #100
+   28 00000008         
+   29 00000008         ; Using only conditional instructions (no branches)
+   30 00000008         ; Implement the if statemens below.
+   31 00000008         
+   32 00000008         
+   33 00000008         
+   34 00000008         ; (1) If R0 == 15, then R2 = 100 , else R2 = 1
+   35 00000008 280F            CMP              R0, #15
+   36 0000000A BF0D 2264       MOVEQ            R2, #100
+   37 0000000E 2201            MOVNE            R2, #1
+   38 00000010         
+   39 00000010         ; (2) If R0 != 15, then R3 = 200 , else R3 = 2
+   40 00000010 23C8            MOVNE            R3, #200
+   41 00000012 2302            MOVEQ            R3, #2
+   42 00000014         
+   43 00000014         ; (3) If R0 < 15, then  R4 = 300 , else R4 = 3
+   44 00000014 BF4C F44F 
+              7496             MOVMI            R4, #0x12C
+   45 0000001A 2403            MOVPL            R4, #3
+   46 0000001C         
+   47 0000001C         ; (4) If R0 <= 15, then R5 = 400 , else R5 = 4
+   48 0000001C BFD3 F44F 
+              75C8             MOVLE            R5, #400
+   49 00000022 2504            MOVGT            R5, #4
+   50 00000024         
+   51 00000024         ; (5) If R0 > 15,  then R6 =500 , else R6 = 5
+   52 00000024 F44F 76FA       MOVGT            R6, #500
+   53 00000028 2605            MOVLE            R6, #5
+   54 0000002A         
+   55 0000002A         ; (6) If R0 >= 15, then R7 = 600 , else R7 = 6
+   56 0000002A BFAC F44F 
+              7716             MOVGE            R7, #600
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   57 00000030 2706            MOVLT            R7, #6
+   58 00000032         
+   59 00000032         
+   60 00000032         
+   61 00000032 F04F 0002       MOV              R0, #0x2
+   62 00000036         
+   63 00000036         ; (7) Implement the following switch statement using onl
+                       y conditional instructions
+   64 00000036         
+   65 00000036         ; Hint: Start by setting R1 to the default value and the
+                       n checking all of the
+   66 00000036         ; other cases.
+   67 00000036         
+   68 00000036         ; switch(R0)
+   69 00000036         ; {
+   70 00000036         ;      case 0:
+   71 00000036         ;      {
+   72 00000036         ;           R1 = 0;
+   73 00000036         ;           break;
+   74 00000036         ;      }
+   75 00000036         ;      case 1:
+   76 00000036         ;      {
+   77 00000036         ;           R1 = 10;
+   78 00000036         ;           break;
+   79 00000036         ;      }
+   80 00000036         ;      case 2:
+   81 00000036         ;      {
+   82 00000036         ;           R1 = 20;
+   83 00000036         ;           break;
+   84 00000036         ;      }
+   85 00000036         ;      case 3:
+   86 00000036         ;      {
+   87 00000036         ;           R1 = 30;
+   88 00000036         ;           break;
+   89 00000036         ;      }
+   90 00000036         ;      default:
+   91 00000036         ;      {
+   92 00000036         ;           R1 = 0xFFFFFFFF;
+   93 00000036         ;           break;
+   94 00000036         ;      }
+   95 00000036         ;  }
+   96 00000036 F04F 31FF       MOV              R1, #0xFFFFFFFF
+   97 0000003A 2801            CMP              R0, #1
+   98 0000003C BF08 210A       MOVEQ            R1, #10     ; case 1
+   99 00000040 BFB8 2100       MOVLT            R1, #0      ; case 0
+  100 00000044         
+  101 00000044 2802            CMP              R0, #2
+  102 00000046 BF08 2114       MOVEQ            R1, #20     ; case 2
+  103 0000004A BFC8 211E       MOVGT            R1, #30     ; case 3
+  104 0000004E         
+  105 0000004E         
+  106 0000004E         ; Initialization of R0 and R1
+  107 0000004E F04F 000F       MOV              R0, #15
+  108 00000052 F04F 0164       MOV              R1, #100
+  109 00000056         
+  110 00000056         ; (8) If R0 >= 15 OR R1 < 150, then R8 = 700 , else R8 =
+                        7
+  111 00000056 F04F 0807       MOV              R8, #7
+  112 0000005A 280F            CMP              R0, #15
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+  113 0000005C BFA8 F44F 
+              782F             MOVGE            R8, #700
+  114 00000062 2996            CMP              R1, #150
+  115 00000064 BFB8 F44F 
+              782F             MOVLT            R8, #700
+  116 0000006A         
+  117 0000006A         ; (9) If R0 >= 15 AND R1 < 150, then R9 = 800, else R9 =
+                        8
+  118 0000006A F44F 7948       MOV              R9, #800
+  119 0000006E 280F            CMP              R0, #15
+  120 00000070 BFB8 F04F 
+              0908             MOVLT            R9, #8
+  121 00000076 2996            CMP              R1, #150
+  122 00000078 BFA8 F04F 
+              0908             MOVGE            R9, #8
+  123 0000007E         
+  124 0000007E F240 00FF 
+              F6CF 70F0        MOV32            R0, #0xFFF000FF
+  125 00000086         ; (10) If bit 2 OR bit 21 of register R0 is a 1, then R1
+                        = 900 , else R1 = 9
+  126 00000086 F04F 0109       MOV              R1, #9
+  127 0000008A F010 0F04       TST              R0, #4
+  128 0000008E BF18 F44F 
+              7161             MOVNE            R1, #900
+  129 00000094 F410 1F00       TST              R0, #0x00200000
+  130 00000098 BF18 F44F 
+              7161             MOVNE            R1, #900
+  131 0000009E         
+  132 0000009E         ; DO NOT MODIFY ANTHING BELOW THIS LINE!!! 
+  133 0000009E         
+  134 0000009E         INFINITE_LOOP
+  135 0000009E E7FE            B                INFINITE_LOOP
+  136 000000A0         
+  137 000000A0                 ENDP
+  138 000000A0                 align
+  139 000000A0         
+  140 000000A0         
+  141 000000A0                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\obj\ece353_main.d -o.\obj\ece353_main.o -I.\RTE\_Target_1 -IC
+:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\TM4
+C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__MICROLIB SETA 1" --predefine=
+"__UVISION_VERSION SETA 524" --predefine="_RTE_ SETA 1" --predefine="TM4C123GH6
+PM SETA 1" --list=.\lst\ece353_main.lst ece353_main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 10 in file ece353_main.s
+   Uses
+      None
+Comment: SRAM unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 16 in file ece353_main.s
+   Uses
+      None
+Comment: FLASH unused
+INFINITE_LOOP 0000009E
+
+Symbol: INFINITE_LOOP
+   Definitions
+      At line 134 in file ece353_main.s
+   Uses
+      At line 135 in file ece353_main.s
+Comment: INFINITE_LOOP used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 23 in file ece353_main.s
+   Uses
+      At line 5 in file ece353_main.s
+Comment: __main used once
+3 symbols
+339 symbols in table

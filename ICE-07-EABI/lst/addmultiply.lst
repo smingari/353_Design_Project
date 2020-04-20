@@ -1,0 +1,188 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     addMultiply.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           addMultiply
+    6 00000000         
+    7 00000000         ;**********************************************
+    8 00000000         ; SRAM
+    9 00000000         ;**********************************************
+   10 00000000                 AREA             SRAM, READWRITE
+   11 00000000                 align
+   12 00000000         
+   13 00000000         ;**********************************************
+   14 00000000         ; Constant Variables (FLASH) Segment
+   15 00000000         ;**********************************************
+   16 00000000                 AREA             FLASH, CODE, READONLY
+   17 00000000                 align
+   18 00000000         
+   19 00000000         
+   20 00000000         ;**********************************************
+   21 00000000         ; Four arrays of 8-bit signed numbers are 
+   22 00000000         ; passed via the first four paramters.
+   23 00000000         ; The 5th paramter indicates the length of the
+   24 00000000         ; arrays. For each entry in the array, the
+   25 00000000         ; following operation takes place.
+   26 00000000         ;
+   27 00000000         ; Array3[i] = (Array0[i] + Array1[i]) * Array2[i]
+   28 00000000         ;
+   29 00000000         ; Parameter 0       Array Address 0
+   30 00000000         ; Parameter 1       Array Address 1
+   31 00000000         ; Parameter 2       Array Address 2
+   32 00000000         ; Parameter 3       Array Address 3
+   33 00000000         ; Parameter 4       Array Size 
+   34 00000000         ;
+   35 00000000         ; Returns
+   36 00000000         ;   if ALL parameters are valid, return 0
+   37 00000000         ;   else return -1.
+   38 00000000         ;
+   39 00000000         ;  An address is valid if it is non zero
+   40 00000000         ;  The size is valid if it is greater than zero
+   41 00000000         ;**********************************************
+   42 00000000         addMultiply
+                               PROC
+   43 00000000         
+   44 00000000         ; Validate Parameters
+   45 00000000 2800            CMP              R0, #0
+   46 00000002 D01D            BEQ              invaild
+   47 00000004         
+   48 00000004 2900            CMP              R1, #0
+   49 00000006 D01B            BEQ              invaild
+   50 00000008         
+   51 00000008 2A00            CMP              R2, #0
+   52 0000000A D019            BEQ              invaild
+   53 0000000C         
+   54 0000000C 2B00            CMP              R3, #0
+   55 0000000E D017            BEQ              invaild
+   56 00000010         
+   57 00000010 E92D 03F0       PUSH{R4-R9}
+   58 00000014         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   59 00000014 9C06            LDR              R4, [SP, #24]
+   60 00000016 2C00            CMP              R4, #0
+   61 00000018 DB12            BLT              invaild     ; EITHER < OR <=
+   62 0000001A         ; Save required registers
+   63 0000001A         
+   64 0000001A         ; For each index in the arrays, compute  
+   65 0000001A         ; Array3[i] = (Array0[i] + Array1[i]) * Array2[i]
+   66 0000001A F04F 0900       MOV              R9, #0      ; counter
+   67 0000001E         while_start
+   68 0000001E 454C            CMP              R4, R9
+   69 00000020 D013            BEQ              done
+   70 00000022         
+   71 00000022 F850 5009       LDR              R5, [R0, R9] ; load Array0[i]
+   72 00000026 F851 6009       LDR              R6, [R1, R9]
+   73 0000002A F852 7009       LDR              R7, [R2, R9]
+   74 0000002E         ;LDR R8, [R3, R4]
+   75 0000002E EB05 0806       ADD              R8, R5, R6
+   76 00000032 FB08 F807       MUL              R8, R8, R7
+   77 00000036 F843 8009       STR              R8, [R3, R9]
+   78 0000003A F109 0901       ADD              R9, R9, #1
+   79 0000003E E7EE            B                while_start
+   80 00000040         
+   81 00000040         ; Restore registers saved to the stack
+   82 00000040         
+   83 00000040         ; Return from the loop
+   84 00000040         
+   85 00000040         
+   86 00000040         invaild
+   87 00000040 F04F 30FF       MOV              R0, #-1
+   88 00000044 E8BD 03F0       POP{R4-R9}
+   89 00000048 4770            BX               LR
+   90 0000004A         
+   91 0000004A         done
+   92 0000004A F04F 0000       MOV              R0, #0
+   93 0000004E E8BD 03F0       POP{R4-R9}
+   94 00000052 4770            BX               LR
+   95 00000054                 ENDP
+   96 00000054         
+   97 00000054         
+   98 00000054         
+   99 00000054                 align
+  100 00000054         
+  101 00000054         
+  102 00000054                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\obj\addmultiply.d -o.\obj\addmultiply.o -I.\RTE\_Target_1 -IC
+:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\TM4
+C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__MICROLIB SETA 1" --predefine=
+"__UVISION_VERSION SETA 524" --predefine="_RTE_ SETA 1" --predefine="TM4C123GH6
+PM SETA 1" --list=.\lst\addmultiply.lst addMultiply.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 10 in file addMultiply.s
+   Uses
+      None
+Comment: SRAM unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 16 in file addMultiply.s
+   Uses
+      None
+Comment: FLASH unused
+addMultiply 00000000
+
+Symbol: addMultiply
+   Definitions
+      At line 42 in file addMultiply.s
+   Uses
+      At line 5 in file addMultiply.s
+Comment: addMultiply used once
+done 0000004A
+
+Symbol: done
+   Definitions
+      At line 91 in file addMultiply.s
+   Uses
+      At line 69 in file addMultiply.s
+Comment: done used once
+invaild 00000040
+
+Symbol: invaild
+   Definitions
+      At line 86 in file addMultiply.s
+   Uses
+      At line 46 in file addMultiply.s
+      At line 49 in file addMultiply.s
+      At line 52 in file addMultiply.s
+      At line 55 in file addMultiply.s
+      At line 61 in file addMultiply.s
+
+while_start 0000001E
+
+Symbol: while_start
+   Definitions
+      At line 67 in file addMultiply.s
+   Uses
+      At line 79 in file addMultiply.s
+Comment: while_start used once
+5 symbols
+341 symbols in table

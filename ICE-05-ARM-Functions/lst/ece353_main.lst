@@ -1,0 +1,309 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     main.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           __main
+    6 00000000                 import           verifyArray
+    7 00000000                 import           bubble_sort
+    8 00000000         
+    9 00000000 00000001 
+                       BYTE    EQU              1
+   10 00000000 00000004 
+                       WORD    EQU              4
+   11 00000000 00000008 
+                       MAX_INDEX
+                               EQU              8
+   12 00000000         
+   13 00000000         ;**********************************************
+   14 00000000         ; SRAM
+   15 00000000         ;**********************************************
+   16 00000000                 AREA             SRAM, READWRITE
+   17 00000000 00 00 00 
+              00 00 00 
+              00 00    SORTED  SPACE            MAX_INDEX*BYTE
+   18 00000008                 align
+   19 00000008         
+   20 00000008         ;**********************************************
+   21 00000008         ; Constant Variables (FLASH) Segment
+   22 00000008         ;**********************************************
+   23 00000008                 AREA             FLASH, CODE, READONLY
+   24 00000000 01      UNSORTED
+                               DCB              0x01
+   25 00000001 40              DCB              0x40
+   26 00000002 24              DCB              0x24
+   27 00000003 FF              DCB              0xFF
+   28 00000004 15              DCB              0x15
+   29 00000005 99              DCB              0x99
+   30 00000006 33              DCB              0x33
+   31 00000007 11              DCB              0x11
+   32 00000008 01      PRE_SORTED
+                               DCB              0x01
+   33 00000009 11              DCB              0x11
+   34 0000000A 15              DCB              0x15
+   35 0000000B 24              DCB              0x24
+   36 0000000C 33              DCB              0x33
+   37 0000000D 40              DCB              0x40
+   38 0000000E 99              DCB              0x99
+   39 0000000F FF              DCB              0xFF
+   40 00000010                 align
+   41 00000010         
+   42 00000010         ;**********************************************
+   43 00000010         ; Code (FLASH) Segment
+   44 00000010         ; main assembly program
+   45 00000010         ;**********************************************
+   46 00000010         __main  PROC
+   47 00000010         
+   48 00000010         
+   49 00000010         ; Load the address of UNSORTED into R0
+   50 00000010 480E            LDR              R0, =(UNSORTED)
+   51 00000012         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   52 00000012         ; Load the address of SORTED into R1
+   53 00000012 490F            LDR              R1, =(SORTED)
+   54 00000014         
+   55 00000014         ; Load the address of PRE_SORTED into R2
+   56 00000014 4A0F            LDR              R2, =(PRE_SORTED)
+   57 00000016         
+   58 00000016         ; Move 8 into R3
+   59 00000016 F04F 0308       MOV              R3, #MAX_INDEX
+   60 0000001A         
+   61 0000001A         ; Initialize count of elements
+   62 0000001A F04F 0400       MOV              R4, #0
+   63 0000001E         
+   64 0000001E         FOR_LOOP_START
+   65 0000001E 429C            CMP              R4, R3
+   66 00000020 D004            BEQ              FOR_LOOP_END
+   67 00000022         
+   68 00000022 5D05            LDRB             R5, [R0, R4]
+   69 00000024 550D            STRB             R5, [R1, R4]
+   70 00000026 F104 0401       ADD              R4, R4, #1
+   71 0000002A E7F8            B                FOR_LOOP_START
+   72 0000002C         FOR_LOOP_END
+   73 0000002C         
+   74 0000002C         ; ******************************************************
+                       ****
+   75 0000002C         ; DO NOT MODIFY ABOVE
+   76 0000002C         ; ******************************************************
+                       ****
+   77 0000002C         
+   78 0000002C         ; Load the address of SORTED into R0
+   79 0000002C 4808            LDR              R0, =(SORTED)
+   80 0000002E         
+   81 0000002E         ; Move the array size of 8 into R1
+   82 0000002E F04F 0108       MOV              R1, #8
+   83 00000032         
+   84 00000032         ; Call Bubble Sort
+   85 00000032 F7FF FFFE       BL               bubble_sort
+   86 00000036         
+   87 00000036         
+   88 00000036         ; ******************************************************
+                       ****
+   89 00000036         ; DO NOT MODIFY BELOW
+   90 00000036         ; ******************************************************
+                       ****
+   91 00000036 4806            LDR              R0, =(SORTED)
+   92 00000038 F04F 0108       MOV              R1, #MAX_INDEX
+   93 0000003C 4A05            LDR              R2,=(PRE_SORTED)
+   94 0000003E F7FF FFFE       BL               verifyArray
+   95 00000042         
+   96 00000042 0000            MOVS             R0, R0
+   97 00000044 D000            BEQ              SORT_PASSED
+   98 00000046         
+   99 00000046         SORT_FAILED
+  100 00000046 E7FE            B                SORT_FAILED
+  101 00000048         
+  102 00000048         SORT_PASSED
+  103 00000048 E7FE            B                SORT_PASSED
+  104 0000004A         
+  105 0000004A                 ENDP
+  106 0000004A 00 00           align
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+  107 0000004C         
+  108 0000004C         
+  109 0000004C                 END
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\obj\ece353_main.d -o.\obj\ece353_main.o -I.\RTE\_ICE-05-ARM-F
+unctions -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\P
+ACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__MICROLIB SETA 1" 
+--predefine="__UVISION_VERSION SETA 524" --predefine="_RTE_ SETA 1" --predefine
+="TM4C123GH6PM SETA 1" --list=.\lst\ece353_main.lst ece353_main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SORTED 00000000
+
+Symbol: SORTED
+   Definitions
+      At line 17 in file ece353_main.s
+   Uses
+      At line 53 in file ece353_main.s
+      At line 79 in file ece353_main.s
+      At line 91 in file ece353_main.s
+
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 16 in file ece353_main.s
+   Uses
+      None
+Comment: SRAM unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 23 in file ece353_main.s
+   Uses
+      None
+Comment: FLASH unused
+FOR_LOOP_END 0000002C
+
+Symbol: FOR_LOOP_END
+   Definitions
+      At line 72 in file ece353_main.s
+   Uses
+      At line 66 in file ece353_main.s
+Comment: FOR_LOOP_END used once
+FOR_LOOP_START 0000001E
+
+Symbol: FOR_LOOP_START
+   Definitions
+      At line 64 in file ece353_main.s
+   Uses
+      At line 71 in file ece353_main.s
+Comment: FOR_LOOP_START used once
+PRE_SORTED 00000008
+
+Symbol: PRE_SORTED
+   Definitions
+      At line 32 in file ece353_main.s
+   Uses
+      At line 56 in file ece353_main.s
+      At line 93 in file ece353_main.s
+
+SORT_FAILED 00000046
+
+Symbol: SORT_FAILED
+   Definitions
+      At line 99 in file ece353_main.s
+   Uses
+      At line 100 in file ece353_main.s
+Comment: SORT_FAILED used once
+SORT_PASSED 00000048
+
+Symbol: SORT_PASSED
+   Definitions
+      At line 102 in file ece353_main.s
+   Uses
+      At line 97 in file ece353_main.s
+      At line 103 in file ece353_main.s
+
+UNSORTED 00000000
+
+Symbol: UNSORTED
+   Definitions
+      At line 24 in file ece353_main.s
+   Uses
+      At line 50 in file ece353_main.s
+Comment: UNSORTED used once
+__main 00000010
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+
+Symbol: __main
+   Definitions
+      At line 46 in file ece353_main.s
+   Uses
+      At line 5 in file ece353_main.s
+Comment: __main used once
+8 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+BYTE 00000001
+
+Symbol: BYTE
+   Definitions
+      At line 9 in file ece353_main.s
+   Uses
+      At line 17 in file ece353_main.s
+Comment: BYTE used once
+MAX_INDEX 00000008
+
+Symbol: MAX_INDEX
+   Definitions
+      At line 11 in file ece353_main.s
+   Uses
+      At line 17 in file ece353_main.s
+      At line 59 in file ece353_main.s
+      At line 92 in file ece353_main.s
+
+WORD 00000004
+
+Symbol: WORD
+   Definitions
+      At line 10 in file ece353_main.s
+   Uses
+      None
+Comment: WORD unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+bubble_sort 00000000
+
+Symbol: bubble_sort
+   Definitions
+      At line 7 in file ece353_main.s
+   Uses
+      At line 85 in file ece353_main.s
+Comment: bubble_sort used once
+verifyArray 00000000
+
+Symbol: verifyArray
+   Definitions
+      At line 6 in file ece353_main.s
+   Uses
+      At line 94 in file ece353_main.s
+Comment: verifyArray used once
+2 symbols
+352 symbols in table

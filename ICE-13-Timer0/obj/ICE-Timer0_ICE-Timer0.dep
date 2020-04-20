@@ -1,0 +1,48 @@
+Dependencies for Project 'ICE-Timer0', Target 'ICE-Timer0': (DO NOT MODIFY !)
+CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
+F (.\main.c)(0x5E6C48E2)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_ICE-Timer0-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+I (main.h)(0x5E6C48E2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
+I (..\drivers\include\timers.h)(0x5E6C48A2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
+I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
+I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
+I (..\peripherals\include\validate.h)(0x5E6C490C)
+F (..\lib\ECE353-Validate.lib)(0x5E6C4908)()
+F (..\drivers\c\timers.c)(0x5E6C48A2)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_ICE-Timer0-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\timers.o --omf_browse .\obj\timers.crf --depend .\obj\timers.d)
+I (..\drivers\include\timers.h)(0x5E6C48A2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
+I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
+I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
+F (..\drivers\include\timers.h)(0x5E6C48A2)()
+F (..\drivers\include\driver_defines.h)(0x5E6C48A2)()
+F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x5E6C48E6)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" --debug-I.\RTE\_ICE-Timer0-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\lst\startup_tm4c123.lst --xref -o .\obj\startup_tm4c123.o --depend .\obj\startup_tm4c123.d)
+F (RTE\Device\TM4C123GH6PM\system_TM4C123.c)(0x5E6C48E6)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_ICE-Timer0-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\system_tm4c123.o --omf_browse .\obj\system_tm4c123.crf --depend .\obj\system_tm4c123.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)

@@ -1,0 +1,103 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 export           verifyArray
+    2 00000000                 AREA             FLASH, CODE, READONLY
+    3 00000000                 ALIGN
+    4 00000000         
+    5 00000000         ;*******************************************************
+                       ***********************
+    6 00000000         ; Description
+    7 00000000         ; Uses Bubble Sort to sort an array of unsigned 8-bit nu
+                       mbers.
+    8 00000000         ; Parameters
+    9 00000000         ; R0 - User Sorted Array Address
+   10 00000000         ; R1 - Array Size
+   11 00000000         ; R2 - Sorted Array Address
+   12 00000000         ;*******************************************************
+                       ***********************
+   13 00000000         verifyArray
+                               PROC
+   14 00000000         
+   15 00000000         ; Initialize count of elements
+   16 00000000 F04F 0400       MOV              R4, #0
+   17 00000004         
+   18 00000004         FOR_LOOP_START
+   19 00000004 428C            CMP              R4, R1
+   20 00000006 D006            BEQ              FOR_LOOP_END
+   21 00000008         
+   22 00000008 5D05            LDRB             R5, [R0, R4]
+   23 0000000A 5D16            LDRB             R6, [R2, R4]
+   24 0000000C 42B5            CMP              R5, R6
+   25 0000000E D105            BNE              SORT_ERROR
+   26 00000010 F104 0401       ADD              R4, R4, #1
+   27 00000014 E7F6            B                FOR_LOOP_START
+   28 00000016         
+   29 00000016         FOR_LOOP_END
+   30 00000016 F04F 0000       MOV              R0, #0
+   31 0000001A 4770            BX               LR
+   32 0000001C         
+   33 0000001C         SORT_ERROR
+   34 0000001C F04F 30FF       MOV              R0, #-1
+   35 00000020 4770            BX               LR
+   36 00000022         
+   37 00000022                 ENDP
+   38 00000022         
+   39 00000022                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\obj\verifyarray.d -o.\obj\verifyarray.o -I.\RTE\_ICE-05-ARM-F
+unctions -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\P
+ACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__MICROLIB SETA 1" 
+--predefine="__UVISION_VERSION SETA 524" --predefine="_RTE_ SETA 1" --predefine
+="TM4C123GH6PM SETA 1" --list=.\lst\verifyarray.lst verifyArray.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 2 in file verifyArray.s
+   Uses
+      None
+Comment: FLASH unused
+FOR_LOOP_END 00000016
+
+Symbol: FOR_LOOP_END
+   Definitions
+      At line 29 in file verifyArray.s
+   Uses
+      At line 20 in file verifyArray.s
+Comment: FOR_LOOP_END used once
+FOR_LOOP_START 00000004
+
+Symbol: FOR_LOOP_START
+   Definitions
+      At line 18 in file verifyArray.s
+   Uses
+      At line 27 in file verifyArray.s
+Comment: FOR_LOOP_START used once
+SORT_ERROR 0000001C
+
+Symbol: SORT_ERROR
+   Definitions
+      At line 33 in file verifyArray.s
+   Uses
+      At line 25 in file verifyArray.s
+Comment: SORT_ERROR used once
+verifyArray 00000000
+
+Symbol: verifyArray
+   Definitions
+      At line 13 in file verifyArray.s
+   Uses
+      At line 1 in file verifyArray.s
+Comment: verifyArray used once
+5 symbols
+340 symbols in table

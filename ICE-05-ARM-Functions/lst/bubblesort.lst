@@ -1,0 +1,217 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 export           bubble_sort
+    2 00000000         
+    3 00000000                 AREA             FLASH, CODE, READONLY
+    4 00000000                 ALIGN
+    5 00000000         
+    6 00000000         
+    7 00000000         ;*******************************************************
+                       ***********************
+    8 00000000         ; Description
+    9 00000000         ;     Given the address in R7, it will read the unsigned
+                        byte at R7 and R7 + 1.
+   10 00000000         ;     If [R7] > [R7 + 1], swap the values
+   11 00000000         ;
+   12 00000000         ;     Modify only registers R8 or greater.
+   13 00000000         ;
+   14 00000000         ; Parameters
+   15 00000000         ;   R7 - Array Address
+   16 00000000         ;
+   17 00000000         ; Returns
+   18 00000000         ;   Nothing
+   19 00000000         ;*******************************************************
+                       ***********************
+   20 00000000         swap_values
+                               PROC
+   21 00000000         ;---------------------------------------
+   22 00000000         ; START ADD CODE
+   23 00000000         ;---------------------------------------
+   24 00000000 F897 8000       LDRB             R8, [R7]
+   25 00000004 F897 9001       LDRB             R9, [R7, #1]
+   26 00000008 45C8            CMP              R8, R9      ; Compare the array
+                                                             values [R7] and [R
+                                                            7 + 1]
+   27 0000000A DD03            BLE              DONE        ; No need for the s
+                                                            wap
+   28 0000000C F887 9000       STRB             R9, [R7]
+   29 00000010 F887 8001       STRB             R8, [R7, #1]
+   30 00000014         
+   31 00000014         DONE
+   32 00000014 4770            BX               LR
+   33 00000016         ;---------------------------------------
+   34 00000016         ; END ADD CODE
+   35 00000016         ;---------------------------------------
+   36 00000016                 ENDP
+   37 00000016         
+   38 00000016         
+   39 00000016         
+   40 00000016         ;*******************************************************
+                       ***********************
+   41 00000016         ; Description
+   42 00000016         ;   Uses Bubble Sort to sort an array of unsigned 8-bit 
+                       numbers.
+   43 00000016         ;
+   44 00000016         ;   Modify only registers R0-R7
+   45 00000016         ;
+   46 00000016         ; Parameters
+   47 00000016         ;   R0 - Array Address
+   48 00000016         ;   R1 - Array Size
+   49 00000016         ;
+   50 00000016         ; Returns
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   51 00000016         ;   Nothing
+   52 00000016         ;*******************************************************
+                       ***********************
+   53 00000016         bubble_sort
+                               PROC
+   54 00000016         
+   55 00000016         ; Save registers
+   56 00000016 E92D 5FFF       PUSH             {R0-R12, LR}
+   57 0000001A         
+   58 0000001A         ;---------------------------------------
+   59 0000001A         ; START ADD CODE
+   60 0000001A         ;---------------------------------------
+   61 0000001A         
+   62 0000001A F1A1 0101       SUB              R1, R1, #1
+   63 0000001E         
+   64 0000001E         
+   65 0000001E         while_size
+   66 0000001E         
+   67 0000001E 2900            CMP              R1, #0
+   68 00000020 DD0D            BLE              while_end   ; while(size > 0)
+   69 00000022 F04F 0200       MOV              R2, #0      ; R2 holds Index
+   70 00000026         
+   71 00000026         while_index
+   72 00000026 428A            CMP              R2, R1
+   73 00000028 DA06            BGE              while_size_sub ; while(index < 
+                                                            size)
+   74 0000002A         
+   75 0000002A         ;LDR R7, [R0, R2]
+   76 0000002A EB00 0702       ADD              R7, R0, R2
+   77 0000002E F7FF FFFE       BL               swap_values
+   78 00000032         
+   79 00000032 F102 0201       ADD              R2, R2, #1  ; index++ 
+   80 00000036 E7F6            B                while_index
+   81 00000038         
+   82 00000038         while_size_sub                       ; size-- 
+   83 00000038 F1A1 0101       SUB              R1, R1, #1
+   84 0000003C E7EF            B                while_size
+   85 0000003E         
+   86 0000003E         while_end
+   87 0000003E         ; NOTE: The return from the function is already
+   88 0000003E         ; provided below
+   89 0000003E         
+   90 0000003E         ;---------------------------------------
+   91 0000003E         ; END ADD CODE
+   92 0000003E         ;---------------------------------------
+   93 0000003E         
+   94 0000003E         
+   95 0000003E         ; Restore Registers
+   96 0000003E E8BD 5FFF       POP              {R0-R12, LR}
+   97 00000042         
+   98 00000042         ; Return from the function
+   99 00000042 4770            BX               LR
+  100 00000044         
+  101 00000044                 ENDP
+  102 00000044         
+  103 00000044                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\obj\bubblesort.d -o.\obj\bubblesort.o -I.\RTE\_ICE-05-ARM-Fun
+ctions -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\PAC
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+K\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__MICROLIB SETA 1" --
+predefine="__UVISION_VERSION SETA 524" --predefine="_RTE_ SETA 1" --predefine="
+TM4C123GH6PM SETA 1" --list=.\lst\bubblesort.lst bubbleSort.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DONE 00000014
+
+Symbol: DONE
+   Definitions
+      At line 31 in file bubbleSort.s
+   Uses
+      At line 27 in file bubbleSort.s
+Comment: DONE used once
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 3 in file bubbleSort.s
+   Uses
+      None
+Comment: FLASH unused
+bubble_sort 00000016
+
+Symbol: bubble_sort
+   Definitions
+      At line 53 in file bubbleSort.s
+   Uses
+      At line 1 in file bubbleSort.s
+Comment: bubble_sort used once
+swap_values 00000000
+
+Symbol: swap_values
+   Definitions
+      At line 20 in file bubbleSort.s
+   Uses
+      At line 77 in file bubbleSort.s
+Comment: swap_values used once
+while_end 0000003E
+
+Symbol: while_end
+   Definitions
+      At line 86 in file bubbleSort.s
+   Uses
+      At line 68 in file bubbleSort.s
+Comment: while_end used once
+while_index 00000026
+
+Symbol: while_index
+   Definitions
+      At line 71 in file bubbleSort.s
+   Uses
+      At line 80 in file bubbleSort.s
+Comment: while_index used once
+while_size 0000001E
+
+Symbol: while_size
+   Definitions
+      At line 65 in file bubbleSort.s
+   Uses
+      At line 84 in file bubbleSort.s
+Comment: while_size used once
+while_size_sub 00000038
+
+Symbol: while_size_sub
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 82 in file bubbleSort.s
+   Uses
+      At line 73 in file bubbleSort.s
+Comment: while_size_sub used once
+8 symbols
+343 symbols in table
