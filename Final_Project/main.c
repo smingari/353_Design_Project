@@ -27,6 +27,7 @@ volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
 volatile uint16_t POKEMON_X_ENEMY = 50;
 volatile uint16_t POKEMON_Y_ENEMY = 40;
 
+/*
 typedef struct {
 	int health;
 	int level;
@@ -34,7 +35,7 @@ typedef struct {
 	int height;
 	int width;
 } Pokemon;
-
+*/
 //*****************************************************************************
 //*****************************************************************************
 void DisableInterrupts(void)
