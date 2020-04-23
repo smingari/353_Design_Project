@@ -422,6 +422,16 @@
               <FileType>5</FileType>
               <FilePath>.\pokemon_battle.h</FilePath>
             </File>
+            <File>
+              <FileName>Final_Images.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Final_Images.c</FilePath>
+            </File>
+            <File>
+              <FileName>Final_Images.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Final_Images.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

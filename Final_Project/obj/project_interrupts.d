@@ -26,3 +26,4 @@
 .\obj\project_interrupts.o: main.h
 .\obj\project_interrupts.o: project_hardware_init.h
 .\obj\project_interrupts.o: pokemon_battle.h
+.\obj\project_interrupts.o: Final_Images.h

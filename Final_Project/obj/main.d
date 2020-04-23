@@ -26,3 +26,4 @@
 .\obj\main.o: main.h
 .\obj\main.o: project_hardware_init.h
 .\obj\main.o: pokemon_battle.h
+.\obj\main.o: Final_Images.h

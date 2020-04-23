@@ -25,6 +25,13 @@
 int initialize_hardware(void){
 	char greeting[] = "\n\r\n\r Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession.";
 	char paused[] = "PASUED!";
+	
+	
+	lcd_config_gpio();
+  lcd_config_screen();
+  lcd_clear_screen(LCD_COLOR_BLACK);
+  ps2_initialize();
+	
 }
 
 

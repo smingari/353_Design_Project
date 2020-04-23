@@ -27,13 +27,15 @@ volatile uint16_t POKEMON_Y_ALLY = 270;
 volatile uint16_t POKEMON_X_ENEMY = 50;
 volatile uint16_t POKEMON_Y_ENEMY = 40;
 
+/*
 typedef struct {
 	int health;
 	int level;
-        int moves [][];
+  char[] moves;
 	int height;
 	int width;
 } Pokemon;
+*/
 
 //*****************************************************************************
 //*****************************************************************************

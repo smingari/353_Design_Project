@@ -27,3 +27,4 @@
 .\obj\pokemon_battle.o: main.h
 .\obj\pokemon_battle.o: project_hardware_init.h
 .\obj\pokemon_battle.o: pokemon_battle.h
+.\obj\pokemon_battle.o: Final_Images.h
