@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "TM4C123.h"
 #include "gpio_port.h"
@@ -36,6 +37,7 @@
 
 #include "project_interrupts.h"
 #include "project_hardware_init.h"
+#include "pokemon_battle.h"
 
 
 

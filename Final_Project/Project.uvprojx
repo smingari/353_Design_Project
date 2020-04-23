@@ -412,6 +412,16 @@
               <FileType>5</FileType>
               <FilePath>.\project_interrupts.h</FilePath>
             </File>
+            <File>
+              <FileName>pokemon_battle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\pokemon_battle.c</FilePath>
+            </File>
+            <File>
+              <FileName>pokemon_battle.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\pokemon_battle.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

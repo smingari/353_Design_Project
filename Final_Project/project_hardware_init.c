@@ -20,10 +20,11 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "main.h"
+#include "project_hardware_init.h"
 
 int initialize_hardware(void){
 	char greeting[] = "\n\r\n\r Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession.";
 	char paused[] = "PASUED!";
 }
+
 
