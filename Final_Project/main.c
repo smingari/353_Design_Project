@@ -22,6 +22,18 @@
 
 #include "main.h"
 
+volatile uint16_t POKEMON_X_ALLY = 190;
+volatile uint16_t POKEMON_Y_ALLY = 270;
+volatile uint16_t POKEMON_X_ENEMY = 50;
+volatile uint16_t POKEMON_Y_ENEMY = 40;
+
+typedef struct {
+	int health;
+	int level;
+        int moves [][];
+	int height;
+	int width;
+} Pokemon;
 
 //*****************************************************************************
 //*****************************************************************************
@@ -47,8 +59,19 @@ void EnableInterrupts(void)
 int 
 main(void)
 {
-		//initialize_serial_debug();
-		initialize_hardware();
+	//initialize_serial_debug();
+	initialize_hardware();
+    	lcd_draw_image(
+			POKEMON_X_ALLY,
+			charizardWidthPixels,
+			POKEMON_Y_ALLY,
+			charizardHeightPixels,
+			charizardBitmaps,
+			LCD_COLOR_RED,
+			LCD_COLOR_BLACK
+			);
+			
+
 	
     while(1){};
 }
