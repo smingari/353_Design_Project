@@ -22,20 +22,18 @@
 
 #include "main.h"
 
-volatile uint16_t POKEMON_X_ALLY = 190;
-volatile uint16_t POKEMON_Y_ALLY = 270;
+volatile uint16_t POKEMON_X_ALLY = COLS/2;
+volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
 volatile uint16_t POKEMON_X_ENEMY = 50;
 volatile uint16_t POKEMON_Y_ENEMY = 40;
 
-/*
 typedef struct {
 	int health;
 	int level;
-  char[] moves;
+        int moves [][];
 	int height;
 	int width;
 } Pokemon;
-*/
 
 //*****************************************************************************
 //*****************************************************************************
@@ -69,8 +67,8 @@ main(void)
 			POKEMON_Y_ALLY,
 			charizardHeightPixels,
 			charizardBitmaps,
-			LCD_COLOR_RED,
-			LCD_COLOR_BLACK
+			LCD_COLOR_BLACK,
+			LCD_COLOR_GREEN
 			);
 			
 
