@@ -42,4 +42,9 @@
 
 
 
+#define SEC_ONE     50000000
+#define PERIODIC		TIMER_TAMR_TAMR_PERIOD
+
+
+
 #endif

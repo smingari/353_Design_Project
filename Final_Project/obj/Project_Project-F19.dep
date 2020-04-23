@@ -1,7 +1,7 @@
 Dependencies for Project 'Project', Target 'Project-F19': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
 F (.\main.c)(0x5EA1EC5D)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
-I (main.h)(0x5EA1DE67)
+I (main.h)(0x5EA1EDA1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -28,10 +28,10 @@ I (project_interrupts.h)(0x5E9DFEF4)
 I (project_hardware_init.h)(0x5E9DEECF)
 I (pokemon_battle.h)(0x5EA1DC86)
 I (Final_Images.h)(0x5EA1E409)
-F (.\main.h)(0x5EA1DE67)()
-F (.\project_hardware_init.c)(0x5EA1EBD7)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_hardware_init.o --omf_browse .\obj\project_hardware_init.crf --depend .\obj\project_hardware_init.d)
+F (.\main.h)(0x5EA1EDA1)()
+F (.\project_hardware_init.c)(0x5EA1EDA1)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_hardware_init.o --omf_browse .\obj\project_hardware_init.crf --depend .\obj\project_hardware_init.d)
 I (project_hardware_init.h)(0x5E9DEECF)
-I (main.h)(0x5EA1DE67)
+I (main.h)(0x5EA1EDA1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -59,7 +59,7 @@ I (pokemon_battle.h)(0x5EA1DC86)
 I (Final_Images.h)(0x5EA1E409)
 F (.\project_hardware_init.h)(0x5E9DEECF)()
 F (.\project_interrupts.c)(0x5E9E1EF3)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_interrupts.o --omf_browse .\obj\project_interrupts.crf --depend .\obj\project_interrupts.d)
-I (main.h)(0x5EA1DE67)
+I (main.h)(0x5EA1EDA1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -92,7 +92,7 @@ I (pokemon_battle.h)(0x5EA1DC86)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
-I (main.h)(0x5EA1DE67)
+I (main.h)(0x5EA1EDA1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
@@ -119,7 +119,7 @@ F (.\pokemon_battle.h)(0x5EA1DC86)()
 F (.\Final_Images.c)(0x5EA1EC27)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\final_images.o --omf_browse .\obj\final_images.crf --depend .\obj\final_images.d)
 I (Final_Images.h)(0x5EA1E409)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
-I (main.h)(0x5EA1DE67)
+I (main.h)(0x5EA1EDA1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
