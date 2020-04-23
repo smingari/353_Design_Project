@@ -27,13 +27,13 @@ volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
 volatile uint16_t POKEMON_X_ENEMY = 50;
 volatile uint16_t POKEMON_Y_ENEMY = 40;
 
-typedef struct {
-	int health;
-	int level;
-        int moves [][];
-	int height;
-	int width;
-} Pokemon;
+//typedef struct {
+//	int health;
+//	int level;
+  //      int moves [][];
+//	int height;
+//	int width;
+//} Pokemon;
 
 //*****************************************************************************
 //*****************************************************************************
@@ -67,8 +67,8 @@ main(void)
 			POKEMON_Y_ALLY,
 			charizardHeightPixels,
 			charizardBitmaps,
-			LCD_COLOR_BLACK,
-			LCD_COLOR_GREEN
+			LCD_COLOR_YELLOW,
+			LCD_COLOR_BLACK
 			);
 			
 
