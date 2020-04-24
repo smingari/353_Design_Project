@@ -35,4 +35,6 @@
 #include "lcd.h"
 #include "timers.h"
 
+void timer1A_Handler(void);
+
 #endif

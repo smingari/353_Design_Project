@@ -35,7 +35,7 @@ void initialize_hardware(void){
   lcd_clear_screen(LCD_COLOR_BLACK);
   ps2_initialize();
 	
-	gp_timer_config_32(TIMER1_BASE, PERIODIC, false, true, SEC_ONE);
+	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true);
 	gp_timer_config_16(TIMER4_BASE, PERIODIC, false, true, CHECK_ADC, TIMER_TAPR_TAPSR_M);
 	
 	

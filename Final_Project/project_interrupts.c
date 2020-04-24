@@ -25,7 +25,7 @@
 
 static volatile uint16_t PS2_X_DATA = 0;
 static volatile uint16_t PS2_Y_DATA = 0;
-static volatile bool TIMER1_STATUS = false;
+
 uint32_t status;
 
 
@@ -58,8 +58,11 @@ PS2_DIR_t ps2_get_direction(void)
 
 
 void TIMER1A_Handler(void){
-	// Clear the interrupt
-	TIMER1->ICR |= TIMER_ICR_TATOCINT;
+	status = TIMER1->MIS & TIMER_MIS_TATOMIS;
+		if(status) {
+			TIMER1_ALERT = true;
+		}
+		TIMER1->ICR |= TIMER_ICR_TATOCINT;
 }
 
 

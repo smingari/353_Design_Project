@@ -7,6 +7,9 @@
 
 #include "main.h"
 
+extern volatile bool TIMER1_ALERT;
+
+extern volatile bool TIMER4_STATUS;
 
 void pokemon_battle_main(void);
 

@@ -1,7 +1,7 @@
 #include "pokemon_battle.h"
 
+volatile bool TIMER1_ALERT =true;
 
-volatile bool TIMER1_STATUS = true;
 volatile bool TIMER4_STATUS = true;
 
 volatile uint16_t POKEMON_X_ALLY = COLS/2;
@@ -27,27 +27,31 @@ volatile uint16_t POKEMON_Y_ENEMY = 40;
 
 void pokemon_battle_main(void){
 	bool game_over = false;
+	uint16_t TIMER1_COUNT = 0;
 	
 	
 	
 	while(!game_over){
 		
 		//lp_io_set_pin(RED_BIT);
-		if(!TIMER1_STATUS){
-		TIMER1_STATUS = true;
-		lp_io_set_pin(BLUE_BIT);
+	if(TIMER1_ALERT){
+		
+		TIMER1_ALERT = false;
+		
+		if (TIMER1_COUNT == 0){
+			lp_io_set_pin(BLUE_BIT);
+		}	
+		else {
+			lp_io_clear_pin(BLUE_BIT);
+		}
+		TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
+		
 	}
 	
-	else if(TIMER1_STATUS){
-		TIMER1_STATUS = false;
-		lp_io_clear_pin(BLUE_BIT);
-	}
-		
-		
 		
 
-		lcd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
-		charizardHeightPixels,charizardBitmaps,LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
+lcd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
+charizardHeightPixels,charizardBitmaps,LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 	}
 	
 	
