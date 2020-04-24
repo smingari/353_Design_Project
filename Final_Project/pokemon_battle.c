@@ -51,7 +51,7 @@ void pokemon_battle_main(void){
 		
 
 lcd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
-charizardHeightPixels,charizardBitmaps,LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
+charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BROWN);
 	}
 	
 	
