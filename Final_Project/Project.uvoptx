@@ -119,6 +119,10 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -147,50 +151,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>600</LineNumber>
+          <LineNumber>31</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>2022</Address>
+          <Address>926</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\Joe Krachey\Documents\ECE353\F19\ICE_Distribution\HW3\memory.c</Filename>
+          <Filename>.\pokemon_battle.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ece353_base_project\memory.c\600</Expression>
+          <Expression>\\ece353_base_project\pokemon_battle.c\31</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>605</LineNumber>
+          <LineNumber>34</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>2040</Address>
+          <Address>0</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\Joe Krachey\Documents\ECE353\F19\ICE_Distribution\HW3\memory.c</Filename>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>.\pokemon_battle.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ece353_base_project\memory.c\605</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>602</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>2038</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\Joe Krachey\Documents\ECE353\F19\ICE_Distribution\HW3\memory.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\ece353_base_project\memory.c\602</Expression>
+          <Expression></Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

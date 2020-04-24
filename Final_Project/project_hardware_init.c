@@ -22,17 +22,22 @@
 
 #include "project_hardware_init.h"
 
-int initialize_hardware(void){
+void initialize_hardware(void){
 	char greeting[] = "\n\r\n\r Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession.";
 	char paused[] = "PASUED!";
 	
+	// initialize launch pad
+	lp_io_init();
 	
+	// initialize peripherals 
 	lcd_config_gpio();
   lcd_config_screen();
   lcd_clear_screen(LCD_COLOR_BLACK);
   ps2_initialize();
 	
 	gp_timer_config_32(TIMER1_BASE, PERIODIC, false, true, SEC_ONE);
+	
+	
 	
 }
 

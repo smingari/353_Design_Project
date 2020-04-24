@@ -22,30 +22,9 @@
 
 #include "main.h"
 
-volatile uint16_t POKEMON_X_ALLY = COLS/2;
-volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
-volatile uint16_t POKEMON_X_ENEMY = 50;
-volatile uint16_t POKEMON_Y_ENEMY = 40;
 
-<<<<<<< HEAD
-//typedef struct {
-//	int health;
-//	int level;
-  //      int moves [][];
-//	int height;
-//	int width;
-//} Pokemon;
 
-=======
-/*
-typedef struct {
-	int health;
-	int level;
-        int moves [][];
-	int height;
-	int width;
-} Pokemon;
-*/
+
 //*****************************************************************************
 //*****************************************************************************
 void DisableInterrupts(void)
@@ -65,24 +44,25 @@ void EnableInterrupts(void)
 }
 
 
+
 //*****************************************************************************
 //*****************************************************************************
 int 
 main(void)
 {
-	//initialize_serial_debug();
+	/* no worky ¯\_("/)_/
+	initialize_serial_debug();
+	put_string("\n\r******************************\n\r");
+  put_string("ECE353 HW3 Spring 2020\n\r");
+  put_string("Salvatore Mingari, Cristian Sanchez");
+  put_string("\n\r");
+  put_string("******************************\n\r");    
+*/
+	DisableInterrupts();
 	initialize_hardware();
-    	lcd_draw_image(
-			POKEMON_X_ALLY,
-			charizardWidthPixels,
-			POKEMON_Y_ALLY,
-			charizardHeightPixels,
-			charizardBitmaps,
-			LCD_COLOR_YELLOW,
-			LCD_COLOR_BLACK
-			);
-			
-
+	EnableInterrupts();
 	
-    while(1){};
+  pokemon_battle_main();
+		
+  while(1){}
 }

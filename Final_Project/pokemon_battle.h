@@ -7,4 +7,10 @@
 
 #include "main.h"
 
+
+void pokemon_battle_main(void);
+
+
+
+
 #endif

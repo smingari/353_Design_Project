@@ -34,16 +34,14 @@
 #include "timers.h"
 #include "ps2.h"
 #include "launchpad_io.h"
-
 #include "project_interrupts.h"
 #include "project_hardware_init.h"
 #include "pokemon_battle.h"
 #include "Final_Images.h"
 
 
-
-#define SEC_ONE     50000000
-#define PERIODIC		TIMER_TAMR_TAMR_PERIOD
+extern void initialize_serial_debug(void);
+extern void put_string(char *data);
 
 
 

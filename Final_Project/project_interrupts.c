@@ -25,6 +25,7 @@
 
 static volatile uint16_t PS2_X_DATA = 0;
 static volatile uint16_t PS2_Y_DATA = 0;
+static volatile bool TIMER1_STATUS = false;
 
 
 
@@ -52,6 +53,15 @@ PS2_DIR_t ps2_get_direction(void)
 	else{
 		return PS2_DIR_CENTER;    // Since the joystick doesn't meet any of the thresholds we know it is in the center
 	}
+}
+
+
+void TIMER1A_Handler(void){
+	
+	// Clear the interrupt
+	TIMER1->ICR |= TIMER_ICR_TATOCINT;
+
+
 }
 
 //*****************************************************************************
