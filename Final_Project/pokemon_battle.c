@@ -28,6 +28,7 @@ volatile uint16_t POKEMON_Y_ENEMY = 40;
 void pokemon_battle_main(void){
 	bool game_over = false;
 	uint16_t TIMER1_COUNT = 0;
+	int i = 0;
 	
 	
 	
@@ -52,6 +53,12 @@ void pokemon_battle_main(void){
 	lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 lcd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
 charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
+
+for (i = 0; i < 1000; i++) {
+}
+
+lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
+laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 	}
 	
 	
