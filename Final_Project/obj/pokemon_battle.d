@@ -18,6 +18,7 @@
 .\obj\pokemon_battle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\pokemon_battle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
 .\obj\pokemon_battle.o: ..\peripherals\include\lcd.h
+.\obj\pokemon_battle.o: E:/ECE353/ICE_Distribution/Final_Project/alphabet.h
 .\obj\pokemon_battle.o: ..\peripherals\include\lcd_images.h
 .\obj\pokemon_battle.o: ..\drivers\include\timers.h
 .\obj\pokemon_battle.o: ..\peripherals\include\ps2.h

@@ -1015,7 +1015,7 @@ const uint8_t alphabet_Bitmap[] =
 
 /* Character descriptors for Microsoft Sans Serif 8pt */
 /* { [Char width in bits], [Offset into microsoftSansSerif_8ptCharBitmaps in bytes] } */
-const FONT_CHAR_INFO alphabet_Descriptors[] = 
+const FONT_CHAR_INFO alphabet_size[] = 
 {
 	{2, 0}, 		/*   */ 
 	{0, 0}, 		/* ! */ 

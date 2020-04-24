@@ -14,6 +14,6 @@ typedef struct
 } FONT_CHAR_INFO;	
 
 extern const uint8_t alphabet_Bitmap[];
-extern const FONT_CHAR_INFO alphabet_Descriptors[];
+extern const FONT_CHAR_INFO alphabet_size[];
 
 #endif 

@@ -38,6 +38,7 @@
 #include "project_hardware_init.h"
 #include "pokemon_battle.h"
 #include "Final_Images.h"
+#include "alphabet.h"
 
 
 extern void initialize_serial_debug(void);

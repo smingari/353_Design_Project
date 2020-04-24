@@ -24,8 +24,11 @@
 #define __LCD_H__
 
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include "driver_defines.h"
 #include "gpio_port.h"
+#include "E:/ECE353/ICE_Distribution/Final_Project/alphabet.h"
 
 typedef enum {
   LEFT = 0,
@@ -269,6 +272,15 @@ void lcd_config_gpio(void);
 *  Nothing
 *******************************************************************************/  
 void lcd_config_screen(void);
+
+/*******************************************************************************
+* Function Name: lcd_draw_string
+********************************************************************************
+* Summary: Draws passed in string.
+* Returns:
+*  Nothing
+*******************************************************************************/
+void lcd_draw_string(char string[], uint16_t x_start, uint16_t y_start, uint16_t fColor, uint16_t bColor);
 
 #endif
 

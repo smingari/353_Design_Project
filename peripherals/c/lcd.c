@@ -869,3 +869,23 @@ void lcd_draw_circle(int16_t x0, int16_t y0, int16_t r, uint32_t color) {
         lcd_draw_line(x0 + y, y0 - x, x0 - y, y0 - x, color);
     }
 }
+
+
+void lcd_draw_string(char string[], uint16_t x_start, uint16_t y_start, uint16_t fColor, uint16_t bColor){
+	int i;
+	char c1, c2;
+	uint16_t position = x_start;
+	
+	c1 = ' ';
+	for(i =0; i < strlen(string); i++){
+		c2 = string[i];
+		
+		lcd_draw_image(position, alphabet_size[c2 - c1].widthBits, y_start, 14, &alphabet_Bitmap[alphabet_size[c2-c1].offset], fColor, bColor);
+	
+		position += alphabet_size[c2-c1].widthBits/2 + 4;
+	}
+	
+}
+
+
+

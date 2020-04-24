@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\ece353_base_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\ece353_base_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Apr 24 11:29:35 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Apr 24 11:40:22 2020
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -326,12 +326,12 @@ Global Symbols
 <P><STRONG><a name="[1a]"></a>ADC0SS2_Handler</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, project_interrupts.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>
-<P><STRONG><a name="[7f]"></a>pokemon_battle_main</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, pokemon_battle.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = pokemon_battle_main &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+<P><STRONG><a name="[7f]"></a>pokemon_battle_main</STRONG> (Thumb, 84 bytes, Stack size 24 bytes, pokemon_battle.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = pokemon_battle_main &rArr; lcd_draw_box &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lp_io_set_pin
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lp_io_clear_pin
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -556,12 +556,12 @@ Global Symbols
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd_u8
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_color_image
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_char
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle_centered
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_char
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle_centered
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 
@@ -574,22 +574,26 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_hardware
 </UL>
 
-<P><STRONG><a name="[a8]"></a>lcd_draw_box</STRONG> (Thumb, 138 bytes, Stack size 40 bytes, lcd.o(.text), UNUSED)
+<P><STRONG><a name="[8a]"></a>lcd_draw_box</STRONG> (Thumb, 138 bytes, Stack size 40 bytes, lcd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = lcd_draw_box &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pokemon_battle_main
+</UL>
+
+<P><STRONG><a name="[a8]"></a>lcd_draw_rectangle</STRONG> (Thumb, 82 bytes, Stack size 32 bytes, lcd.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
 
-<P><STRONG><a name="[a9]"></a>lcd_draw_rectangle</STRONG> (Thumb, 82 bytes, Stack size 32 bytes, lcd.o(.text), UNUSED)
+<P><STRONG><a name="[a9]"></a>lcd_draw_rectangle_centered</STRONG> (Thumb, 152 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
 
-<P><STRONG><a name="[aa]"></a>lcd_draw_rectangle_centered</STRONG> (Thumb, 152 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
-</UL>
-
-<P><STRONG><a name="[ab]"></a>lcd_draw_pixel</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, lcd.o(.text), UNUSED)
+<P><STRONG><a name="[aa]"></a>lcd_draw_pixel</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, lcd.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
@@ -597,18 +601,14 @@ Global Symbols
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_line
 </UL>
 
-<P><STRONG><a name="[ac]"></a>lcd_draw_char</STRONG> (Thumb, 556 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
+<P><STRONG><a name="[ab]"></a>lcd_draw_char</STRONG> (Thumb, 556 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
 
-<P><STRONG><a name="[8a]"></a>lcd_draw_image</STRONG> (Thumb, 242 bytes, Stack size 56 bytes, lcd.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
+<P><STRONG><a name="[ac]"></a>lcd_draw_image</STRONG> (Thumb, 242 bytes, Stack size 56 bytes, lcd.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pokemon_battle_main
 </UL>
 
 <P><STRONG><a name="[ad]"></a>lcd_draw_color_image</STRONG> (Thumb, 142 bytes, Stack size 56 bytes, lcd.o(.text), UNUSED)
@@ -640,14 +640,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b1]"></a>lcd_draw_line</STRONG> (Thumb, 200 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
+<BR><BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_circle
 </UL>
 
 <P><STRONG><a name="[b2]"></a>lcd_draw_circle</STRONG> (Thumb, 358 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_line
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
 </UL>
 
 <P><STRONG><a name="[85]"></a>ps2_initialize</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, ps2.o(.text))
@@ -1596,13 +1596,13 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = lcd_write_data_u16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_color_image
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_char
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle_centered
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_char
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle_centered
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 

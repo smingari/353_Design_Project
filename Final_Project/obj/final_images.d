@@ -18,6 +18,7 @@
 .\obj\final_images.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\final_images.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
 .\obj\final_images.o: ..\peripherals\include\lcd.h
+.\obj\final_images.o: E:/ECE353/ICE_Distribution/Final_Project/alphabet.h
 .\obj\final_images.o: ..\peripherals\include\lcd_images.h
 .\obj\final_images.o: ..\drivers\include\timers.h
 .\obj\final_images.o: ..\peripherals\include\ps2.h
