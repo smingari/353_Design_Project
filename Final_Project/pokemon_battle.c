@@ -2,6 +2,7 @@
 
 
 volatile bool TIMER1_STATUS = true;
+volatile bool TIMER4_STATUS = true;
 
 volatile uint16_t POKEMON_X_ALLY = COLS/2;
 volatile uint16_t POKEMON_Y_ALLY = ROWS/2;

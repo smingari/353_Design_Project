@@ -26,6 +26,7 @@
 static volatile uint16_t PS2_X_DATA = 0;
 static volatile uint16_t PS2_Y_DATA = 0;
 static volatile bool TIMER1_STATUS = false;
+uint32_t status;
 
 
 
@@ -57,12 +58,20 @@ PS2_DIR_t ps2_get_direction(void)
 
 
 void TIMER1A_Handler(void){
-	
 	// Clear the interrupt
 	TIMER1->ICR |= TIMER_ICR_TATOCINT;
+}
+
+
+void TIMER4A_Handler(void){
+	
+	// Clear the interrupt
+	TIMER4->ICR |= TIMER_ICR_TATOCINT;
 
 
 }
+
+
 
 //*****************************************************************************
 // ADC0 SS2 ISR

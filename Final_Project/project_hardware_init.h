@@ -24,7 +24,8 @@
 
 #include "main.h"
 
-#define SEC_ONE     50000000
+#define SEC_ONE     50000000  // Prescalar for 1 sec
+#define CHECK_ADC   500000    // Prescalar for 10 ms
 #define PERIODIC		TIMER_TAMR_TAMR_PERIOD
 
 
