@@ -14,4 +14,3 @@
 .\obj\lcd.o: C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h
 .\obj\lcd.o: C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h
 .\obj\lcd.o: ..\drivers\include\gpio_port.h
-.\obj\lcd.o: E:/ECE353/ICE_Distribution/Final_Project/alphabet.h

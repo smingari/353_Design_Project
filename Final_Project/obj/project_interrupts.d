@@ -17,7 +17,6 @@
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\project_interrupts.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
 .\obj\project_interrupts.o: ..\peripherals\include\lcd.h
-.\obj\project_interrupts.o: E:/ECE353/ICE_Distribution/Final_Project/alphabet.h
 .\obj\project_interrupts.o: ..\peripherals\include\lcd_images.h
 .\obj\project_interrupts.o: ..\drivers\include\timers.h
 .\obj\project_interrupts.o: ..\peripherals\include\ps2.h
@@ -28,3 +27,4 @@
 .\obj\project_interrupts.o: project_hardware_init.h
 .\obj\project_interrupts.o: pokemon_battle.h
 .\obj\project_interrupts.o: Final_Images.h
+.\obj\project_interrupts.o: alphabet.h

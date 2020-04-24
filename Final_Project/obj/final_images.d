@@ -18,7 +18,6 @@
 .\obj\final_images.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\final_images.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
 .\obj\final_images.o: ..\peripherals\include\lcd.h
-.\obj\final_images.o: E:/ECE353/ICE_Distribution/Final_Project/alphabet.h
 .\obj\final_images.o: ..\peripherals\include\lcd_images.h
 .\obj\final_images.o: ..\drivers\include\timers.h
 .\obj\final_images.o: ..\peripherals\include\ps2.h
@@ -29,3 +28,4 @@
 .\obj\final_images.o: project_hardware_init.h
 .\obj\final_images.o: pokemon_battle.h
 .\obj\final_images.o: Final_Images.h
+.\obj\final_images.o: alphabet.h

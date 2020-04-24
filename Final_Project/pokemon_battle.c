@@ -50,8 +50,8 @@ void pokemon_battle_main(void){
 	
 	// BOX 3/4 screen bottom left	
 	lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-//lcd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
-//charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BROWN);
+lcd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
+charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
 	}
 	
 	
