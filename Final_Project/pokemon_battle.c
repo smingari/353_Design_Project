@@ -60,17 +60,21 @@ void pokemon_battle_main(void){
 		//lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
 		//laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 		
-		lcd_draw_image(30, trainer1WidthPixels,160,
-		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+		//lcd_draw_image(30, trainer1WidthPixels,160,
+		//trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 		
-		lcd_draw_image(90, trainer2WidthPixels,160,
-		trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+		//lcd_draw_image(90, trainer2WidthPixels,160,
+		//trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 
-		lcd_draw_image(150, trainer3WidthPixels,160,
-		trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+		//lcd_draw_image(150, trainer3WidthPixels,160,
+		//trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 
-		lcd_draw_image(210, trainer4WidthPixels,160,
-		trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);	
+		//lcd_draw_image(210, trainer4WidthPixels,160,
+		//trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);	
+
+		lcd_draw_image(120, redWidthPixels,160,
+		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);	
+
 
 
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
