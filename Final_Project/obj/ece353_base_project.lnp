@@ -4,6 +4,7 @@
 ".\obj\project_interrupts.o"
 ".\obj\pokemon_battle.o"
 ".\obj\final_images.o"
+".\obj\alphabet.o"
 ".\obj\adc.o"
 ".\obj\gpio_port.o"
 ".\obj\i2c.o"

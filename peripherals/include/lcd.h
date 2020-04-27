@@ -28,7 +28,8 @@
 #include <string.h>
 #include "driver_defines.h"
 #include "gpio_port.h"
-//#include "E:/	ECE353/ICE_Distribution/Final_Project/alphabet.h"
+#include "../../Final_Project/alphabet.h"
+//#include "alphabet.h"
 
 typedef enum {
   LEFT = 0,

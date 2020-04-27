@@ -17,14 +17,14 @@
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
 .\obj\main.o: ..\peripherals\include\lcd.h
+.\obj\main.o: ..\peripherals\include\../../Final_Project/alphabet.h
+.\obj\main.o: ..\peripherals\include\../../Final_Project/main.h
 .\obj\main.o: ..\peripherals\include\lcd_images.h
 .\obj\main.o: ..\drivers\include\timers.h
 .\obj\main.o: ..\peripherals\include\ps2.h
 .\obj\main.o: ..\drivers\include\adc.h
 .\obj\main.o: ..\peripherals\include\launchpad_io.h
 .\obj\main.o: project_interrupts.h
-.\obj\main.o: main.h
 .\obj\main.o: project_hardware_init.h
 .\obj\main.o: pokemon_battle.h
 .\obj\main.o: Final_Images.h
-.\obj\main.o: alphabet.h

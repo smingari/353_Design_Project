@@ -4,7 +4,7 @@
 const uint8_t alphabet_Bitmap[] = 
 {
 /* @0 ' ' (2 pixels wide) */
-	0x00, //   
+	0x00, //   a
 	0x00, //   
 	0x00, //   
 	0x00, //   

@@ -3,7 +3,7 @@
 
 
 #include <stdint.h>
-
+#include "main.h"
 // This structure describes a single character's display information
 typedef struct
 {

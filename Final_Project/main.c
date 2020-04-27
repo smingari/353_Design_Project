@@ -50,7 +50,7 @@ void EnableInterrupts(void)
 int 
 main(void)
 {
-	/* no worky ¯\_("/)_/
+	/* no work ¯\_("/)_/
 	initialize_serial_debug();
 	put_string("\n\r******************************\n\r");
   put_string("ECE353 HW3 Spring 2020\n\r");
