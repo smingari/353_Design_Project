@@ -81,5 +81,5 @@
 bool io_expander_init(void);
 i2c_status_t io_expander_byte_read(uint32_t i2c_base, uint8_t address, uint8_t* data);
 i2c_status_t io_expander_byte_write(uint32_t i2c_base, uint8_t address, uint8_t data);
-void enableLeds(void);
+void enableLeds(uint8_t leds);
 #endif

@@ -61,7 +61,7 @@ void pokemon_battle_main(void){
 		laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 
 		lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
-		enableLeds();
+		enableLeds(0xFF);
 	}
 	
 	

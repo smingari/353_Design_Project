@@ -125,13 +125,20 @@ i2c_status_t io_expander_byte_read(uint32_t i2c_base, uint8_t address, uint8_t* 
 	
 }
 
-
+//*****************************************************************************
+// Turns off all leds on the IO Expander
+//*****************************************************************************
 void disableLeds(void) {
 	io_expander_byte_write(IO_EXPANDER_I2C_BASE, MCP23017_GPIOA_R, 0x00);
 }
 
-void enableLeds(void) {
-	io_expander_byte_write(IO_EXPANDER_I2C_BASE, MCP23017_GPIOA_R,0xFF);
+
+//*****************************************************************************
+// Takes a 8 bit hex number that controlls the 8 LEDs on the IO Expander
+// MSB coresponds with D600 on silkscreen(LED7)
+//*****************************************************************************
+void enableLeds(uint8_t leds) {
+	io_expander_byte_write(IO_EXPANDER_I2C_BASE, MCP23017_GPIOA_R,leds);
 }
 
 /*
