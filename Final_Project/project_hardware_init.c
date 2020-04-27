@@ -28,7 +28,7 @@ void initialize_hardware(void){
 	
 	// initialize launch pad
 	lp_io_init();
-	
+//	uart_init();
 	// initialize peripherals 
 	lcd_config_gpio();
   lcd_config_screen();

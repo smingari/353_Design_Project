@@ -13,4 +13,15 @@ extern const uint8_t laprasBitmaps[];
 extern const uint8_t laprasWidthPixels;
 extern const uint8_t laprasHeightPixels;
 
+
+extern const uint8_t trainer1WidthPixels;
+extern const uint8_t trainer2WidthPixels; // Trainer's sprites have different widths
+extern const uint8_t trainer3WidthPixels;
+extern const uint8_t trainer4WidthPixels;
+extern const uint8_t trainerHeightPixels;
+extern const uint8_t trainer1Bitmaps[];
+extern const uint8_t trainer2Bitmaps[];
+extern const uint8_t trainer3Bitmaps[];
+extern const uint8_t trainer4Bitmaps[];
+
 #endif

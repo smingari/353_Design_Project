@@ -31,24 +31,6 @@ compiling adc.c...
 ..\drivers\c\adc.c(32): warning:  #550-D: variable "myADC"  was set but never used
     ADC0_Type  *myADC;
 ..\drivers\c\adc.c: 1 warning, 0 errors
-compiling project_hardware_init.c...
-..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
-  #endif 
-project_hardware_init.c(26): warning:  #177-D: variable "greeting"  was declared but never referenced
-  	char greeting[] = "\n\r\n\r Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession.";
-project_hardware_init.c(27): warning:  #177-D: variable "paused"  was declared but never referenced
-  	char paused[] = "PASUED!";
-project_hardware_init.c: 3 warnings, 0 errors
-compiling pokemon_battle.c...
-..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
-  #endif 
-pokemon_battle.c(68): warning:  #1-D: last line of file ends without a newline
-  }
-pokemon_battle.c: 2 warnings, 0 errors
-compiling Final_Images.c...
-..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
-  #endif 
-Final_Images.c: 1 warning, 0 errors
 compiling alphabet.c...
 ..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
@@ -59,10 +41,32 @@ compiling main.c...
 ..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
 main.c: 1 warning, 0 errors
+compiling project_hardware_init.c...
+..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+project_hardware_init.c(26): warning:  #177-D: variable "greeting"  was declared but never referenced
+  	char greeting[] = "\n\r\n\r Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets. Others use them for fights. Myself...I study pokémon as a profession.";
+project_hardware_init.c(27): warning:  #177-D: variable "paused"  was declared but never referenced
+  	char paused[] = "PASUED!";
+project_hardware_init.c: 3 warnings, 0 errors
+compiling Final_Images.c...
+..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+Final_Images.c: 1 warning, 0 errors
 compiling project_interrupts.c...
 ..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
 project_interrupts.c: 1 warning, 0 errors
+compiling pokemon_battle.c...
+..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+pokemon_battle.c(81): warning:  #1-D: last line of file ends without a newline
+  }
+pokemon_battle.c(31): warning:  #177-D: variable "i"  was declared but never referenced
+  	int i = 0;
+pokemon_battle.c(33): warning:  #177-D: variable "start"  was declared but never referenced
+  	char start[80] = "Fight\n";
+pokemon_battle.c: 4 warnings, 0 errors
 compiling pc_buffer.c...
 compiling gpio_port.c...
 ..\drivers\c\gpio_port.c(83): warning:  #188-D: enumerated type mixed with another type
@@ -80,28 +84,28 @@ compiling uart.c...
 ..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
          return 0;
 ..\drivers\c\uart.c: 1 warning, 0 errors
-compiling eeprom.c...
 compiling accel.c...
 ..\peripherals\c\accel.c(10): warning:  #177-D: function "accel_CSN_low"  was declared but never referenced
   static __INLINE void  accel_CSN_low(void)
 ..\peripherals\c\accel.c(18): warning:  #177-D: function "accel_CSN_high"  was declared but never referenced
   static __INLINE void  accel_CSN_high(void)
 ..\peripherals\c\accel.c: 2 warnings, 0 errors
+compiling eeprom.c...
 compiling ft6x06.c...
 ..\peripherals\c\ft6x06.c(111): warning:  #186-D: pointless comparison of unsigned integer with zero
   	if (data > 2 || data < 0)
 ..\peripherals\c\ft6x06.c: 1 warning, 0 errors
-compiling launchpad_io.c...
 assembling ws2812b.s...
+compiling launchpad_io.c...
 compiling ps2.c...
+assembling startup_TM4C123.s...
+compiling spi_select.c...
 compiling lcd.c...
 ..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
 ..\peripherals\include\../../Final_Project/alphabet.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
 ..\peripherals\c\lcd.c: 2 warnings, 0 errors
-assembling startup_TM4C123.s...
-compiling spi_select.c...
 compiling serial_debug.c...
 ..\peripherals\c\serial_debug.c(178): warning:  #177-D: variable "uart_base"  was declared but never referenced
      uint32_t uart_base;
@@ -116,8 +120,11 @@ compiling io_expander.c...
 ..\peripherals\c\io_expander.c: 2 warnings, 0 errors
 compiling system_TM4C123.c...
 linking...
-Program Size: Code=8944 RO-data=3896 RW-data=36 ZI-data=4124  
-".\obj\ece353_base_project.axf" - 0 Error(s), 24 Warning(s).
+.\obj\ece353_base_project.axf: Error: L6200E: Symbol UART0_Handler multiply defined (by serial_debug.o and project_interrupts.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+".\obj\ece353_base_project.axf" - 1 Error(s), 26 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -146,7 +153,8 @@ Package Vendor: Keil
       Include file:  Device\Include\TM4C123\TM4C123.h
       Source file:   Device\Source\ARM\startup_TM4C123.s
       Source file:   Device\Source\system_TM4C123.c
-Build Time Elapsed:  00:00:03
+Target not created.
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
