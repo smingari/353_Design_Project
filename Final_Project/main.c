@@ -50,14 +50,25 @@ void EnableInterrupts(void)
 int 
 main(void)
 {
-	/* no work ¯\_("/)_/
-	initialize_serial_debug();
-	put_string("\n\r******************************\n\r");
-  put_string("ECE353 HW3 Spring 2020\n\r");
-  put_string("Salvatore Mingari, Cristian Sanchez");
-  put_string("\n\r");
-  put_string("******************************\n\r");    
-*/
+	char greeting1[80] = "\nHello there! Welcome to the world of Pokemon!";
+	char greeting2[80] = "My name is Oak! People call me the pokemon Prof!\n"; 
+	char greeting3[80] = "This world is inhabited by creatures called Pokemon!\n";
+  char greeting4[80] = "For some people, Pokemon are pets. Others use them for fights.\n";
+  char greeting5[80] = "Myself...I study Pokemon as a profession.\n";
+	char paused[] = "PASUED!";
+	
+	DisableInterrupts();
+	initialize_hardware();
+	EnableInterrupts();
+	printf("\n\r******************************\n\r");
+  printf("ECE353 HW3 Spring 2020\n\r");
+  printf("Salvatore Mingari, Cristian Sanchez");
+  printf("\n\r");
+  printf("******************************\n\r"); 
+	printf(greeting1);
+	printf(greeting2);
+	printf(greeting3);
+	printf(greeting4);
 	DisableInterrupts();
 	initialize_hardware();
 	EnableInterrupts();

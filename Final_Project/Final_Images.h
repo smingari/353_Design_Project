@@ -25,6 +25,6 @@ extern const uint8_t trainer3Bitmaps[];
 extern const uint8_t trainer4Bitmaps[];
 
 extern const uint8_t redBitmaps[];
-extern const uint8_t redWidthPixels = 66;
-extern const uint8_t redHeightPixels = 114;
+extern const uint8_t redWidthPixels;
+extern const uint8_t redHeightPixels;
 #endif

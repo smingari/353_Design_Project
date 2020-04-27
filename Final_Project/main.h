@@ -22,6 +22,7 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
+	
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -40,6 +41,9 @@
 #include "Final_Images.h"
 #include "alphabet.h"
 #include "io_expander.h"
+#include "serial_debug.h"
+#include "driver_defines.h"
+#include "eeprom.h"
 
 
 extern void initialize_serial_debug(void);

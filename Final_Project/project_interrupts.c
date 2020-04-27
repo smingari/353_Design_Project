@@ -83,10 +83,6 @@ void GPIOF_Handler(void){
 
 
 
-void UART0_Handler(void){
-		
-	
-}
 
 
 
