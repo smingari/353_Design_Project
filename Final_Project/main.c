@@ -69,6 +69,8 @@ main(void)
 	printf(greeting2);
 	printf(greeting3);
 	printf(greeting4);
+	printf(greeting5);
+
 	DisableInterrupts();
 	initialize_hardware();
 	EnableInterrupts();
