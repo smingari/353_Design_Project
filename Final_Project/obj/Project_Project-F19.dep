@@ -1,7 +1,7 @@
 Dependencies for Project 'Project', Target 'Project-F19': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
 F (.\main.c)(0x5EA6E7F8)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
-I (main.h)(0x5EA31B50)
+I (main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -18,9 +18,9 @@ I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
-I (..\peripherals\include\../../Final_Project/main.h)(0x5EA31B50)
+I (..\peripherals\include\../../Final_Project/main.h)(0x5EA71CD8)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
 I (..\drivers\include\timers.h)(0x5EA24EBA)
 I (..\peripherals\include\ps2.h)(0x5E9E2059)
@@ -30,10 +30,12 @@ I (project_interrupts.h)(0x5EA3020E)
 I (project_hardware_init.h)(0x5EA2F73D)
 I (pokemon_battle.h)(0x5EA30574)
 I (Final_Images.h)(0x5EA6E68F)
-F (.\main.h)(0x5EA31B50)()
-F (.\project_hardware_init.c)(0x5EA306CD)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_hardware_init.o --omf_browse .\obj\project_hardware_init.crf --depend .\obj\project_hardware_init.d)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
+F (.\main.h)(0x5EA71CD8)()
+F (.\project_hardware_init.c)(0x5EA71CD8)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_hardware_init.o --omf_browse .\obj\project_hardware_init.crf --depend .\obj\project_hardware_init.d)
 I (project_hardware_init.h)(0x5EA2F73D)
-I (main.h)(0x5EA31B50)
+I (main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -50,9 +52,9 @@ I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
-I (..\peripherals\include\../../Final_Project/main.h)(0x5EA31B50)
+I (..\peripherals\include\../../Final_Project/main.h)(0x5EA71CD8)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
 I (..\drivers\include\timers.h)(0x5EA24EBA)
 I (..\peripherals\include\ps2.h)(0x5E9E2059)
@@ -61,9 +63,11 @@ I (..\peripherals\include\launchpad_io.h)(0x5E6C490A)
 I (project_interrupts.h)(0x5EA3020E)
 I (pokemon_battle.h)(0x5EA30574)
 I (Final_Images.h)(0x5EA6E68F)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
 F (.\project_hardware_init.h)(0x5EA2F73D)()
-F (.\project_interrupts.c)(0x5EA305A2)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_interrupts.o --omf_browse .\obj\project_interrupts.crf --depend .\obj\project_interrupts.d)
-I (main.h)(0x5EA31B50)
+F (.\project_interrupts.c)(0x5EA71E5B)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\project_interrupts.o --omf_browse .\obj\project_interrupts.crf --depend .\obj\project_interrupts.d)
+I (main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -80,9 +84,9 @@ I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
-I (..\peripherals\include\../../Final_Project/main.h)(0x5EA31B50)
+I (..\peripherals\include\../../Final_Project/main.h)(0x5EA71CD8)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
 I (..\drivers\include\timers.h)(0x5EA24EBA)
 I (..\peripherals\include\ps2.h)(0x5E9E2059)
@@ -92,13 +96,15 @@ I (project_interrupts.h)(0x5EA3020E)
 I (project_hardware_init.h)(0x5EA2F73D)
 I (pokemon_battle.h)(0x5EA30574)
 I (Final_Images.h)(0x5EA6E68F)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
 F (.\project_interrupts.h)(0x5EA3020E)()
-F (.\pokemon_battle.c)(0x5EA6EBE4)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\pokemon_battle.o --omf_browse .\obj\pokemon_battle.crf --depend .\obj\pokemon_battle.d)
+F (.\pokemon_battle.c)(0x5EA71EE4)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\pokemon_battle.o --omf_browse .\obj\pokemon_battle.crf --depend .\obj\pokemon_battle.d)
 I (pokemon_battle.h)(0x5EA30574)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
-I (main.h)(0x5EA31B50)
+I (main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
@@ -112,9 +118,9 @@ I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
-I (..\peripherals\include\../../Final_Project/main.h)(0x5EA31B50)
+I (..\peripherals\include\../../Final_Project/main.h)(0x5EA71CD8)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
 I (..\drivers\include\timers.h)(0x5EA24EBA)
 I (..\peripherals\include\ps2.h)(0x5E9E2059)
@@ -123,11 +129,13 @@ I (..\peripherals\include\launchpad_io.h)(0x5E6C490A)
 I (project_interrupts.h)(0x5EA3020E)
 I (project_hardware_init.h)(0x5EA2F73D)
 I (Final_Images.h)(0x5EA6E68F)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
 F (.\pokemon_battle.h)(0x5EA30574)()
 F (.\Final_Images.c)(0x5EA346EA)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\final_images.o --omf_browse .\obj\final_images.crf --depend .\obj\final_images.d)
 I (Final_Images.h)(0x5EA6E68F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
-I (main.h)(0x5EA31B50)
+I (main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
@@ -143,9 +151,9 @@ I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
-I (..\peripherals\include\../../Final_Project/main.h)(0x5EA31B50)
+I (..\peripherals\include\../../Final_Project/main.h)(0x5EA71CD8)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
 I (..\drivers\include\timers.h)(0x5EA24EBA)
 I (..\peripherals\include\ps2.h)(0x5E9E2059)
@@ -154,11 +162,13 @@ I (..\peripherals\include\launchpad_io.h)(0x5E6C490A)
 I (project_interrupts.h)(0x5EA3020E)
 I (project_hardware_init.h)(0x5EA2F73D)
 I (pokemon_battle.h)(0x5EA30574)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
 F (.\Final_Images.h)(0x5EA6E68F)()
 F (.\alphabet.c)(0x5EA6EB91)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\alphabet.o --omf_browse .\obj\alphabet.crf --depend .\obj\alphabet.d)
 I (alphabet.h)(0x5EA6E68F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
-I (main.h)(0x5EA31B50)
+I (main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
@@ -174,7 +184,7 @@ I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
 I (..\drivers\include\timers.h)(0x5EA24EBA)
@@ -185,6 +195,8 @@ I (project_interrupts.h)(0x5EA3020E)
 I (project_hardware_init.h)(0x5EA2F73D)
 I (pokemon_battle.h)(0x5EA30574)
 I (Final_Images.h)(0x5EA6E68F)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
 F (.\alphabet.h)(0x5EA6E68F)()
 F (..\drivers\c\adc.c)(0x5E9B7E41)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\adc.o --omf_browse .\obj\adc.crf --depend .\obj\adc.d)
 I (..\drivers\include\adc.h)(0x5E6C48A2)
@@ -340,7 +352,7 @@ I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include
 I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
 I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
 F (..\peripherals\c\lcd.c)(0x5EA6E671)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\lcd.o --omf_browse .\obj\lcd.crf --depend .\obj\lcd.d)
-I (..\peripherals\include\lcd.h)(0x5EA6EA2E)
+I (..\peripherals\include\lcd.h)(0x5EA6EC7A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
@@ -356,7 +368,7 @@ I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
 I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
 I (..\peripherals\include\../../Final_Project/alphabet.h)(0x5EA6E68F)
-I (..\peripherals\include\../../Final_Project/main.h)(0x5EA31B50)
+I (..\peripherals\include\../../Final_Project/main.h)(0x5EA71CD8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B96FA)
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
 I (..\peripherals\include\lcd_images.h)(0x5E6C490A)
@@ -368,6 +380,8 @@ I (..\peripherals\include\../../Final_Project/project_interrupts.h)(0x5EA3020E)
 I (..\peripherals\include\../../Final_Project/project_hardware_init.h)(0x5EA2F73D)
 I (..\peripherals\include\../../Final_Project/pokemon_battle.h)(0x5EA30574)
 I (..\peripherals\include\../../Final_Project/Final_Images.h)(0x5EA6E68F)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
 F (..\peripherals\c\ps2.c)(0x5E6C490A)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\ps2.o --omf_browse .\obj\ps2.crf --depend .\obj\ps2.d)
 I (..\peripherals\include\ps2.h)(0x5E9E2059)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
@@ -418,6 +432,26 @@ I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
 I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
 F (..\peripherals\c\ws2812b.s)(0x5E6C490A)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\lst\ws2812b.lst --xref -o .\obj\ws2812b.o --depend .\obj\ws2812b.d)
+F (..\peripherals\c\io_expander.c)(0x5EA71E5B)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\io_expander.o --omf_browse .\obj\io_expander.crf --depend .\obj\io_expander.d)
+I (..\drivers\include\driver_defines.h)(0x5E6C48A2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B96F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B96FA)
+I (C:\Keil_v5\ARM\ARMCC\include\errno.h)(0x5D9B96FA)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x551052AC)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D265596)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9012B4)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B75486)
+I (..\drivers\include\gpio_port.h)(0x5E6C48A2)
+I (C:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530F6376)
+I (..\drivers\include\i2c.h)(0x5E6C48A2)
+I (..\peripherals\include\io_expander.h)(0x5EA71EE4)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B96F8)
+I (..\peripherals\include\buttons.h)(0x5E947110)
+I (..\peripherals\include\launchpad_io.h)(0x5E6C490A)
 F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x5E9DEECF)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\lst\startup_tm4c123.lst --xref -o .\obj\startup_tm4c123.o --depend .\obj\startup_tm4c123.d)
 F (RTE\Device\TM4C123GH6PM\system_TM4C123.c)(0x5E9DEECF)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include -I ..\include -I ..\drivers\include -I ..\peripherals\include --debug-I.\RTE\_Project-F19-IC:\Users\Salvatore\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Salvatore\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\obj\system_tm4c123.o --omf_browse .\obj\system_tm4c123.crf --depend .\obj\system_tm4c123.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B96F8)

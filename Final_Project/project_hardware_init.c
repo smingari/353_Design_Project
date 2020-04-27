@@ -33,6 +33,7 @@ void initialize_hardware(void){
 	lcd_config_gpio();
   lcd_config_screen();
   lcd_clear_screen(LCD_COLOR_BLACK);
+	io_expander_init();
   ps2_initialize();
 	
 	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true);

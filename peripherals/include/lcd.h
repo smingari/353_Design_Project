@@ -29,7 +29,6 @@
 #include "driver_defines.h"
 #include "gpio_port.h"
 #include "../../Final_Project/alphabet.h"
-//#include "alphabet.h"
 
 typedef enum {
   LEFT = 0,

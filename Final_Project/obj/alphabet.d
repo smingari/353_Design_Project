@@ -29,3 +29,5 @@
 .\obj\alphabet.o: project_hardware_init.h
 .\obj\alphabet.o: pokemon_battle.h
 .\obj\alphabet.o: Final_Images.h
+.\obj\alphabet.o: ..\peripherals\include\io_expander.h
+.\obj\alphabet.o: ..\drivers\include\i2c.h

@@ -34,33 +34,34 @@ void pokemon_battle_main(void){
 	
 	while(!game_over){
 		
-		//lp_io_set_pin(RED_BIT);
-	if(TIMER1_ALERT){
-		
-		TIMER1_ALERT = false;
-		
-		if (TIMER1_COUNT == 0){
-			lp_io_set_pin(BLUE_BIT);
-		}	
-		else {
-			lp_io_clear_pin(BLUE_BIT);
+			//lp_io_set_pin(RED_BIT);
+		if(TIMER1_ALERT){
+			
+			TIMER1_ALERT = false;
+			
+			if (TIMER1_COUNT == 0){
+				lp_io_set_pin(BLUE_BIT);
+			}	
+			else {
+				lp_io_clear_pin(BLUE_BIT);
+			}
+			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
+			
 		}
-		TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
 		
-	}
-	
-	// BOX 3/4 screen bottom left	
-	lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-//cd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
-//charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
+		// BOX 3/4 screen bottom left	
+		lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+	//cd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
+	//charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
 
-for (i = 0; i < 1000; i++) {
-}
+		for (i = 0; i < 1000; i++) {
+		}
 
-lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
-laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+		lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
+		laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 
-lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
+		lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
+		enableLeds();
 	}
 	
 	

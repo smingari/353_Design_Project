@@ -39,6 +39,7 @@
 #include "pokemon_battle.h"
 #include "Final_Images.h"
 #include "alphabet.h"
+#include "io_expander.h"
 
 
 extern void initialize_serial_debug(void);

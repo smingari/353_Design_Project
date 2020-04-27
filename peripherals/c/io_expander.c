@@ -134,6 +134,7 @@ void enableLeds(void) {
 	io_expander_byte_write(IO_EXPANDER_I2C_BASE, MCP23017_GPIOA_R,0xFF);
 }
 
+/*
 uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 	static DEBOUNCE_STATES state = DEBOUNCE_ONE;	
 	static uint8_t curr_btn_val = BTN_NONE;
@@ -185,5 +186,5 @@ uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 			}
 			return BTN_NONE;
 	}
-	
-}
+*/
+//}

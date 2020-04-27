@@ -30,3 +30,5 @@
 .\obj\lcd.o: ..\peripherals\include\../../Final_Project/pokemon_battle.h
 .\obj\lcd.o: ..\peripherals\include\../../Final_Project/Final_Images.h
 .\obj\lcd.o: ..\peripherals\include\../../Final_Project/alphabet.h
+.\obj\lcd.o: ..\peripherals\include\io_expander.h
+.\obj\lcd.o: ..\drivers\include\i2c.h
