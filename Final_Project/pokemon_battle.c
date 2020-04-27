@@ -72,8 +72,14 @@ void pokemon_battle_main(void){
 		//lcd_draw_image(210, trainer4WidthPixels,160,
 		//trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);	
 
-		lcd_draw_image(120, redWidthPixels,160,
-		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);	
+		//lcd_draw_image(120, redWidthPixels,160,
+		//redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);	
+
+		lcd_draw_image(60, gengarWidthPixels,160,
+		gengarHeightPixels,gengarBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);	
+
+		lcd_draw_image(180, ampharosWidthPixels,160,
+		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_WHITE,LCD_COLOR_YELLOW);
 
 
 

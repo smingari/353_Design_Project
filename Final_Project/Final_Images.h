@@ -27,4 +27,13 @@ extern const uint8_t trainer4Bitmaps[];
 extern const uint8_t redBitmaps[];
 extern const uint8_t redWidthPixels;
 extern const uint8_t redHeightPixels;
+
+extern const uint8_t gengarBitmaps[];
+extern const uint8_t gengarWidthPixels;
+extern const uint8_t gengarHeightPixels;
+
+extern const uint8_t ampharosBitmaps[];
+extern const uint8_t ampharosWidthPixels;
+extern const uint8_t ampharosHeightPixels;
+
 #endif
