@@ -40,4 +40,8 @@ extern const uint8_t charHealthBitmaps[];
 extern const uint8_t charHealthWidthPixels;
 extern const uint8_t charHealthHeightPixels;
 
+extern const uint8_t ampharosHealthBitmaps[];
+extern const uint8_t amphHealthWidthPixels;
+extern const uint8_t amphHealthHeightPixels;
+
 #endif
