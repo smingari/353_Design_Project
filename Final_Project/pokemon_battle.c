@@ -1,8 +1,9 @@
 #include "pokemon_battle.h"
 
 volatile bool TIMER1_ALERT =true;
-
-volatile bool TIMER4_STATUS = true;
+volatile bool TIMER4_ALERT = true;
+volatile bool UART0_RX_ALERT = false;
+volatile bool UART0_TX_ALERT = false;
 
 volatile uint16_t POKEMON_X_ALLY = COLS/2;
 volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
@@ -27,26 +28,61 @@ volatile uint16_t POKEMON_Y_ENEMY = 40;
 
 void pokemon_battle_main(void){
 	bool game_over = false;
+	bool paused = false;
+	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
 	int i = 0;
+	char input_char;
+	char input[80];
 	
 	char start[80] = "Fight\n";
 	
 	while(!game_over){
 		
-			//lp_io_set_pin(RED_BIT);
+	
+		
+		
+		// Interrupt alert for user input
+		if(UART0_RX_ALERT){
+			UART0_RX_ALERT = false;
+			input_char = fgetc(file); // read user input
+			
+			// Check to see if ' ' has been entered for a pause of game
+			if(input_char == ' '){
+				printf("PAUSED!"); // Print out pause message and enter pause mode
+				paused = true;
+				
+				while(paused){  // game is paused
+					
+					// now wait for new Input
+					if(UART0_RX_ALERT){
+						UART0_RX_ALERT = false;
+						input_char = fgetc(file); 
+
+						// check to se if input is vaild to reusme game
+						if(input_char == ' '){ 
+							paused = false;
+							printf("RESUME!");
+						}
+					}
+				}
+			}		
+		}
+		
+
+		// Timer interrupt alert
 		if(TIMER1_ALERT){
 			
-			TIMER1_ALERT = false;
+			TIMER1_ALERT = false; // reset the alert
 			
-			if (TIMER1_COUNT == 0){
+			// code to flip the LED
+			if (TIMER1_COUNT == 0){  
 				lp_io_set_pin(BLUE_BIT);
 			}	
 			else {
 				lp_io_clear_pin(BLUE_BIT);
 			}
 			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
-			
 		}
 		
 		// BOX 3/4 screen bottom left	

@@ -10,6 +10,8 @@
 extern volatile bool TIMER1_ALERT;
 
 extern volatile bool TIMER4_STATUS;
+extern volatile bool UART0_TX_ALERT;
+extern volatile bool UART0_RX_ALERT;
 
 void pokemon_battle_main(void);
 

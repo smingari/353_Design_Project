@@ -50,7 +50,7 @@ void EnableInterrupts(void)
 int 
 main(void)
 {
-	char greeting1[80] = "\nHello there! Welcome to the world of Pokemon!";
+	char greeting1[80] = "\nHello there! Welcome to the world of Pokemon!\n";
 	char greeting2[80] = "My name is Oak! People call me the pokemon Prof!\n"; 
 	char greeting3[80] = "This world is inhabited by creatures called Pokemon!\n";
   char greeting4[80] = "For some people, Pokemon are pets. Others use them for fights.\n";
@@ -71,9 +71,6 @@ main(void)
 	printf(greeting4);
 	printf(greeting5);
 
-	DisableInterrupts();
-	initialize_hardware();
-	EnableInterrupts();
 	
   pokemon_battle_main();
 		

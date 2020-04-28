@@ -274,7 +274,7 @@ void UART0_Handler(void)
 
     // Read the interrupt status of the UART
     status = UART0->MIS;
-
+		
     // set rx_mask to detect both Rx related interrupts.
     rx_mask = UART_MIS_RXMIS | UART_MIS_RTMIS;
 		
@@ -282,9 +282,11 @@ void UART0_Handler(void)
     if (status & rx_mask)
     {
        UART_Rx_Flow(UART0_BASE, &UART0_Rx_Buffer);
+			 UART0_RX_ALERT = true; // Alerts the pokemon_battle there is an interrupt
     }
 		if(status & tx_mask){ 
 			UART_Tx_Flow(UART0_BASE, &UART0_Tx_Buffer);
+			UART0_TX_ALERT = true;  // Alerts the pokemon_battle there is an interrupt
 		}
     
     return;

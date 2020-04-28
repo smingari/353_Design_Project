@@ -20,6 +20,7 @@
 #include "pc_buffer.h"
 #include "uart.h"
 #include "driver_defines.h"
+#include "../../Final_Project/pokemon_battle.h"
 
 #define UART_BUFFER_SIZE 80
 
