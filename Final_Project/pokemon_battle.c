@@ -22,6 +22,12 @@ volatile uint16_t POKEMON_Y_ENEMY = 40;
 //} Pokemon;
 
 
+
+
+
+
+
+
 void pokemon_battle_main(void){
 	bool game_over = false;
 	bool paused = false;
@@ -33,7 +39,7 @@ void pokemon_battle_main(void){
 	char input[80];
 	
 	int damage = 30;
-	int ALLY_HEALTH_MAX = 220;
+	int ALLY_HEALTH_MAX = 120;
 	
 	char start[80] = "Fight\n";
 	
@@ -127,12 +133,12 @@ void pokemon_battle_main(void){
 		//amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
-		enableLeds(0xFF);
+		//enableLeds(0xFF);
 		
-		lcd_draw_rectangle(120, ALLY_HEALTH_MAX, 335, 20, LCD_COLOR_GREEN2);
+		lcd_draw_box(120, ALLY_HEALTH_MAX, 335, 20, LCD_COLOR_GREEN2, LCD_COLOR_WHITE, 0)
 		for(i = 0; i < damage; i++) {
-			lcd_draw_rectangle(ALLY_HEALTH_MAX - i, ALLY_HEALTH_MAX, 335, 20, LCD_COLOR_WHITE);
-			for(j = 0; j < 500; j++){
+			lcd_draw_rectangle(240 - i, i, 335, 20, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			for(j = 0; j < 700; j++){
 
 			}
 		}
