@@ -92,7 +92,7 @@ void pokemon_battle_main(void){
 			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
 			
 		}
-		
+		//
 		// BOX 3/4 screen bottom left	
 		//lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 	//cd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
@@ -135,9 +135,9 @@ void pokemon_battle_main(void){
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
 		
-		lcd_draw_box(120, ALLY_HEALTH_MAX, 335, 20, LCD_COLOR_GREEN2, LCD_COLOR_WHITE, 0)
+		lcd_draw_box(100, ALLY_HEALTH_MAX, 280, 20, LCD_COLOR_GREEN2, LCD_COLOR_WHITE, 0);
 		for(i = 0; i < damage; i++) {
-			lcd_draw_rectangle(240 - i, i, 335, 20, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			lcd_draw_box(220 - i, i, 280, 20, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
 			for(j = 0; j < 700; j++){
 
 			}

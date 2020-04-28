@@ -31,7 +31,7 @@ void initialize_hardware(void){
 	
 	
 
-//	uart_init();
+	uart_init(UART0_BASE, true, true);
 
 	// initialize peripherals 
 	lcd_config_gpio();
