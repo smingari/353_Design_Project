@@ -77,7 +77,10 @@ void TIMER4A_Handler(void){
 
 //io expander maybe?
 void GPIOF_Handler(void){
-	
+	if(GPIOF->MIS & (PF0 & GPIO_ICR_GPIO_M)){
+		// buttons alert
+		GPIOF->ICR |= (PF0 & GPIO_ICR_GPIO_M); // Clear Pin0 interrupt 
+	}
 	
 }
 
