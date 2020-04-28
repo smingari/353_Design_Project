@@ -36,7 +36,7 @@ void initialize_hardware(void){
 	// initialize peripherals 
 	lcd_config_gpio();
   lcd_config_screen();
-  lcd_clear_screen(LCD_COLOR_BLACK);
+  lcd_clear_screen(LCD_COLOR_WHITE);
 	io_expander_init();
   ps2_initialize();
 	
