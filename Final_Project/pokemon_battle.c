@@ -37,8 +37,12 @@ void pokemon_battle_main(void){
 	int j;
 	char input_char;
 	char input[80];
-	
-	int damage = 60;
+	char moveAlly;
+	char lastMove;
+	char enemyPokemon = 'c';  // Initialize to Charizard
+
+	int damageD = 0;  // Damage Done
+	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
 	
 	char start[80] = "Fight\n";
@@ -135,11 +139,127 @@ void pokemon_battle_main(void){
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
 		
-		lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 20, LCD_COLOR_GREEN2);
-		for(i = 0; i < damage; i++) {
-			lcd_draw_rectangle(220 - i, i, 280, 20, LCD_COLOR_WHITE);
-			for(j = 0; j < 1000; j++){
+		// All under the assumption Pokemon health is 120 long
+		if (lastMove == 'h') {
+			// GENGAR IS RECHARGING
+			lastMove = '0';
+		} 
+		switch(moveAlly) 
+		{
+			// All under the assumption Pokemon health is 120 long
+			// I know how to do crits later if we want
+			case 's': // Shadow Ball for Gengar
 
+			//if (enemyPokemon = Charizard) do this much damage
+			if (enemyPokemon == 'c') {
+				damageD = 65;
+			}
+
+			// Lapras damage
+			else {
+				damageD = 40;
+			}
+
+			break;
+
+			
+			case 'h': // Hyper Beam for Gengar
+
+			if (enemyPokemon == 'c') {
+				damageD = 85;
+			}
+
+			else {
+				damageD = 60;
+			}
+
+			break;
+
+
+			case 'y': // Psychic for Gengar
+			
+			if(enemyPokemon == 'c') {
+				damageD = 55;
+			}
+			
+			else {
+				damageD = 35;
+			}
+
+			break;
+
+
+			case 'p': // Protect for Gengar
+
+			if (lastMove == 'p') {
+				// BUT IT MISSED
+				break;
+			}
+
+			damageT = 0;  // Negates damage taken
+			
+			break;
+
+
+			case 't': // Thunderbolt for Ampharos
+
+			if (enemyPokemon == 'c') {
+				damageD = 100;
+			}
+
+			else {
+				damageD = 60; 
+			}
+
+			break;
+
+
+			case 'z': // Zap Cannon for Ampharos
+			// random a number 1-2
+			// if (1)
+			// BUT IT MISSED
+			// break;
+			if (enemyPokemon == 'c') {
+				damageD = 120;
+			}
+				
+			else {
+				damageD = 80;
+			}
+
+
+			case 'd': // Dragon Pulse for Ampharos
+
+			if (enemyPokemon == 'c') {
+				damageD = 40;
+			}
+
+			else {
+				damageD = 25;
+			}
+
+			case 'g':  // Power Gem for Ampharos
+
+			if (enemyPokemon == 'c') {
+				damageD = 75;
+			}
+
+			else { 
+				damageD = 50;
+			}
+
+			default:
+
+		}
+		
+		lastMove = moveAlly;
+
+		// Move this to a function for updating ally health eventually
+		lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
+		for(i = 0; i < damageT; i++) {
+			lcd_draw_rectangle(220 - i, i, 280, 15, LCD_COLOR_WHITE);
+			for(j = 0; j < 100000; j++){
+			// When this is eventually moved, remember to reset damageT and damageD to 0
 			}
 		}
 	}
