@@ -38,7 +38,7 @@ void pokemon_battle_main(void){
 	char input_char;
 	char input[80];
 	
-	int damage = 30;
+	int damage = 60;
 	int ALLY_HEALTH_MAX = 120;
 	
 	char start[80] = "Fight\n";
@@ -135,10 +135,10 @@ void pokemon_battle_main(void){
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
 		
-		lcd_draw_box(100, ALLY_HEALTH_MAX, 280, 20, LCD_COLOR_GREEN2, LCD_COLOR_WHITE, 0);
+		lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 20, LCD_COLOR_GREEN2);
 		for(i = 0; i < damage; i++) {
-			lcd_draw_box(220 - i, i, 280, 20, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
-			for(j = 0; j < 700; j++){
+			lcd_draw_rectangle(220 - i, i, 280, 20, LCD_COLOR_WHITE);
+			for(j = 0; j < 1000; j++){
 
 			}
 		}
