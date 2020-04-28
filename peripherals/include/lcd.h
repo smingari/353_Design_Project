@@ -282,5 +282,9 @@ void lcd_config_screen(void);
 *******************************************************************************/
 void lcd_draw_string(char string[], uint16_t x_start, uint16_t y_start, uint16_t fColor, uint16_t bColor);
 
+
+void lcd_draw_rectangle(uint16_t x_start, uint16_t x_len, uint16_t y_start, uint16_t y_len, uint16_t fg_color);
+
+
 #endif
 

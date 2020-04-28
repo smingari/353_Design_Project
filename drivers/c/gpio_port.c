@@ -445,6 +445,12 @@ bool  gpio_config_falling_edge_irq(uint32_t gpioBase, uint8_t pins)
   // ADD CODE
   // Verify that the base address is a valid GPIO base address
   // using the verify_base_addr function provided above
-    
-  return true;
+	
+	if(verify_base_addr(gpioBase)){
+		gpioPort = (GPIOA_Type *) gpioBase;
+		
+		
+		return true;
+	}
+	return false; 
 }
