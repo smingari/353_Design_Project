@@ -23,6 +23,35 @@
 #include "driver_defines.h"
 
 
+// CANT WRITE TO DRIVER_DEFINES ¯\_(:/)_/¯
+
+//*****************************************************************************
+//
+// Macros for the Interrupt Sense Regiseter
+//
+//*****************************************************************************
+#define GPIO_IS_GPIO_M          0x000000FF   // Interrupt Sense Mask Enable
+#define GPIO_IS_GPIO_S          0
+
+
+//*****************************************************************************
+//
+// Macros for the Interrupt Both Edges
+//
+//*****************************************************************************
+#define GPIO_IBE_GPIO_M          0x000000FF   // Interrupt Sense Mask Enable
+#define GPIO_IBE_GPIO_S          0
+
+
+//*****************************************************************************
+//
+// Macros for the Interrupt Event Regiseter
+//
+//*****************************************************************************
+#define GPIO_IEV_GPIO_M          0x000000FF   // Interrupt Sense Mask Enable
+#define GPIO_IEV_GPIO_S          0
+
+
           
 //*****************************************************************************
 // Verifies that the base address is a valid GPIO base address
@@ -449,6 +478,12 @@ bool  gpio_config_falling_edge_irq(uint32_t gpioBase, uint8_t pins)
 	if(verify_base_addr(gpioBase)){
 		gpioPort = (GPIOA_Type *) gpioBase;
 		
+		gpioPort->IM &= ~(pins & GPIO_IM_GPIO_M);
+		gpioPort->IS &= ~(pins & GPIO_IS_GPIO_M);//set the corresponding pin interrupt to be edge-sensitive
+		gpioPort->IBE &= ~(pins & GPIO_IBE_GPIO_M);//Interrupt generation is controlled by the iev
+		gpioPort->RIS &= ~(pins & GPIO_RIS_GPIO_M);// clear RIS register
+		gpioPort->IEV &= ~(pins & GPIO_IEV_GPIO_M);//enable falling edge triggering on corresponding pins
+		gpioPort->IM |= (pins & GPIO_IM_GPIO_M); // enable interrupts on corresponding pins
 		
 		return true;
 	}
