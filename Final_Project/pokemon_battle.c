@@ -135,10 +135,10 @@ void pokemon_battle_main(void){
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
 		
-		lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 20, LCD_COLOR_GREEN2);
+		lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
 		for(i = 0; i < damage; i++) {
-			lcd_draw_rectangle(220 - i, i, 280, 20, LCD_COLOR_WHITE);
-			for(j = 0; j < 1000; j++){
+			lcd_draw_rectangle(220 - i, i, 280, 15, LCD_COLOR_WHITE);
+			for(j = 0; j < 100000; j++){
 
 			}
 		}
