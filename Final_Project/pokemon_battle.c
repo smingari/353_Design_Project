@@ -5,6 +5,8 @@ volatile bool TIMER4_ALERT = true;
 volatile bool UART0_RX_ALERT = false;
 volatile bool UART0_TX_ALERT = false;
 
+volatile bool TIMER4_STATUS = true;
+
 volatile uint16_t POKEMON_X_ALLY = COLS/2;
 volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
 volatile uint16_t POKEMON_X_ENEMY = 50;
@@ -39,8 +41,8 @@ void pokemon_battle_main(void){
 	
 	while(!game_over){
 		
-	
-		
+
+
 		
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
@@ -76,13 +78,15 @@ void pokemon_battle_main(void){
 			TIMER1_ALERT = false; // reset the alert
 			
 			// code to flip the LED
-			if (TIMER1_COUNT == 0){  
+			
+			if (TIMER1_COUNT == 0){
 				lp_io_set_pin(BLUE_BIT);
 			}	
 			else {
 				lp_io_clear_pin(BLUE_BIT);
 			}
 			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
+			
 		}
 		
 		// BOX 3/4 screen bottom left	
@@ -114,17 +118,27 @@ void pokemon_battle_main(void){
 		//lcd_draw_image(60, gengarWidthPixels,160,
 		//gengarHeightPixels,gengarBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);	
 
+		// AMPHAROS WHAT IS WRONG WITH YOU
 		//lcd_draw_image(180, ampharosWidthPixels,160,
 		//ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_WHITE,LCD_COLOR_YELLOW);
 
 		//lcd_draw_image(120, charHealthWidthPixels,160,
 		//charHealthHeightPixels,charHealthBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 
-		lcd_draw_image(120, amphHealthWidthPixels, 160,
-		amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+		//lcd_draw_image(120, amphHealthWidthPixels, 160,
+		//amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
+		int damage = 30;
+		int ALLY_HEALTH_MAX = 220;
+		lcd_draw_rectangle(120, ALLY_HEALTH_MAX, 335, 345, LCD_COLOR_GREEN2);
+		for(int i = 0; i < damage; i++) {
+			lcd_draw_rectangle(ALLY_HEALTH_MAX - i, ALLY_HEALTH_MAX, 335, 345, LCD_COLOR_WHITE);
+			for(int j = 0; j < 500; j++){
+
+			}
+		}
 	}
 	
 	
