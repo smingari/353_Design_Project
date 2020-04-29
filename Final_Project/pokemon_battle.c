@@ -1,5 +1,6 @@
 #include "pokemon_battle.h"
 
+// ALERTS FOR TIMERS
 volatile bool BUTTON_ALERT = false;
 volatile bool TIMER1_ALERT = true;
 volatile bool TIMER3_ALERT = true;
@@ -7,8 +8,8 @@ volatile bool TIMER4_ALERT = true;
 volatile bool UART0_RX_ALERT = false;
 volatile bool UART0_TX_ALERT = false;
 
-volatile bool TIMER4_STATUS = true;
 
+// IMAGE COORIDINATES 
 volatile uint16_t POKEMON_X_ALLY = 55;
 volatile uint16_t POKEMON_Y_ALLY = 220;
 volatile uint16_t POKEMON_X_ENEMY = 185;
@@ -16,8 +17,9 @@ volatile uint16_t POKEMON_Y_ENEMY = 50;
 volatile uint16_t CURSE_X = 50;
 volatile uint16_t CURSE_Y = 60;
 
-
-
+// TOUCH SCREEN CRAP
+uint8_t touch_event;
+uint16_t X_TOUCH,Y_TOUCH;
 
 //typedef struct {
 //	int health;
@@ -165,11 +167,23 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
-	//battle_start();
+	battle_start();
 
 	while(!game_over){
 		
 
+		// Touch sensor
+		touch_event = ft6x06_read_td_status();
+		if(touch_event > 0){
+			X_TOUCH = ft6x06_read_x();
+			Y_TOUCH = ft6x06_read_y();
+			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
+		}
+    
+    gp_timer_wait(TIMER0_BASE, 2500000);
+		
+		
+		
 		// stupid button crap
 		/*
 		if(BUTTON_ALERT){

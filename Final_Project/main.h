@@ -44,7 +44,7 @@
 #include "serial_debug.h"
 #include "driver_defines.h"
 #include "eeprom.h"
-
+#include "ft6x06.h"
 
 extern void initialize_serial_debug(void);
 extern void put_string(char *data);

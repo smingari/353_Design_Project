@@ -28,6 +28,7 @@ void initialize_hardware(void){
 	lp_io_init();
 	init_serial_debug(true, true);
 	eeprom_init();
+	ft6x06_init();
 	
 	
 
@@ -40,9 +41,10 @@ void initialize_hardware(void){
 	io_expander_init();
   ps2_initialize();
 	
-	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true);
-	gp_timer_config_16(TIMER4_BASE, PERIODIC, CHECK_ADC, false, true, ADC_PRESCALE);
-	gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
+	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true); // Game Light LED
+	gp_timer_config_16(TIMER4_BASE, PERIODIC, CHECK_ADC, false, true, ADC_PRESCALE);  // ADC timer
+	gp_timer_config_32(TIMER3_BASE, PERIODIC, 500000, false, true);      // Cursor timer
+	gp_timer_config_32(TIMER0_BASE, PERIODIC, 50000, false, false);      // Touch sensor
 
 }
 
