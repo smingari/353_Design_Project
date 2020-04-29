@@ -24,9 +24,10 @@
 
 #include "main.h"
 
-#define SEC_ONE     50000000  // Prescalar for 1 sec
-#define CHECK_ADC   500000    // Prescalar for 10 ms
+#define SEC_ONE     50000000  // time_count for 1 sec no prescaler 
+#define CHECK_ADC   1954    // time_count for 10ms w/ FF prescaler
 #define PERIODIC		TIMER_TAMR_TAMR_PERIOD
+#define ADC_PRESCALE  0xFF
 
 
 

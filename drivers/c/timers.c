@@ -261,7 +261,7 @@ bool gp_timer_config_32(uint32_t base_addr, uint32_t mode, uint32_t time_count, 
 //
 //The function returns true if the base_addr is a valid general purpose timer
 //*****************************************************************************
-bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint32_t time_count, bool count_up, bool enable_interrupts, uint8_t presclr)
+bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint16_t time_count, bool count_up, bool enable_interrupts, uint8_t presclr)
 {
   uint32_t timer_rcgc_mask;
   uint32_t timer_pr_mask;
@@ -290,7 +290,7 @@ bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint32_t time_count, 
   gp_timer = (TIMER0_Type *)base_addr;
     
   // Stop the timers
-  gp_timer->CTL &= ~( TIMER_CTL_TAEN | TIMER_CTL_TBEN);
+  gp_timer->CTL &= ~(TIMER_CTL_TAEN | TIMER_CTL_TBEN);
   
   // Set the timer to be a 16-bit timer
   gp_timer->CFG = TIMER_CFG_16_BIT;
@@ -300,15 +300,16 @@ bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint32_t time_count, 
   
   // Set the mode
   gp_timer->TAMR |= mode;
-    
-    // Set the timer direction.  count_up: 0 for down, 1 for up.
-  gp_timer->TAMR &= ~TIMER_TAMR_TACDIR;
-  
-  if( count_up )
+		
+		
+	// Set the timer direction.  
+	if( count_up )
   {
     // Set the direction bit
     gp_timer->TAMR |= TIMER_TAMR_TACDIR;
-  }
+  }	
+																				 // invert the ones in the macro
+  gp_timer->TAMR &= ~TIMER_TAMR_TACDIR;  // count_up: 0 for down, 1 for up.	
  
   gp_timer->TAILR = time_count;
 	gp_timer->TAPR |= presclr & TIMER_TAPR_TAPSR_M;

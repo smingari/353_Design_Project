@@ -44,7 +44,7 @@ bool gp_timer_config_32(uint32_t base_addr, uint32_t mode, uint32_t time_count, 
 //
 //The function returns true if the base_addr is a valid general purpose timer
 //*****************************************************************************
-bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint32_t time_count, bool count_up, bool enable_interrupts, uint8_t presclr);
+bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint16_t time_count, bool count_up, bool enable_interrupts, uint8_t presclr);
 
 
 

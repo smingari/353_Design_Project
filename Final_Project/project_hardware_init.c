@@ -41,9 +41,7 @@ void initialize_hardware(void){
   ps2_initialize();
 	
 	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true);
-	gp_timer_config_16(TIMER4_BASE, PERIODIC, false, true, CHECK_ADC, TIMER_TAPR_TAPSR_M);
-	
-	
+	gp_timer_config_16(TIMER4_BASE, PERIODIC, CHECK_ADC, false, true, ADC_PRESCALE);
 }
 
 
