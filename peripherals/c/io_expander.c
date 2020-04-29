@@ -143,25 +143,25 @@ void enableLeds(uint8_t leds) {
 }
 
 
-
+/*
 void debounce_fsm(void){
 	
-	  static DEBOUNCE_STATES state = DEBOUNCE_ONE;
+  static DEBOUNCE_STATES button_state = DEBOUNCE_ONE; SW1_BIT
   bool pin_logic_level;
   
-  pin_logic_level = lp_io_read_pin(SW1_BIT);
+  pin_logic_level = 
   
-  switch (state)
+  switch (button_state)
   {
     case DEBOUNCE_ONE:
     {
       if(pin_logic_level)
       {
-        state = DEBOUNCE_ONE;
+        button_state = DEBOUNCE_ONE;
       }
       else
       {
-        state = DEBOUNCE_1ST_ZERO;
+        button_state = DEBOUNCE_1ST_ZERO;
       }
       break;
     }
@@ -169,11 +169,11 @@ void debounce_fsm(void){
     {
       if(pin_logic_level)
       {
-        state = DEBOUNCE_ONE;
+        button_state = DEBOUNCE_ONE;
       }
       else
       {
-        state = DEBOUNCE_2ND_ZERO;
+        button_state = DEBOUNCE_2ND_ZERO;
       }
       break;
     }
@@ -181,11 +181,11 @@ void debounce_fsm(void){
     {
       if(pin_logic_level)
       {
-        state = DEBOUNCE_ONE;
+        button_state = DEBOUNCE_ONE;
       }
       else
       {
-        state = DEBOUNCE_PRESSED;
+        button_state = DEBOUNCE_PRESSED;
       }
       break;
     }
@@ -193,11 +193,11 @@ void debounce_fsm(void){
     {
       if(pin_logic_level)
       {
-        state = DEBOUNCE_ONE;
+        button_state = DEBOUNCE_ONE;
       }
       else
       {
-        state = DEBOUNCE_PRESSED;
+        button_state = DEBOUNCE_PRESSED;
       }
       break;
     }
@@ -207,7 +207,7 @@ void debounce_fsm(void){
     }
   }
   
-  if(state == DEBOUNCE_2ND_ZERO )
+  if(button_state == DEBOUNCE_2ND_ZERO )
   {
     return true;
   }
@@ -218,3 +218,4 @@ void debounce_fsm(void){
 	
 	
 }
+*/

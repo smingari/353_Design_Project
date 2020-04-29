@@ -72,7 +72,7 @@ void battle_start(void) {
 
 	// Clear the images of the trainers
 	lcd_draw_image(70 - move, trainer1WidthPixels, 228,
-		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE;
+		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE);
 	lcd_draw_image(170 + move, redWidthPixels, 50,
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE);
 	
@@ -131,7 +131,7 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
-	battle_start()
+	battle_start();
 
 	while(!game_over){
 		

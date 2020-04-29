@@ -329,7 +329,7 @@ bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint16_t time_count, 
   }
     
   // Turn the timer on
-  gp_timer->CTL      |=   TIMER_CTL_TAEN ;
+  gp_timer->CTL |= TIMER_CTL_TAEN ;
   
   return true;  
 }
