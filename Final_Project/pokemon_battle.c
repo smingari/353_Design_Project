@@ -26,7 +26,7 @@ void battle_start(void) {
 	int i;
 
 	//Draw the player's trainer in its original position
-	lcd_draw_image(70, trainer1WidthPixels, 278,
+	lcd_draw_image(70, trainer1WidthPixels, 228,
 		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 
 	// Draw the enemy trainer in its original position
@@ -34,6 +34,7 @@ void battle_start(void) {
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 
 	// "Trainer Red Wants to battle"
+	// Wait for button input
 
 	// Move the trainers across the screen
 	for(move = 0; move < 35; move++) {
@@ -72,7 +73,7 @@ void battle_start(void) {
 
 	// Clear the images of the trainers
 	lcd_draw_image(70 - move, trainer1WidthPixels, 228,
-		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE;
+		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE);
 	lcd_draw_image(170 + move, redWidthPixels, 50,
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE);
 	
@@ -81,14 +82,14 @@ void battle_start(void) {
 
 	// Draw the initial states of the Pokemon
 	lcd_draw_image(POKEMON_X_ENEMY, charizardWidthPixels,POKEMON_Y_ENEMY,
-	charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
+	charizardHeightPixels,charizardBitmaps,LCD_COLOR_WHITE, LCD_COLOR_RED);
 
 	lcd_draw_image(POKEMON_X_ALLY, gengarWidthPixels,POKEMON_Y_ALLY,
-	gengarHeightPixels,gengarBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+	gengarHeightPixels,gengarBitmaps,LCD_COLOR_BLACK,LCD_COLOR_WHITE);
 
 	for (i = 0; i < 400000; i++) {
 	}
-	
+
 	// Draw initial healths of the Pokemon
 
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN2);
@@ -131,7 +132,7 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
-	battle_start()
+	battle_start();
 
 	while(!game_over){
 		
