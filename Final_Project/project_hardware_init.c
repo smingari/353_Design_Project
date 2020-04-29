@@ -42,6 +42,8 @@ void initialize_hardware(void){
 	
 	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true);
 	gp_timer_config_16(TIMER4_BASE, PERIODIC, CHECK_ADC, false, true, ADC_PRESCALE);
+	gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
+
 }
 
 

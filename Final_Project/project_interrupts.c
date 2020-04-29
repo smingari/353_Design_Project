@@ -22,7 +22,9 @@
 
 #include "main.h"
 #include "project_interrupts.h"
+#include "pokemon_battle.h"
 
+static volatile PS2_DIR_t PS2_DIR = PS2_DIR_CENTER;
 static volatile uint16_t PS2_X_DATA = 0;
 static volatile uint16_t PS2_Y_DATA = 0;
 
@@ -66,8 +68,23 @@ void TIMER1A_Handler(void){
 }
 
 
+void TIMER3A_Handler(void)
+{		
+	TIMER3_ALERT = true; // update the image
+	
+	move_curse(PS2_DIR, &CURSE_X, &CURSE_Y);
+		
+	// Clear the interrupt
+	TIMER3->ICR |= TIMER_ICR_TATOCINT;  
+}
+
+
+
+
+
 void TIMER4A_Handler(void){
 	// Clear the interrupt
+	ADC0->PSSI|= ADC_PSSI_SS2; // SS2 Initiate
 	TIMER4->ICR |= TIMER_ICR_TATOCINT;
 }
 
@@ -77,7 +94,7 @@ void TIMER4A_Handler(void){
 void GPIOF_Handler(void){
 	if(GPIOF->MIS & (PF0 & GPIO_ICR_GPIO_M)){
 		// buttons alert
-		
+		BUTTON_ALERT = true;
 		GPIOF->ICR |= (PF0 & GPIO_ICR_GPIO_M); // Clear Pin0 interrupt 
 	}
 }
@@ -90,7 +107,7 @@ void ADC0SS2_Handler(void)
 {
 	PS2_X_DATA = ADC0->SSFIFO2; // Read Sequence Sampler 2 FIFO for X & Y data
   PS2_Y_DATA = ADC0->SSFIFO2;
-	//PS2_DIR = ps2_get_direction(); // Call get_direction to update direction based on joystick movement
+	PS2_DIR = ps2_get_direction(); // Call get_direction to update direction based on joystick movement
 	
   // Clear the interrupt
   ADC0->ISC |= ADC_ISC_IN2;

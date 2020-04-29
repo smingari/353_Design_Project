@@ -1,6 +1,8 @@
 #include "pokemon_battle.h"
 
+volatile bool BUTTON_ALERT = false;
 volatile bool TIMER1_ALERT = true;
+volatile bool TIMER3_ALERT = true;
 volatile bool TIMER4_ALERT = true;
 volatile bool UART0_RX_ALERT = false;
 volatile bool UART0_TX_ALERT = false;
@@ -11,6 +13,10 @@ volatile uint16_t POKEMON_X_ALLY = 55;
 volatile uint16_t POKEMON_Y_ALLY = 220;
 volatile uint16_t POKEMON_X_ENEMY = 185;
 volatile uint16_t POKEMON_Y_ENEMY = 50;
+volatile uint16_t CURSE_X = 50;
+volatile uint16_t CURSE_Y = 60;
+
+
 
 
 //typedef struct {
@@ -20,6 +26,32 @@ volatile uint16_t POKEMON_Y_ENEMY = 50;
 //	int height;
 //	int width;
 //} Pokemon;
+
+
+void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volatile uint16_t *y_coord){
+	switch(direction){
+		case PS2_DIR_UP: // since top is 0 we need to subtract by 1
+			*y_coord -= 1;
+			break;
+			
+		case PS2_DIR_DOWN: // y increases as we move down so +1
+			*y_coord += 1;
+			break;
+			
+		case PS2_DIR_RIGHT: // X increases in the right direction so +1
+			*x_coord += 1;
+			break;
+			
+		case PS2_DIR_LEFT: // left corresponds to 0 so -1
+			*x_coord -= 1;
+			break;
+		
+		default: // Center and init don't require movement so don't touch x or y
+			break;
+	}
+	
+}
+
 
 void battle_start(void) {
 	int move;
@@ -118,6 +150,7 @@ void pokemon_battle_main(void){
 	bool paused = false;
 	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
+	uint8_t* button_data;
 	int i = 0;
 	int j;
 	char input_char;
@@ -132,13 +165,19 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
-	battle_start();
+	//battle_start();
 
 	while(!game_over){
 		
 
-
-		
+		// stupid button crap
+		/*
+		if(BUTTON_ALERT){
+			*button_data = 0;
+			BUTTON_ALERT = false;
+			io_expander_byte_read(IO_EXPANDER_I2C_BASE, MCP23017_DEFVALB_R, button_data);
+		}
+		*/
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
 			UART0_RX_ALERT = false;
@@ -182,6 +221,12 @@ void pokemon_battle_main(void){
 			}
 			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
 			
+		}
+		
+		if(TIMER3_ALERT){
+			TIMER3_ALERT = false;
+			// draw a bitch
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_BLACK, 0);
 		}
 		//
 		
