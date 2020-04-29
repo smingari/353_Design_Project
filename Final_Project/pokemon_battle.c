@@ -7,10 +7,10 @@ volatile bool UART0_TX_ALERT = false;
 
 volatile bool TIMER4_STATUS = true;
 
-volatile uint16_t POKEMON_X_ALLY = COLS/2;
-volatile uint16_t POKEMON_Y_ALLY = ROWS/2;
-volatile uint16_t POKEMON_X_ENEMY = 50;
-volatile uint16_t POKEMON_Y_ENEMY = 40;
+volatile uint16_t POKEMON_X_ALLY = 55;
+volatile uint16_t POKEMON_Y_ALLY = 220;
+volatile uint16_t POKEMON_X_ENEMY = 185;
+volatile uint16_t POKEMON_Y_ENEMY = 50;
 
 
 //typedef struct {
@@ -21,7 +21,91 @@ volatile uint16_t POKEMON_Y_ENEMY = 40;
 //	int width;
 //} Pokemon;
 
+void battle_start(void) {
+	int move;
+	int i;
 
+	//Draw the player's trainer in its original position
+	lcd_draw_image(70, trainer1WidthPixels, 278,
+		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+
+	// Draw the enemy trainer in its original position
+	lcd_draw_image(170, redWidthPixels, 50,
+		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+
+	// "Trainer Red Wants to battle"
+
+	// Move the trainers across the screen
+	for(move = 0; move < 35; move++) {
+		if (move > 28) {
+			lcd_draw_image(70 - move, trainer4WidthPixels, 228,
+				trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+			lcd_draw_image(170 + move, redWidthPixels, 50,
+				redHeightPixels,redBitmaps,LCD_COLOR_WHITE, LCD_COLOR_RED);
+		}
+
+		else if (move > 18) 
+		{
+			lcd_draw_image(70 - move, trainer3WidthPixels, 228,
+				trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+			lcd_draw_image(170 + move, redWidthPixels, 50,
+				redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+		}
+
+		else if (move > 8) {
+			lcd_draw_image(70 - move, trainer2WidthPixels, 228,
+				trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+			lcd_draw_image(170 + move, redWidthPixels, 50,
+				redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+		}
+
+		else {
+			lcd_draw_image(70 - move, trainer1WidthPixels, 228,
+				trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+			lcd_draw_image(170 + move, redWidthPixels, 50,
+				redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
+		}
+
+		for (i = 0; i < 100000; i++) {
+		}
+	}
+
+	// Clear the images of the trainers
+	lcd_draw_image(70 - move, trainer1WidthPixels, 228,
+		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE;
+	lcd_draw_image(170 + move, redWidthPixels, 50,
+		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE);
+	
+	for (i = 0; i < 400000; i++) {
+		}
+
+	// Draw the initial states of the Pokemon
+	lcd_draw_image(POKEMON_X_ENEMY, charizardWidthPixels,POKEMON_Y_ENEMY,
+	charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
+
+	lcd_draw_image(POKEMON_X_ALLY, gengarWidthPixels,POKEMON_Y_ALLY,
+	gengarHeightPixels,gengarBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+
+	for (i = 0; i < 400000; i++) {
+	}
+	
+	// Draw initial healths of the Pokemon
+
+	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN2);
+	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN2);
+
+}
+	//lcd_draw_image(30, trainer1WidthPixels,160,
+	//trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+		
+	//lcd_draw_image(90, trainer2WidthPixels,160,
+	//trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+
+		//lcd_draw_image(150, trainer3WidthPixels,160,
+		//trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+
+		//lcd_draw_image(210, trainer4WidthPixels,160,
+		//trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 
 
 
@@ -47,6 +131,8 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
+	battle_start()
+
 	while(!game_over){
 		
 
@@ -97,13 +183,10 @@ void pokemon_battle_main(void){
 			
 		}
 		//
+		
 		// BOX 3/4 screen bottom left	
 		//lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-	//cd_draw_image(POKEMON_X_ALLY, charizardWidthPixels,POKEMON_Y_ALLY,
-	//charizardHeightPixels,charizardBitmaps,LCD_COLOR_BLACK,LCD_COLOR_RED);
 
-		//for (i = 0; i < 1000; i++) {
-		//}
 
 		//lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
 		//laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
@@ -255,7 +338,7 @@ void pokemon_battle_main(void){
 		lastMove = moveAlly;
 
 		// Move this to a function for updating ally health eventually
-		lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
+		//lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
 		for(i = 0; i < damageT; i++) {
 			lcd_draw_rectangle(220 - i, i, 280, 15, LCD_COLOR_WHITE);
 			for(j = 0; j < 100000; j++){
