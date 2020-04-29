@@ -67,12 +67,10 @@ void TIMER1A_Handler(void){
 
 
 void TIMER4A_Handler(void){
-	
 	// Clear the interrupt
 	TIMER4->ICR |= TIMER_ICR_TATOCINT;
-
-
 }
+
 
 
 //io expander maybe?
@@ -81,13 +79,7 @@ void GPIOF_Handler(void){
 		// buttons alert
 		GPIOF->ICR |= (PF0 & GPIO_ICR_GPIO_M); // Clear Pin0 interrupt 
 	}
-	
 }
-
-
-
-
-
 
 
 //*****************************************************************************

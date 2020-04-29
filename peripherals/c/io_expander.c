@@ -6,6 +6,7 @@
 #include "buttons.h"
 
 
+
 bool io_expander_init(void){
 	i2c_status_t status;
 	uint8_t* data;
@@ -141,57 +142,79 @@ void enableLeds(uint8_t leds) {
 	io_expander_byte_write(IO_EXPANDER_I2C_BASE, MCP23017_GPIOA_R,leds);
 }
 
-/*
-uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
-	static DEBOUNCE_STATES state = DEBOUNCE_ONE;	
-	static uint8_t curr_btn_val = BTN_NONE;
-	static uint8_t last_btn_val = BTN_NONE;
-		
-	curr_btn_val = buttons_pressed;
+
+
+void debounce_fsm(void){
 	
-	switch(state) {
-		case DEBOUNCE_ONE:
-			if(curr_btn_val != BTN_NONE) {
-				state = DEBOUNCE_1ST_ZERO;
-				last_btn_val = curr_btn_val;
-			}
-			return BTN_NONE;
-			
-		case DEBOUNCE_1ST_ZERO:
-			if(curr_btn_val == last_btn_val) state = DEBOUNCE_2ND_ZERO;
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			break;
-			
-		case DEBOUNCE_2ND_ZERO:
-			if(curr_btn_val == last_btn_val) state = DEBOUNCE_PRESSED;
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			return BTN_NONE;
-			
-		case DEBOUNCE_PRESSED:
-			if(curr_btn_val == last_btn_val) {
-				state = DEBOUNCE_DONE;
-			}
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			return curr_btn_val;
-			
-		case DEBOUNCE_DONE:
-			if(curr_btn_val == last_btn_val) {
-				state = DEBOUNCE_DONE;
-			}
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			return BTN_NONE;
-	}
-*/
-//}
+	  static DEBOUNCE_STATES state = DEBOUNCE_ONE;
+  bool pin_logic_level;
+  
+  pin_logic_level = lp_io_read_pin(SW1_BIT);
+  
+  switch (state)
+  {
+    case DEBOUNCE_ONE:
+    {
+      if(pin_logic_level)
+      {
+        state = DEBOUNCE_ONE;
+      }
+      else
+      {
+        state = DEBOUNCE_1ST_ZERO;
+      }
+      break;
+    }
+    case DEBOUNCE_1ST_ZERO:
+    {
+      if(pin_logic_level)
+      {
+        state = DEBOUNCE_ONE;
+      }
+      else
+      {
+        state = DEBOUNCE_2ND_ZERO;
+      }
+      break;
+    }
+    case DEBOUNCE_2ND_ZERO:
+    {
+      if(pin_logic_level)
+      {
+        state = DEBOUNCE_ONE;
+      }
+      else
+      {
+        state = DEBOUNCE_PRESSED;
+      }
+      break;
+    }
+    case DEBOUNCE_PRESSED:
+    {
+      if(pin_logic_level)
+      {
+        state = DEBOUNCE_ONE;
+      }
+      else
+      {
+        state = DEBOUNCE_PRESSED;
+      }
+      break;
+    }
+    default:
+    {
+      while(1){};
+    }
+  }
+  
+  if(state == DEBOUNCE_2ND_ZERO )
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+	
+	
+}

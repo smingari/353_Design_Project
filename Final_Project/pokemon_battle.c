@@ -1,6 +1,6 @@
 #include "pokemon_battle.h"
 
-volatile bool TIMER1_ALERT =true;
+volatile bool TIMER1_ALERT = true;
 volatile bool TIMER4_ALERT = true;
 volatile bool UART0_RX_ALERT = false;
 volatile bool UART0_TX_ALERT = false;
