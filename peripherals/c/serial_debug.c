@@ -282,11 +282,11 @@ void UART0_Handler(void)
     if (status & rx_mask)
     {
        UART_Rx_Flow(UART0_BASE, &UART0_Rx_Buffer);
-			 UART0_RX_ALERT = true; // Alerts the pokemon_battle there is an interrupt
+			 //UART0_RX_ALERT = true; // Alerts the pokemon_battle there is an interrupt
     }
 		if(status & tx_mask){ 
 			UART_Tx_Flow(UART0_BASE, &UART0_Tx_Buffer);
-			UART0_TX_ALERT = true;  // Alerts the pokemon_battle there is an interrupt
+			//UART0_TX_ALERT = true;  // Alerts the pokemon_battle there is an interrupt
 		}
     
     return;

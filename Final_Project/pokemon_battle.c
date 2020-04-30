@@ -153,6 +153,7 @@ void pokemon_battle_main(void){
 	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
 	uint8_t* button_data;
+	uint8_t eeprom_data;
 	int i = 0;
 	int j;
 	char input_char;
@@ -167,20 +168,30 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
+	
+	// EEPROM TESTING
+		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
+		printf("EEPROM TESTING1: %i\n", eeprom_data);
+		//*eeprom_data += 1; 
+		eeprom_byte_write(I2C1_BASE, ADDR_START, 0x05);
+		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
+		printf("EEPROM TESTING2: %i\n", eeprom_data);
+	
+	
 	battle_start();
 
 	while(!game_over){
-		
+			
 
 		// Touch sensor
-		touch_event = ft6x06_read_td_status();
+		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
 		if(touch_event > 0){
 			X_TOUCH = ft6x06_read_x();
 			Y_TOUCH = ft6x06_read_y();
-			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
+			//printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
 		}
     
-    gp_timer_wait(TIMER0_BASE, 2500000);
+    gp_timer_wait(TIMER0_BASE, 5000000);
 		
 		
 		

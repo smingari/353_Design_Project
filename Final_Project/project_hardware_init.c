@@ -44,7 +44,7 @@ void initialize_hardware(void){
 	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true); // Game Light LED
 	gp_timer_config_16(TIMER4_BASE, PERIODIC, CHECK_ADC, false, true, ADC_PRESCALE);  // ADC timer
 	gp_timer_config_32(TIMER3_BASE, PERIODIC, 500000, false, true);      // Cursor timer
-	gp_timer_config_32(TIMER0_BASE, PERIODIC, 50000, false, false);      // Touch sensor
+	gp_timer_config_32(TIMER0_BASE, ONESHOT, 50000, false, false);      // Touch sensor
 
 }
 

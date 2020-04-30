@@ -22,6 +22,9 @@ extern volatile uint16_t POKEMON_Y_ENEMY;
 extern volatile uint16_t CURSE_X;
 extern volatile uint16_t CURSE_Y;
 
+
+#define ADDR_START    256
+
 void pokemon_battle_main(void);
 
 
