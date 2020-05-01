@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "main.h"
+#include "ps2.h"
 
 extern volatile bool TIMER1_ALERT;
 extern volatile bool TIMER3_ALERT;

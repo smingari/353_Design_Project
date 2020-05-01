@@ -95,6 +95,8 @@ void GPIOF_Handler(void){
 	if(GPIOF->MIS & (PF0 & GPIO_ICR_GPIO_M)){
 		// buttons alert
 		BUTTON_ALERT = true;
+		
+		// reset io icr to some how
 		GPIOF->ICR |= (PF0 & GPIO_ICR_GPIO_M); // Clear Pin0 interrupt 
 	}
 }

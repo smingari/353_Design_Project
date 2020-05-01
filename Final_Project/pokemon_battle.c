@@ -17,9 +17,7 @@ volatile uint16_t POKEMON_Y_ENEMY = 50;
 volatile uint16_t CURSE_X = 50;
 volatile uint16_t CURSE_Y = 60;
 
-// TOUCH SCREEN CRAP
-uint8_t touch_event;
-uint16_t X_TOUCH,Y_TOUCH;
+
 
 //typedef struct {
 //	int health;
@@ -152,7 +150,7 @@ void pokemon_battle_main(void){
 	bool paused = false;
 	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
-	uint8_t* button_data;
+	uint8_t button_data;
 	uint8_t eeprom_data;
 	int i = 0;
 	int j;
@@ -169,6 +167,11 @@ void pokemon_battle_main(void){
 	char start[80] = "Fight\n";
 	
 	
+	// TOUCH SCREEN CRAP
+uint8_t touch_event;
+uint16_t X_TOUCH,Y_TOUCH;
+	
+	
 	// EEPROM TESTING
 		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 		printf("EEPROM TESTING1: %i\n", eeprom_data);
@@ -176,33 +179,35 @@ void pokemon_battle_main(void){
 		eeprom_byte_write(I2C1_BASE, ADDR_START, 0x05);
 		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 		printf("EEPROM TESTING2: %i\n", eeprom_data);
+	//MCP23017_GPIOB_R
 	
-	
-	battle_start();
+	//battle_start();
 
 	while(!game_over){
 			
-
+		enableLeds(0xFF);
 		// Touch sensor
+		/*
 		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
 		if(touch_event > 0){
 			X_TOUCH = ft6x06_read_x();
 			Y_TOUCH = ft6x06_read_y();
-			//printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
+			printf("touch event: %i\n", touch_event);
+			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
 		}
     
     gp_timer_wait(TIMER0_BASE, 5000000);
-		
-		
+		*/
 		
 		// stupid button crap
-		/*
+		
 		if(BUTTON_ALERT){
-			*button_data = 0;
+			button_data = 0;
 			BUTTON_ALERT = false;
-			io_expander_byte_read(IO_EXPANDER_I2C_BASE, MCP23017_DEFVALB_R, button_data);
+			 button_data = io_expander_read_reg(MCP23017_GPIOB_R);
+			printf("button data: %X\n", button_data);
 		}
-		*/
+		
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
 			UART0_RX_ALERT = false;
@@ -291,7 +296,7 @@ void pokemon_battle_main(void){
 		//amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
-		//enableLeds(0xFF);
+		
 		
 		// All under the assumption Pokemon health is 120 long
 		if (lastMove == 'h') {
