@@ -17,6 +17,9 @@ volatile uint16_t POKEMON_Y_ENEMY = 50;
 volatile uint16_t CURSE_X = 50;
 volatile uint16_t CURSE_Y = 60;
 
+// TOUCH SCREEN CRAP
+uint8_t touch_event;
+uint16_t X_TOUCH,Y_TOUCH;
 
 
 //typedef struct {
@@ -124,8 +127,8 @@ void battle_start(void) {
 
 	// Draw initial healths of the Pokemon
 
-	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN2);
-	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN2);
+	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
+	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN;
 
 }
 	//lcd_draw_image(30, trainer1WidthPixels,160,
@@ -150,14 +153,20 @@ void pokemon_battle_main(void){
 	bool paused = false;
 	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
-	uint8_t button_data;
+	uint8_t* button_data;
 	uint8_t eeprom_data;
 	int i = 0;
 	int j;
+	int n = 9; // Temporary value so that nothing happens
+	int r;
 	char input_char;
 	char input[80];
 	char moveAlly;
+	char moveEnemy;
 	char lastMove;
+	char effectMessage1;
+	char effectMessage2;
+	char allyPokemon =  'g';  // Initialize to Gengar
 	char enemyPokemon = 'c';  // Initialize to Charizard
 
 	int damageD = 0;  // Damage Done
@@ -166,12 +175,12 @@ void pokemon_battle_main(void){
 	
 	char start[80] = "Fight\n";
 	
-	
+
 	// TOUCH SCREEN CRAP
-uint8_t touch_event;
-uint16_t X_TOUCH,Y_TOUCH;
-	
-	
+//uint8_t touch_event;
+//uint16_t X_TOUCH,Y_TOUCH;
+
+
 	// EEPROM TESTING
 		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 		printf("EEPROM TESTING1: %i\n", eeprom_data);
@@ -179,13 +188,15 @@ uint16_t X_TOUCH,Y_TOUCH;
 		eeprom_byte_write(I2C1_BASE, ADDR_START, 0x05);
 		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 		printf("EEPROM TESTING2: %i\n", eeprom_data);
-	//MCP23017_GPIOB_R
+			//MCP23017_GPIOB_R
 	
-	//battle_start();
+	
+	battle_start();
 
 	while(!game_over){
 			
-		enableLeds(0xFF);
+	enableLeds(0xFF);
+
 		// Touch sensor
 		/*
 		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
@@ -199,15 +210,17 @@ uint16_t X_TOUCH,Y_TOUCH;
     gp_timer_wait(TIMER0_BASE, 5000000);
 		*/
 		
-		// stupid button crap
 		
+		
+		// stupid button crap
+		/*
 		if(BUTTON_ALERT){
 			button_data = 0;
 			BUTTON_ALERT = false;
 			 button_data = io_expander_read_reg(MCP23017_GPIOB_R);
 			printf("button data: %X\n", button_data);
 		}
-		
+		*/
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
 			UART0_RX_ALERT = false;
@@ -296,9 +309,149 @@ uint16_t X_TOUCH,Y_TOUCH;
 		//amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
-		
+		//enableLeds(0xFF);
 		
 		// All under the assumption Pokemon health is 120 long
+
+		//n = rand() % 4; // Choose move for the enemy Pokemon
+		switch(n) 
+		{
+			// All under the assumption Pokemon health is 120 long
+			case 0:
+
+			effectMessage2 = '0';
+			if (enemyPokemon == 'c') {  // Flamethrower for Charizard
+				moveEnemy = '1';
+				if(allyPokemon == 'g') {
+					damageT = 55;
+				}
+				else {
+					damageT = 70;
+				}
+			}
+
+			else {  // Hydro Pump for Lapras
+				moveEnemy = '5';
+				r = rand() % 5;
+
+				if (r = 0) {
+					effectMessage2 = 'm'; // 20% chance to miss
+					damageT = 0;
+				}		
+
+				else if(allyPokemon == 'g') {
+					damageT = 75;
+				}
+
+				else {
+					damageT = 95;
+				}
+			}
+	
+			case 1:
+
+			if (enemyPokemon == 'c') {  // Earthquake for Charizard
+				moveEnemy = '2';
+				effectMessage2 = 's';
+
+				if(allyPokemon == 'g') {
+					damageT = 80;
+				}
+				else {
+					damageT = 110;
+				}
+			}
+
+			else {  // Ice Beam
+				moveEnemy = '6';
+				effectMessage2 = '0';	
+
+				if(allyPokemon == 'g') {
+					damageT = 55;
+				}
+
+				else {
+					damageT = 70;
+				}
+			}
+
+			break;
+
+
+			case 2:
+
+			if (enemyPokemon == 'c') {  // Fire Blast for Charizard
+				moveEnemy = '3';
+				effectMessage2 = '0';
+				r = rand() % 6;
+				if (r = 0) {
+					effectMessage2 = 'm'; // 15% chance to miss
+					damageT = 0;
+				}		
+
+				else if(allyPokemon == 'g') {
+					damageT = 80;
+				}
+
+				else {
+					damageT = 100;
+				}
+			}
+
+			else {  // Body Slam for Lapras
+				moveEnemy = '7';
+				if(allyPokemon == 'g') {
+					effectMessage2 = 'd'; // Does not affect Ghost types 
+					damageT = 0;
+				}
+
+				else {
+					effectMessage2 = '0';
+					damageT = 80;
+					// Figure out how to do self-damage
+				}
+			}
+			
+			break;
+
+
+			case 3:
+
+			if (enemyPokemon == 'c') {  // Shadow Clae for Charizard
+				moveEnemy = '4';
+				effectMessage2 = '0';
+
+				if(allyPokemon == 'g') {
+					effectMessage2 = 's';
+					damageT = 75;
+				}
+
+				else {
+					damageT = 50;
+				}
+			}
+
+			else {  // Sheer Cold for Lapras
+				moveEnemy = '8';
+				r = rand() % 3;
+				if (r != 2) {
+					effectMessage2 = 'm'; // 66% chance to miss
+					damageT = 0;
+				}		
+
+				else {
+				effectMessage2 = '1';  // 1-hit KO
+				damageT = 120;
+				}
+			}
+			
+			break;
+
+			default:
+
+		}
+
+		// Need to implement no options for the player
 		if (lastMove == 'h') {
 			// GENGAR IS RECHARGING
 			lastMove = '0';
@@ -309,7 +462,7 @@ uint16_t X_TOUCH,Y_TOUCH;
 			// I know how to do crits later if we want
 			case 's': // Shadow Ball for Gengar
 
-			//if (enemyPokemon = Charizard) do this much damage
+			effectMessage1 = '0'; // No special effect
 			if (enemyPokemon == 'c') {
 				damageD = 65;
 			}
@@ -324,6 +477,7 @@ uint16_t X_TOUCH,Y_TOUCH;
 			
 			case 'h': // Hyper Beam for Gengar
 
+			effectMessage1 = '0';
 			if (enemyPokemon == 'c') {
 				damageD = 85;
 			}
@@ -337,6 +491,7 @@ uint16_t X_TOUCH,Y_TOUCH;
 
 			case 'y': // Psychic for Gengar
 			
+			effectMessage1 = '0';
 			if(enemyPokemon == 'c') {
 				damageD = 55;
 			}
@@ -350,11 +505,13 @@ uint16_t X_TOUCH,Y_TOUCH;
 
 			case 'p': // Protect for Gengar
 
+			// Test this
 			if (lastMove == 'p') {
-				// BUT IT MISSED
+				effectMessage1 = 'm';
 				break;
 			}
 
+			effectMessage1 = "P";  //  Protect message 
 			damageT = 0;  // Negates damage taken
 			
 			break;
@@ -362,6 +519,7 @@ uint16_t X_TOUCH,Y_TOUCH;
 
 			case 't': // Thunderbolt for Ampharos
 
+			effectMessage1 = 's'; 
 			if (enemyPokemon == 'c') {
 				damageD = 100;
 			}
@@ -374,11 +532,14 @@ uint16_t X_TOUCH,Y_TOUCH;
 
 
 			case 'z': // Zap Cannon for Ampharos
-			// random a number 1-2
-			// if (1)
-			// BUT IT MISSED
-			// break;
-			if (enemyPokemon == 'c') {
+			
+			effectMessage1 = 's'; // Super effective
+			n = rand() % 2;
+			if (n == 0) {
+				effectMessage1 = 'm';  // Missed
+			}
+
+			else if (enemyPokemon == 'c') {
 				damageD = 120;
 			}
 				
@@ -386,9 +547,11 @@ uint16_t X_TOUCH,Y_TOUCH;
 				damageD = 80;
 			}
 
+			break;
 
 			case 'd': // Dragon Pulse for Ampharos
 
+			effectMessage1 = '0'; 
 			if (enemyPokemon == 'c') {
 				damageD = 40;
 			}
@@ -397,21 +560,28 @@ uint16_t X_TOUCH,Y_TOUCH;
 				damageD = 25;
 			}
 
+			break;
+
 			case 'g':  // Power Gem for Ampharos
 
+			effectMessage1 = 's'; 
 			if (enemyPokemon == 'c') {
-				damageD = 75;
+				damageD = 110;
 			}
 
 			else { 
+
 				damageD = 50;
 			}
+
+			break;
 
 			default:
 
 		}
-		
+
 		lastMove = moveAlly;
+
 
 		// Move this to a function for updating ally health eventually
 		//lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
