@@ -17,6 +17,103 @@ volatile uint16_t POKEMON_Y_ENEMY = 50;
 volatile uint16_t CURSE_X = 50;
 volatile uint16_t CURSE_Y = 60;
 
+typedef struct
+{
+    bool up;
+    bool down;
+    bool left;
+    bool right;
+} D_Pad;
+
+
+void debounce_wait(void) 
+{
+  int i = 10000;
+  // Delay
+  while(i > 0)
+  {
+    i--;
+  }
+}
+
+
+bool debounce_fsm(D_Pad* d_pad){
+	static DEBOUNCE_STATES state = DEBOUNCE_ONE;
+	uint8_t button_data;
+	bool pin_logic_level;
+	
+	
+	
+	button_data = io_expander_read_reg(MCP23017_GPIOB_R);
+	//printf("%i\n", button_data);
+	if(((0x0F) & button_data) > 0)	
+		pin_logic_level = true; // pressed
+	else
+		pin_logic_level = false; // a 0 non pressed
+	
+	
+	  switch (state)
+  {
+    case DEBOUNCE_ONE:
+    {
+			if(pin_logic_level){
+				state = DEBOUNCE_1ST_ZERO;
+				//printf("go to 1st\n");
+			}
+			else{
+				//printf("go reset\n");
+				state = DEBOUNCE_ONE;
+			}
+      break;
+    }
+    case DEBOUNCE_1ST_ZERO:
+    {
+      if(!pin_logic_level){
+				state = DEBOUNCE_ONE;
+				//printf("go reset\n");
+			}
+			else{
+				//printf("go 2nd\n");
+
+				state = DEBOUNCE_2ND_ZERO;
+			}	
+      break;
+    }
+    case DEBOUNCE_2ND_ZERO:
+    {
+      if(pin_logic_level){
+				state = DEBOUNCE_PRESSED;
+				//printf("go final\n");
+			}
+			else {
+				state = DEBOUNCE_ONE;
+				//printf("go reset\n");
+			}
+      break;
+    }
+    case DEBOUNCE_PRESSED:
+    {
+      state = DEBOUNCE_ONE;
+      break;
+    }
+    default:
+    {
+      while(1){};
+    }
+  }
+
+	if(state == DEBOUNCE_1ST_ZERO){
+		d_pad->up = button_data & 0x01;
+		d_pad->down = button_data & 0x02;
+		d_pad->left = button_data & 0x04;
+		d_pad->right = button_data & 0x08;
+		//printf("button data up: %i\n", d_pad->up);
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 
 //typedef struct {
@@ -150,7 +247,7 @@ void pokemon_battle_main(void){
 	bool paused = false;
 	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
-	uint8_t button_data;
+	
 	uint8_t eeprom_data;
 	int i = 0;
 	int j;
@@ -159,13 +256,13 @@ void pokemon_battle_main(void){
 	char moveAlly;
 	char lastMove;
 	char enemyPokemon = 'c';  // Initialize to Charizard
-
+	uint8_t button_data;
 	int damageD = 0;  // Damage Done
 	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
 	
-	char start[80] = "Fight\n";
-	
+	char start[80] = "TEST\n";
+	D_Pad* d_pad = malloc(sizeof(D_Pad));
 	
 	// TOUCH SCREEN CRAP
 uint8_t touch_event;
@@ -184,7 +281,7 @@ uint16_t X_TOUCH,Y_TOUCH;
 	//battle_start();
 
 	while(!game_over){
-			
+		debounce_wait();
 		enableLeds(0xFF);
 		// Touch sensor
 		/*
@@ -200,13 +297,35 @@ uint16_t X_TOUCH,Y_TOUCH;
 		*/
 		
 		// stupid button crap
-		
+		/*
+		// THIS WORKED GONNA TRY TO MAKE DEBOUNCE
 		if(BUTTON_ALERT){
 			button_data = 0;
 			BUTTON_ALERT = false;
 			 button_data = io_expander_read_reg(MCP23017_GPIOB_R);
 			printf("button data: %X\n", button_data);
 		}
+		*/
+		
+		if(BUTTON_ALERT){
+			BUTTON_ALERT = false;
+			debounce_fsm(d_pad);
+			
+		//	printf("button data down: %i\n", d_pad->down);
+		//	printf("button data left: %i\n", d_pad->left);
+		//	printf("button data right: %i\n", d_pad->right);
+		}
+		/*
+			d_pad->up = debounce_fsm(DIR_BTN_UP_PIN); 
+			d_pad->down = debounce_fsm(DIR_BTN_DOWN_PIN);
+			d_pad->left = debounce_fsm(DIR_BTN_LEFT_PIN);
+			d_pad->right = debounce_fsm(DIR_BTN_RIGHT_PIN);
+			printf("button data: %i\n", d_pad->up);
+		}
+		
+		*/
+		
+		
 		
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
@@ -295,8 +414,26 @@ uint16_t X_TOUCH,Y_TOUCH;
 		//lcd_draw_image(120, amphHealthWidthPixels, 160,
 		//amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
-		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
+		lcd_draw_string(start, 90,50, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 		
+		if(d_pad->up == true){
+			printf("up\n");
+			d_pad->up = false;
+		}
+		
+		if(d_pad->down == true){
+			printf("down\n");
+			d_pad->down = false;
+		}
+		
+		if(d_pad->left == true){
+			printf("left\n");
+			d_pad->left = false;
+		}
+		if(d_pad->right == true){
+			printf("right\n");
+			d_pad->right = false;
+		}
 		
 		// All under the assumption Pokemon health is 120 long
 		if (lastMove == 'h') {

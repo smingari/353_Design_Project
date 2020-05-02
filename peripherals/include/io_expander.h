@@ -53,7 +53,6 @@
 
 // Define the 7-bit Address of the MCP23017. 
 #define MCP23017_DEV_ID    		0x27
-
 #define MCP23017_IODIRA_R 	  0x00 
 #define MCP23017_IODIRB_R	    0x01 
 #define MCP23017_IPOLA_R 	    0x02 
