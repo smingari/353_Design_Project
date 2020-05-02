@@ -21,6 +21,10 @@ volatile uint16_t CURSE_Y = 60;
 uint8_t touch_event;
 uint16_t X_TOUCH,Y_TOUCH;
 
+// POKEMON HEALTH
+ALLY_POKEMON_HEALTH = 120;
+ENEMY_POKEMON_HEALTH = 120;
+
 
 //typedef struct {
 //	int health;
@@ -130,6 +134,37 @@ void battle_start(void) {
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN;
 
+	return;
+}
+
+char updateHealth(int damage, int recoil, char side) {
+	if(side == 'A') {
+		while(damage > 0) {
+			lcd_draw_rectangle(100 + ALLY_POKEMON_HEALTH, i, 280, 15, LCD_COLOR_WHITE);
+			ALLY_POKEMON_HEALTH--;
+			damage--;
+			for(j = 0; j < 100000; j++){
+			}
+			if (ALLY_POKEMON_HEALTH == 0) {
+				return 'f';
+			}
+		}
+	}
+
+	else{
+		while(damage > 0) {
+			lcd_draw_rectangle(100 + ENEMY_POKEMON_HEALTH, i, 280, 15, LCD_COLOR_WHITE);
+			ENEMY_POKEMON_HEALTH--;
+			damage--;
+			for(j = 0; j < 100000; j++){
+			}
+			if (ENEMY_POKEMON_HEALTH == 0) {
+				return 'f';
+			}
+		}		
+	}
+
+	return '0';
 }
 
 void printMoveMessage(char pokemon, char move, char effect) {
@@ -266,7 +301,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 		}
 
 	}
-
+	return;
 }
 
 void pokemon_battle_main(void){
@@ -290,6 +325,7 @@ void pokemon_battle_main(void){
 	char effectMessage2;
 	char allyPokemon =  'g';  // Initialize to Gengar
 	char enemyPokemon = 'c';  // Initialize to Charizard
+	char status = '0';
 
 	int damageD = 0;  // Damage Done
 	int damageT = 0;  // Damage Taken
@@ -692,18 +728,23 @@ void pokemon_battle_main(void){
 
 		// MAKE THESE FUNCTION
 		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
-		updateHealth(damageD, damageRecoil, 'A');  // A for "Ally" Pokemon
-		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
-		updateHealth(damageD, damageRecoil, 'E');  // E for "Enemy" Pokemon
+		status = updateHealth(damageD, damageRecoil, 'A');  // A for "Ally" Pokemon
 
-		// Move this to a function for updating ally health eventually
-		//lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
-		for(i = 0; i < damageT; i++) {
-			lcd_draw_rectangle(220 - i, i, 280, 15, LCD_COLOR_WHITE);
-			for(j = 0; j < 100000; j++){
-			// When this is eventually moved, remember to reset damageT and damageD to 0
-			}
+		if (status == 'f') {
+			faintPokemon(allyPokemon, 'A')
 		}
+
+		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
+		status = updateHealth(damageT, damageRecoil, 'E');  // E for "Enemy" Pokemon
+
+		if (status == 'f') {
+			faintPokemon(enemyPokemon, 'E')
+		}
+
+		damageD = 0;
+		damageT = 0;
+		damageRecoil = 0;
+
 	}
 	
 	
