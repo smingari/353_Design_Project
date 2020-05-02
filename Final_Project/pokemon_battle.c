@@ -138,22 +138,9 @@ void battle_start(void) {
 }
 
 char updateHealth(int damage, int recoil, char side) {
-	if(side == 'A') {
+	if(side == 'E') {
 		while(damage > 0) {
-			lcd_draw_rectangle(100 + ALLY_POKEMON_HEALTH, i, 280, 15, LCD_COLOR_WHITE);
-			ALLY_POKEMON_HEALTH--;
-			damage--;
-			for(j = 0; j < 100000; j++){
-			}
-			if (ALLY_POKEMON_HEALTH == 0) {
-				return 'f';
-			}
-		}
-	}
-
-	else{
-		while(damage > 0) {
-			lcd_draw_rectangle(100 + ENEMY_POKEMON_HEALTH, i, 280, 15, LCD_COLOR_WHITE);
+			lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
 			ENEMY_POKEMON_HEALTH--;
 			damage--;
 			for(j = 0; j < 100000; j++){
@@ -161,9 +148,32 @@ char updateHealth(int damage, int recoil, char side) {
 			if (ENEMY_POKEMON_HEALTH == 0) {
 				return 'f';
 			}
-		}		
+		}
 	}
 
+	else{
+		while(damage > 0) {
+			lcd_draw_rectangle(100 + ALLY_POKEMON_HEALTH, 120 - ALLY_POKEMON_HEALTH, 225, 15, LCD_COLOR_WHITE);
+			ALLY_POKEMON_HEALTH--;
+			damage--;
+			if(recoil > 0) {
+				lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
+				ENEMY_POKEMON_HEALTH--;
+				recoil--;
+			}
+
+			for(j = 0; j < 100000; j++){
+			}
+
+			if (ALLY_POKEMON_HEALTH == 0) {
+				return 'f';
+			}
+
+			if(ENEMY_POKEMON_HEALTH == 0) {
+				return 'g';
+			}
+		}	
+	}
 	return '0';
 }
 
@@ -261,7 +271,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			break;
 
 			default: 
-
+		
 		}
 
 		for (i = 0; i < 5000000; i++) {
@@ -304,6 +314,10 @@ void printMoveMessage(char pokemon, char move, char effect) {
 	return;
 }
 
+void faintPokemon(char pokemon) {
+	switch (pokemon)
+}
+
 void pokemon_battle_main(void){
 	bool game_over = false;
 	bool paused = false;
@@ -315,6 +329,8 @@ void pokemon_battle_main(void){
 	int j;
 	int n = 9; // Temporary value so that nothing happens
 	int r;
+	int allyFaints = 0;
+	int enemyFaints = 0;
 	int damageRecoil = 0;
 	char input_char;
 	char input[80];
@@ -651,7 +667,7 @@ void pokemon_battle_main(void){
 
 			else {
 				effectMessage1 = '0';
-				effectMessage2 = "p";  //  Protect message 
+				effectMessage2 = 'p';  //  Protect message 
 				damageT = 0;  // Negates damage taken
 			}
 			
@@ -726,19 +742,36 @@ void pokemon_battle_main(void){
 			damageRecoil = 10;
 		}
 
-		// MAKE THESE FUNCTION
+		
 		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
-		status = updateHealth(damageD, damageRecoil, 'A');  // A for "Ally" Pokemon
+		status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
 		if (status == 'f') {
-			faintPokemon(allyPokemon, 'A')
+			faintPokemon(allyPokemon)  // 'Enemy' Pokemon fainted 
+			enemyFaints += 1;
+			if (enemyFaints == 2) {
+				// WE WIN
+			}
 		}
 
 		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
-		status = updateHealth(damageT, damageRecoil, 'E');  // E for "Enemy" Pokemon
+		status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
 
 		if (status == 'f') {
-			faintPokemon(enemyPokemon, 'E')
+			faintPokemon(enemyPokemon, enemyFaints);  // Ally Pokemon fainted
+			allyFaints += 1;
+			if (allyFaints == 2) {  
+				// WE LOSE
+			}
+			
+		}
+
+		else if (status == 'g') {
+			faintPokemon(allyPokemon, allyFaints)  // 'Enemy' Pokemon fainted 
+			enemyFaints += 1;
+			if (enemyFaints == 2) {
+				// WE WIN
+			}
 		}
 
 		damageD = 0;
