@@ -131,22 +131,143 @@ void battle_start(void) {
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN;
 
 }
-	//lcd_draw_image(30, trainer1WidthPixels,160,
-	//trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
-		
-	//lcd_draw_image(90, trainer2WidthPixels,160,
-	//trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
 
-		//lcd_draw_image(150, trainer3WidthPixels,160,
-		//trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+void printMoveMessage(char pokemon, char move, char effect) {
+	if (effect == 'r') {
+		// Recharge message
+	}
 
-		//lcd_draw_image(210, trainer4WidthPixels,160,
-		//trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
+	else {
+		switch(pokemon) {
 
+		case 'g': 
+		// Print Gengar used
+		break;
 
+		case 'a':
+		// 'Ampharos used'
+		break;
 
+		case 'c':
+		// 'Charizard used'
+		break;
 
+		case 'l':
+		// 'Lapras used'
+		break;
 
+		default:
+
+	}
+
+		switch (move) {
+			case '1':
+			// Flamethrower
+			break;
+
+			case '2':
+			// Earthquake
+			break;
+
+			case '3':
+			// Fire Blast
+			break;
+
+			case '4':
+			// Shadow Claw
+			break;
+
+			case '5':
+			// Hydro Pump
+			break;
+
+			case '6':
+			// Ice Beam
+			break;
+
+			case '7':
+			// Body Slam
+			break;
+
+			case '8':
+			// Sheer Cold
+			break;
+
+			case 's':
+			// Shadow Ball
+			break;
+
+			case 'h':
+			// Hyper Beam
+			break;
+
+			case 'y':
+			// Psychic
+			break;
+
+			case 'p':
+			// Protect
+			break;
+
+			case 't':
+			// Thunderbolt
+			break;
+
+			case 'z':
+			// Zap Cannon
+			break;
+
+			case 'd':
+			// Dragon Pulse
+			break;
+
+			case 'g':
+			// Power Gem
+			break;
+
+			default: 
+
+		}
+
+		for (i = 0; i < 5000000; i++) {
+		} 
+
+		if (effect != '0') {
+
+			switch (effect) {
+			
+			case 'm':
+			// But it missed
+			break;
+
+			case 's':
+			// It was super effective
+			break;
+
+			case 'p':
+			// Gengar protected itself
+			break;
+
+			case 'n':
+			// It was not very effective
+			break;
+
+			case 'd':
+			// It does not affect Gengar
+			break; 
+
+			case 'r':
+			// It hurt itself with recoil
+			break;
+
+			default :
+
+			}
+		}
+
+	}
+
+}
 
 void pokemon_battle_main(void){
 	bool game_over = false;
@@ -159,6 +280,7 @@ void pokemon_battle_main(void){
 	int j;
 	int n = 9; // Temporary value so that nothing happens
 	int r;
+	int damageRecoil = 0;
 	char input_char;
 	char input[80];
 	char moveAlly;
@@ -278,19 +400,7 @@ void pokemon_battle_main(void){
 
 
 		//lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
-		//laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
-		
-		//lcd_draw_image(30, trainer1WidthPixels,160,
-		//trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
-		
-		//lcd_draw_image(90, trainer2WidthPixels,160,
-		//trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
-
-		//lcd_draw_image(150, trainer3WidthPixels,160,
-		//trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);
-
-		//lcd_draw_image(210, trainer4WidthPixels,160,
-		//trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);	
+		//laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);	
 
 		//lcd_draw_image(120, redWidthPixels,160,
 		//redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);	
@@ -302,15 +412,11 @@ void pokemon_battle_main(void){
 		//lcd_draw_image(180, ampharosWidthPixels,160,
 		//ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_WHITE,LCD_COLOR_YELLOW);
 
-		//lcd_draw_image(120, charHealthWidthPixels,160,
-		//charHealthHeightPixels,charHealthBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
-
-		//lcd_draw_image(120, amphHealthWidthPixels, 160,
-		//amphHealthHeightPixels,ampharosHealthBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
 		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
 		
+
 		// All under the assumption Pokemon health is 120 long
 
 		//n = rand() % 4; // Choose move for the enemy Pokemon
@@ -377,7 +483,6 @@ void pokemon_battle_main(void){
 
 			break;
 
-
 			case 2:
 
 			if (enemyPokemon == 'c') {  // Fire Blast for Charizard
@@ -406,9 +511,8 @@ void pokemon_battle_main(void){
 				}
 
 				else {
-					effectMessage2 = '0';
+					effectMessage2 = 'r';  // It hurt itself with recoil
 					damageT = 80;
-					// Figure out how to do self-damage
 				}
 			}
 			
@@ -417,17 +521,17 @@ void pokemon_battle_main(void){
 
 			case 3:
 
-			if (enemyPokemon == 'c') {  // Shadow Clae for Charizard
+			if (enemyPokemon == 'c') {  // Thunderpunch for Charizard
 				moveEnemy = '4';
 				effectMessage2 = '0';
 
 				if(allyPokemon == 'g') {
-					effectMessage2 = 's';
-					damageT = 75;
+					damageT = 50;
 				}
 
 				else {
-					damageT = 50;
+					effectMessage2 = 'n'; // Not very effective
+					damageT = 30;
 				}
 			}
 
@@ -451,9 +555,9 @@ void pokemon_battle_main(void){
 
 		}
 
-		// Need to implement no options for the player
+		// Need to implement no options for the player - actually I have a solution
 		if (lastMove == 'h') {
-			// GENGAR IS RECHARGING
+			effectMessage1 = 'r';
 			lastMove = '0';
 		} 
 		switch(moveAlly) 
@@ -505,14 +609,15 @@ void pokemon_battle_main(void){
 
 			case 'p': // Protect for Gengar
 
-			// Test this
 			if (lastMove == 'p') {
 				effectMessage1 = 'm';
-				break;
 			}
 
-			effectMessage1 = "P";  //  Protect message 
-			damageT = 0;  // Negates damage taken
+			else {
+				effectMessage1 = '0';
+				effectMessage2 = "p";  //  Protect message 
+				damageT = 0;  // Negates damage taken
+			}
 			
 			break;
 
@@ -581,7 +686,15 @@ void pokemon_battle_main(void){
 		}
 
 		lastMove = moveAlly;
+		if (moveEnemy == '7' && effectMessage2 != 'p') {
+			damageRecoil = 10;
+		}
 
+		// MAKE THESE FUNCTION
+		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
+		updateHealth(damageD, damageRecoil, 'A');  // A for "Ally" Pokemon
+		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
+		updateHealth(damageD, damageRecoil, 'E');  // E for "Enemy" Pokemon
 
 		// Move this to a function for updating ally health eventually
 		//lcd_draw_rectangle(100, ALLY_HEALTH_MAX, 280, 15, LCD_COLOR_GREEN2);
