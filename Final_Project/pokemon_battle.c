@@ -25,6 +25,37 @@ uint16_t X_TOUCH,Y_TOUCH;
 int ALLY_POKEMON_HEALTH = 120;
 int ENEMY_POKEMON_HEALTH = 120;
 
+char gengar_used[80] = "gengar used";
+char ampharos_used[80] = "ampharos used";
+char charizard_used[80] = "charizard used";
+char lapras_used[80] = "lapras used";
+
+char shadow_ball[80] = "Shadow Ball";
+char hyper_beam[80] = "Hyper Beam";
+char psychic[80] = "Psychic";
+char protect[80] = "Protect";
+	
+char thunderbolt[80] = "Thunderbolt";
+char zap[80] = "Zap Cannon";
+char dragon[80] = "Dragon Pulse";
+char gem[80] = "Power Gem";
+	
+char flame[80] = "Flamethrower";
+char quake[80] = "Earthquake";
+char blast[80] = "Fire Blast";
+char white_claw[80] = "Shadow Claw";
+
+char hydro[80] = "Hydro Pump";
+char ice_ice_baby[80] = "Ice Beam";
+char slam[80] = "Body Slam";
+char cold[80] = "Sheer Cold";
+
+char miss[80] = "But it missed";
+char super[80] = "It was super effective";
+char he_protect_he_attack_but_most_importantly_he_got_your_back[80] = "Gengar protected itself";
+char not_effective[80] = "It was not very effective";
+char no_effect[80] = "It does not affect Gengar";
+char recoil[80] = "It hurt itself with recoil";
 
 
 typedef struct
@@ -294,8 +325,12 @@ char updateHealth(int damage, int recoil, char side) {
 	return '0';
 }
 
-void printMoveMessage(char pokemon, char move, char effect) {
+void printMoveMessage(char pokemon, char move, char effect) {	
 	int i;
+	
+	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+	
+	
 	if (effect == 'r') {
 		// Recharge message
 	}
@@ -305,18 +340,22 @@ void printMoveMessage(char pokemon, char move, char effect) {
 
 		case 'g': 
 		// Print Gengar used
+			lcd_draw_string(gengar_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 		break;
 
 		case 'a':
 		// 'Ampharos used'
+			lcd_draw_string(ampharos_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 		break;
 
 		case 'c':
 		// 'Charizard used'
+			lcd_draw_string(charizard_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 		break;
 
 		case 'l':
 		// 'Lapras used'
+			lcd_draw_string(lapras_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 		break;
 
 		default:
@@ -326,66 +365,82 @@ void printMoveMessage(char pokemon, char move, char effect) {
 		switch (move) {
 			case '1':
 			// Flamethrower
+				lcd_draw_string(flame, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '2':
 			// Earthquake
+				lcd_draw_string(quake, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '3':
 			// Fire Blast
+				lcd_draw_string(blast, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '4':
 			// Shadow Claw
+				lcd_draw_string(white_claw, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '5':
 			// Hydro Pump
+				lcd_draw_string(hydro, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '6':
 			// Ice Beam
+				lcd_draw_string(ice_ice_baby, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '7':
 			// Body Slam
+				lcd_draw_string(slam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case '8':
 			// Sheer Cold
+				lcd_draw_string(cold, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 's':
 			// Shadow Ball
+				lcd_draw_string(shadow_ball, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'h':
 			// Hyper Beam
+				lcd_draw_string(hyper_beam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'y':
 			// Psychic
+				lcd_draw_string(psychic, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'p':
 			// Protect
+				lcd_draw_string(protect, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 't':
 			// Thunderbolt
+				lcd_draw_string(thunderbolt, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'z':
 			// Zap Cannon
+				lcd_draw_string(zap, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'd':
 			// Dragon Pulse
+				lcd_draw_string(dragon, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'g':
 			// Power Gem
+				lcd_draw_string(gem, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			default: 
@@ -401,26 +456,32 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			
 			case 'm':
 			// But it missed
+				lcd_draw_string(miss, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 's':
 			// It was super effective
+				lcd_draw_string(super, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'p':
 			// Gengar protected itself
+				lcd_draw_string(he_protect_he_attack_but_most_importantly_he_got_your_back, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'n':
 			// It was not very effective
+				lcd_draw_string(not_effective, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'd':
 			// It does not affect Gengar
+				lcd_draw_string(no_effect, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break; 
 
 			case 'r':
 			// It hurt itself with recoil
+				lcd_draw_string(recoil, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			default :
@@ -466,16 +527,6 @@ void pokemon_battle_main(void){
 	int damageD = 0;  // Damage Done
 	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
-	
-	char shadow_ball[80] = "Shadow Ball";
-	char hyper_beam[80] = "Hyper Beam";
-	char psychic[80] = "Psychic";
-	char protect[80] = "Protect";
-	
-	char thunderbolt[80] = "Thunderbolt";
-	char zap[80] = "Zap Cannon";
-  char dragon[80] = "Dragon Pulse";
-	char gem[80] = "Power Gem";
 
 	// TOUCH SCREEN CRAP
 	uint8_t touch_event;
@@ -845,7 +896,7 @@ void pokemon_battle_main(void){
 			// All under the assumption Pokemon health is 120 long
 			// I know how to do crits later if we want
 			case 's': // Shadow Ball for Gengar
-
+			printf("test\n");
 			effectMessage1 = '0'; // No special effect
 			if (enemyPokemon == 'c') {
 				damageD = 65;
@@ -972,7 +1023,7 @@ void pokemon_battle_main(void){
 		}
 
 		
-		//printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
+		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
 		//status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
 		if (status == 'f') {
