@@ -189,7 +189,7 @@ void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volati
 void battle_start(void) {
 	int move;
 	int i;
-	char start[80] = "Trainer Red  Wants\n";
+	char start[80] = "Trainer Red  Wants\n to Battle";
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
   bool battle = true;
 	
@@ -493,9 +493,79 @@ void printMoveMessage(char pokemon, char move, char effect) {
 	return;
 }
 
-//void faintPokemon(char pokemon) {
-	//switch (pokemon);
-//}
+void faintPokemon(char pokemon, int faints) {
+	int i;
+	int j;
+	switch (pokemon) {
+		
+		// If Gengar fainted
+		case 'g':
+		// Slowly draw white box over Pokemon for "faint" animation
+		for (i = 0; i < 100; i++) {
+			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
+			for (j = 0; j < 100000; j++) {}
+		}
+
+		// Wait - REPLACE WITH "Gengar has fainted".
+		for (j = 0; j < 3000000; j++){}
+
+		// "Go Ampharos!"
+		lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
+		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_WHITE, LCD_COLOR_YELLOW);
+
+		return;
+
+
+		// If Ampharos fainted
+		case 'a':
+
+		for (i = 0; i < 100; i++) {
+			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
+			for (j = 0; j < 100000; j++) {}
+		}
+
+		// Wait - REPLACE WITH "Ampharos has fainted".
+		for (j = 0; j < 3000000; j++){}
+
+		return;
+
+
+		// If Charizard fainted
+		case 'c':
+
+		for (i = 0; i < 100; i++) {
+			lcd_draw_rectangle(150, 85, 0, i, LCD_COLOR_WHITE); 
+			for (j = 0; j < 100000; j++) {}
+		}
+
+		// Wait - REPLACE WITH "Charizard has fainted".
+		for (j = 0; j < 3000000; j++){}
+
+		// "Go Lapras!"
+		lcd_draw_image(POKEMON_X_ENEMY, laprasWidthPixels, POKEMON_Y_ENEMY,
+		laprasHeightPixels,laprasBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLUE);
+
+		return;
+
+		case 'l':
+
+		for (i = 0; i < 100; i++) {
+			lcd_draw_rectangle(150, 85, 0, i, LCD_COLOR_WHITE); 
+			for (j = 0; j < 100000; j++) {}
+		}
+
+		// Wait - REPLACE WITH "Charizard has fainted".
+		for (j = 0; j < 3000000; j++){}
+
+
+		return;
+
+		default:
+		break;
+
+		return;
+	}
+}
 
 void pokemon_battle_main(void){
 	bool game_over = false;
@@ -1024,30 +1094,44 @@ void pokemon_battle_main(void){
 
 		
 		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
-		//status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
-		if (status == 'f') {
-			//faintPokemon(allyPokemon)  // 'Enemy' Pokemon fainted 
-			//enemyFaints += 1;
-			if (enemyFaints == 2) {
+		status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
+
+
+		if (status == 'f') 		{
+			status = '0';
+			faintPokemon(enemyPokemon, enemyFaints);  // 'Enemy' Pokemon fainted 
+			enemyFaints += 1;
+			if (enemyFaints == 1) {
+				enemyPokemon = 'l';
+
+			}
+
+			else {
 				// WE WIN
 			}
 		}
 
-		//printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
-		//status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
+		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
+		status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
 
 		if (status == 'f') {
-			//faintPokemon(enemyPokemon, enemyFaints);  // Ally Pokemon fainted
+			status = '0';
+			faintPokemon(allyPokemon, allyFaints);  // Ally Pokemon fainted
 			allyFaints += 1;
-			if (allyFaints == 2) {  
+			if (allyFaints == 1) {
+				allyPokemon = 'a';
+			}
+
+			else {
 				// WE LOSE
 			}
 			
 		}
 
 		else if (status == 'g') {
-			//faintPokemon(allyPokemon, allyFaints)  // 'Enemy' Pokemon fainted 
+			status = '0';
+			faintPokemon(allyPokemon, allyFaints);  // 'Enemy' Pokemon fainted 
 			enemyFaints += 1;
 			if (enemyFaints == 2) {
 				// WE WIN
@@ -1058,6 +1142,5 @@ void pokemon_battle_main(void){
 		damageT = 0;
 		damageRecoil = 0;
 	}
-	
-	
+		
 }
