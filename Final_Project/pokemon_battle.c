@@ -14,8 +14,8 @@ volatile uint16_t POKEMON_X_ALLY = 55;
 volatile uint16_t POKEMON_Y_ALLY = 220;
 volatile uint16_t POKEMON_X_ENEMY = 185;
 volatile uint16_t POKEMON_Y_ENEMY = 50;
-volatile uint16_t CURSE_X = 50;
-volatile uint16_t CURSE_Y = 60;
+volatile uint16_t CURSE_X = 10;
+volatile uint16_t CURSE_Y = 300;
 
 // TOUCH SCREEN CRAP
 uint8_t touch_event;
@@ -129,19 +129,23 @@ bool debounce_fsm(D_Pad* d_pad){
 void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volatile uint16_t *y_coord){
 	switch(direction){
 		case PS2_DIR_UP: // since top is 0 we need to subtract by 1
-			*y_coord -= 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*y_coord = 270;
 			break;
 			
 		case PS2_DIR_DOWN: // y increases as we move down so +1
-			*y_coord += 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*y_coord = 300;
 			break;
 			
 		case PS2_DIR_RIGHT: // X increases in the right direction so +1
-			*x_coord += 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*x_coord = 130;
 			break;
 			
 		case PS2_DIR_LEFT: // left corresponds to 0 so -1
-			*x_coord -= 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*x_coord = 10;
 			break;
 		
 		default: // Center and init don't require movement so don't touch x or y
@@ -225,6 +229,9 @@ void battle_start(void) {
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
 
+	// Draw Move box
+	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		
 	return;
 }
 
@@ -446,8 +453,8 @@ void pokemon_battle_main(void){
 	
 
 	// TOUCH SCREEN CRAP
-//uint8_t touch_event;
-//uint16_t X_TOUCH,Y_TOUCH;
+uint8_t touch_event;
+uint16_t X_TOUCH,Y_TOUCH;
 
 
 	// EEPROM TESTING
@@ -467,7 +474,7 @@ void pokemon_battle_main(void){
 		enableLeds(0xFF);
 
 		// Touch sensor
-		/*
+		
 		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
 		if(touch_event > 0){
 			X_TOUCH = ft6x06_read_x();
@@ -477,8 +484,6 @@ void pokemon_battle_main(void){
 		}
     
     gp_timer_wait(TIMER0_BASE, 5000000);
-		*/
-		
 		
 		
 		// stupid button crap
@@ -559,8 +564,7 @@ void pokemon_battle_main(void){
 		}
 		
 		
-		// BOX 3/4 screen bottom left	
-		//lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+	
 
 
 		//lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
