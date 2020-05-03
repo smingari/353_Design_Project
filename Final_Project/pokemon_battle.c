@@ -14,8 +14,8 @@ volatile uint16_t POKEMON_X_ALLY = 55;
 volatile uint16_t POKEMON_Y_ALLY = 220;
 volatile uint16_t POKEMON_X_ENEMY = 185;
 volatile uint16_t POKEMON_Y_ENEMY = 50;
-volatile uint16_t CURSE_X = 50;
-volatile uint16_t CURSE_Y = 60;
+volatile uint16_t CURSE_X = 10;
+volatile uint16_t CURSE_Y = 270;
 
 // TOUCH SCREEN CRAP
 uint8_t touch_event;
@@ -24,8 +24,6 @@ uint16_t X_TOUCH,Y_TOUCH;
 // POKEMON HEALTH
 int ALLY_POKEMON_HEALTH = 120;
 int ENEMY_POKEMON_HEALTH = 120;
-
-
 
 
 
@@ -57,7 +55,7 @@ bool debounce_fsm(D_Pad* d_pad){
 	
 	
 	button_data = io_expander_read_reg(MCP23017_GPIOB_R);
-	printf("%i\n", button_data);
+	//printf("%i\n", button_data);
 	if(((0x0F) & button_data) > 0)	
 		pin_logic_level = true; // pressed
 	else
@@ -128,31 +126,26 @@ bool debounce_fsm(D_Pad* d_pad){
 }
 
 
-//typedef struct {
-//	int health;
-//	int level;
-  //      int moves [][];
-//	int height;
-//	int width;
-//} Pokemon;
-
-
 void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volatile uint16_t *y_coord){
 	switch(direction){
 		case PS2_DIR_UP: // since top is 0 we need to subtract by 1
-			*y_coord -= 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*y_coord = 270;
 			break;
 			
 		case PS2_DIR_DOWN: // y increases as we move down so +1
-			*y_coord += 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*y_coord = 300;
 			break;
 			
 		case PS2_DIR_RIGHT: // X increases in the right direction so +1
-			*x_coord += 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*x_coord = 130;
 			break;
 			
 		case PS2_DIR_LEFT: // left corresponds to 0 so -1
-			*x_coord -= 1;
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+			*x_coord = 10;
 			break;
 		
 		default: // Center and init don't require movement so don't touch x or y
@@ -165,7 +158,10 @@ void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volati
 void battle_start(void) {
 	int move;
 	int i;
-
+	char start[80] = "Trainer Red  Wants\n";
+	D_Pad* d_pad = malloc(sizeof(D_Pad));
+  bool battle = true;
+	
 	//Draw the player's trainer in its original position
 	lcd_draw_image(70, trainer1WidthPixels, 228,
 		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
@@ -175,8 +171,19 @@ void battle_start(void) {
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 
 	// "Trainer Red Wants to battle"
+	
 	// Wait for button input
-
+	lcd_draw_string(start, 70,150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	while(battle){
+		if(BUTTON_ALERT){
+				BUTTON_ALERT = false;
+				debounce_fsm(d_pad);
+			}
+		if(d_pad->down || d_pad->left || d_pad->right || d_pad->up){
+				battle = false;
+				lcd_draw_rectangle(0, 240, 100, 100, LCD_COLOR_WHITE);
+		}
+	}
 	// Move the trainers across the screen
 	for(move = 0; move < 35; move++) {
 		if (move > 28) {
@@ -236,10 +243,18 @@ void battle_start(void) {
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
 
+	// Draw Move box
+	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+	
+	// Pokemon # display with LEDs
+	enableLeds(0xC3); //2 v 2
+		
 	return;
 }
 
 char updateHealth(int damage, int recoil, char side) {
+	int j;
+	
 	if(side == 'E') {
 		while(damage > 0) {
 			lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
@@ -417,9 +432,9 @@ void printMoveMessage(char pokemon, char move, char effect) {
 	return;
 }
 
-void faintPokemon(char pokemon) {
-	switch (pokemon)
-}
+//void faintPokemon(char pokemon) {
+	//switch (pokemon);
+//}
 
 void pokemon_battle_main(void){
 	bool game_over = false;
@@ -437,7 +452,6 @@ void pokemon_battle_main(void){
 	int enemyFaints = 0;
 	int damageRecoil = 0;
 	char input_char;
-	char input[80];
 	char moveAlly;
 	char moveEnemy;
 	char lastMove;
@@ -451,12 +465,19 @@ void pokemon_battle_main(void){
 	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
 	
-	char start[80] = "Fight\n";
+	char shadow_ball[80] = "Shadow Ball";
+	char hyper_beam[80] = "Hyper Beam";
+	char psychic[80] = "Psychic";
+	char protect[80] = "Protect";
 	
+	char thunderbolt[80] = "Thunderbolt";
+	char zap[80] = "Zap Cannon";
+  char dragon[80] = "Dragon Pulse";
+	char gem[80] = "Power Gem";
 
 	// TOUCH SCREEN CRAP
-//uint8_t touch_event;
-//uint16_t X_TOUCH,Y_TOUCH;
+	uint8_t touch_event;
+	uint16_t X_TOUCH,Y_TOUCH;
 
 
 	// EEPROM TESTING
@@ -472,11 +493,13 @@ void pokemon_battle_main(void){
 	battle_start();
 
 	while(!game_over){
+		
+		
+		
 		debounce_wait();
-		enableLeds(0xFF);
 
 		// Touch sensor
-		/*
+		
 		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
 		if(touch_event > 0){
 			X_TOUCH = ft6x06_read_x();
@@ -486,19 +509,14 @@ void pokemon_battle_main(void){
 		}
     
     gp_timer_wait(TIMER0_BASE, 5000000);
-		*/
-		
 		
 		
 		// stupid button crap
-		/*
 		if(BUTTON_ALERT){
-			button_data = 0;
 			BUTTON_ALERT = false;
-			 button_data = io_expander_read_reg(MCP23017_GPIOB_R);
-			printf("button data: %X\n", button_data);
+			debounce_fsm(d_pad);
 		}
-		*/
+		
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
 			UART0_RX_ALERT = false;
@@ -571,8 +589,7 @@ void pokemon_battle_main(void){
 		}
 		
 		
-		// BOX 3/4 screen bottom left	
-		//lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+	
 
 
 		//lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
@@ -594,8 +611,28 @@ void pokemon_battle_main(void){
 		
 
 		// All under the assumption Pokemon health is 120 long
+		
+		
+		
+		// Clean all text
+		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		
+		
+		if (allyPokemon == 'g') {
+			lcd_draw_string(shadow_ball, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(hyper_beam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(psychic, 145,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(protect, 145,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);	
+    }
 
-		//n = rand() % 4; // Choose move for the enemy Pokemon
+    else {
+			lcd_draw_string(thunderbolt, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(zap, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(dragon, 145,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(gem, 145,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+    } 
+
+		n = rand() % 4; // Choose move for the enemy Pokemon
 		switch(n) 
 		{
 			// All under the assumption Pokemon health is 120 long
@@ -737,6 +774,47 @@ void pokemon_battle_main(void){
 			effectMessage1 = 'r';
 			lastMove = '0';
 		} 
+
+		// Await user input
+        while(d_pad->left != true){
+            printf("Select a move\n");
+        }
+        d_pad->left = false;
+
+        
+        // Player selects the move on the Pokemon
+        if (allyPokemon == 'g' && CURSE_X == 10 && CURSE_Y == 270) {
+            allyMove = 's';  // Shadow Ball for Gengar
+        }
+
+        if (allyPokemon == 'g' && CURSE_X == 10 && CURSE_Y == 300) {
+            allyMove = 'h';  // Hyper Beam for Gengar
+        }
+
+        if (allyPokemon == 'g' && CURSE_X == 130 && CURSE_Y == 270) {
+            allyMove = 'y';  // Psychic for Gengar
+        }
+
+        if (allyPokemon == 'g' && CURSE_X == 130 && CURSE_Y == 300) {
+            allyMove = 'p';  // Protect for Gengar
+        }
+
+        if (allyPokemon == 'a' && CURSE_X == 10 && CURSE_Y == 270) {
+            allyMove = 't';  // Thunderbolt for Ampharos
+        }
+
+        if (allyPokemon == 'a' && CURSE_X == 10 && CURSE_Y == 300) {
+            allyMove = 'z';  // Zap Cannon for Ampharos
+        }
+
+        if (allyPokemon == 'a' && CURSE_X == 130 && CURSE_Y == 270) {
+            allyMove = 'd';  // Dragon Pulse for Ampharos
+        }
+
+        if (allyPokemon == 'a' && CURSE_X == 130 && CURSE_Y == 300) {
+            allyMove = 'g';  // Power Gem for Ampharos
+        }
+		
 		switch(moveAlly) 
 		{
 			// All under the assumption Pokemon health is 120 long
@@ -869,22 +947,22 @@ void pokemon_battle_main(void){
 		}
 
 		
-		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
-		status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
+		//printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
+		//status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
 		if (status == 'f') {
-			faintPokemon(allyPokemon)  // 'Enemy' Pokemon fainted 
-			enemyFaints += 1;
+			//faintPokemon(allyPokemon)  // 'Enemy' Pokemon fainted 
+			//enemyFaints += 1;
 			if (enemyFaints == 2) {
 				// WE WIN
 			}
 		}
 
-		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
-		status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
+		//printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
+		//status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
 
 		if (status == 'f') {
-			faintPokemon(enemyPokemon, enemyFaints);  // Ally Pokemon fainted
+			//faintPokemon(enemyPokemon, enemyFaints);  // Ally Pokemon fainted
 			allyFaints += 1;
 			if (allyFaints == 2) {  
 				// WE LOSE
@@ -893,7 +971,7 @@ void pokemon_battle_main(void){
 		}
 
 		else if (status == 'g') {
-			faintPokemon(allyPokemon, allyFaints)  // 'Enemy' Pokemon fainted 
+			//faintPokemon(allyPokemon, allyFaints)  // 'Enemy' Pokemon fainted 
 			enemyFaints += 1;
 			if (enemyFaints == 2) {
 				// WE WIN
@@ -903,7 +981,6 @@ void pokemon_battle_main(void){
 		damageD = 0;
 		damageT = 0;
 		damageRecoil = 0;
-
 	}
 	
 	
