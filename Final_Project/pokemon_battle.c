@@ -27,8 +27,6 @@ int ENEMY_POKEMON_HEALTH = 120;
 
 
 
-
-
 typedef struct
 {
     bool up;
@@ -57,7 +55,7 @@ bool debounce_fsm(D_Pad* d_pad){
 	
 	
 	button_data = io_expander_read_reg(MCP23017_GPIOB_R);
-	printf("%i\n", button_data);
+	//printf("%i\n", button_data);
 	if(((0x0F) & button_data) > 0)	
 		pin_logic_level = true; // pressed
 	else
@@ -126,15 +124,6 @@ bool debounce_fsm(D_Pad* d_pad){
 		return false;
 	}
 }
-
-
-//typedef struct {
-//	int health;
-//	int level;
-  //      int moves [][];
-//	int height;
-//	int width;
-//} Pokemon;
 
 
 void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volatile uint16_t *y_coord){
@@ -240,6 +229,8 @@ void battle_start(void) {
 }
 
 char updateHealth(int damage, int recoil, char side) {
+	int j;
+	
 	if(side == 'E') {
 		while(damage > 0) {
 			lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
@@ -417,9 +408,9 @@ void printMoveMessage(char pokemon, char move, char effect) {
 	return;
 }
 
-void faintPokemon(char pokemon) {
-	switch (pokemon)
-}
+//void faintPokemon(char pokemon) {
+	//switch (pokemon);
+//}
 
 void pokemon_battle_main(void){
 	bool game_over = false;
@@ -491,14 +482,11 @@ void pokemon_battle_main(void){
 		
 		
 		// stupid button crap
-		/*
 		if(BUTTON_ALERT){
-			button_data = 0;
 			BUTTON_ALERT = false;
-			 button_data = io_expander_read_reg(MCP23017_GPIOB_R);
-			printf("button data: %X\n", button_data);
+			debounce_fsm(d_pad);
 		}
-		*/
+		
 		// Interrupt alert for user input
 		if(UART0_RX_ALERT){
 			UART0_RX_ALERT = false;
@@ -869,22 +857,22 @@ void pokemon_battle_main(void){
 		}
 
 		
-		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
-		status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
+		//printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
+		//status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
 		if (status == 'f') {
-			faintPokemon(allyPokemon)  // 'Enemy' Pokemon fainted 
-			enemyFaints += 1;
+			//faintPokemon(allyPokemon)  // 'Enemy' Pokemon fainted 
+			//enemyFaints += 1;
 			if (enemyFaints == 2) {
 				// WE WIN
 			}
 		}
 
-		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
-		status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
+		//printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
+		//status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
 
 		if (status == 'f') {
-			faintPokemon(enemyPokemon, enemyFaints);  // Ally Pokemon fainted
+			//faintPokemon(enemyPokemon, enemyFaints);  // Ally Pokemon fainted
 			allyFaints += 1;
 			if (allyFaints == 2) {  
 				// WE LOSE
@@ -893,7 +881,7 @@ void pokemon_battle_main(void){
 		}
 
 		else if (status == 'g') {
-			faintPokemon(allyPokemon, allyFaints)  // 'Enemy' Pokemon fainted 
+			//faintPokemon(allyPokemon, allyFaints)  // 'Enemy' Pokemon fainted 
 			enemyFaints += 1;
 			if (enemyFaints == 2) {
 				// WE WIN
@@ -903,7 +891,6 @@ void pokemon_battle_main(void){
 		damageD = 0;
 		damageT = 0;
 		damageRecoil = 0;
-
 	}
 	
 	
