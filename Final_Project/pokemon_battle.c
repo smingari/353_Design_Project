@@ -101,7 +101,7 @@ void check_pause(){
 			
 			// Check to see if ' ' has been entered for a pause of game
 			if(input_char == ' '){
-				printf("PAUSED!"); // Print out pause message and enter pause mode
+				printf("PAUSED!\n"); // Print out pause message and enter pause mode
 				paused = true;
 				
 				while(paused){  // game is paused
@@ -114,7 +114,7 @@ void check_pause(){
 						// check to se if input is vaild to reusme game
 						if(input_char == ' '){ 
 							paused = false;
-							printf("RESUME!");
+							printf("RESUME!\n");
 						}
 					}
 				}
@@ -152,8 +152,6 @@ void blinky_boi(){
 			
 		}
 	}
-
-
 
 void debounce_wait(void) 
 {
@@ -678,9 +676,6 @@ void faintPokemon(char pokemon, int faints) {
 
 void pokemon_battle_main(void){
 	bool game_over = false;
-	
-	
-	
 	uint8_t* button_data;
 	uint8_t eeprom_data;
 	uint8_t pokemon_display = 0xC3;
@@ -709,15 +704,9 @@ void pokemon_battle_main(void){
 
 
 	// EEPROM TESTING
-		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
-		printf("EEPROM TESTING1: %i\n", eeprom_data);
-		//*eeprom_data += 1; 
-		eeprom_byte_write(I2C1_BASE, ADDR_START, 0x05);
-		eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
-		printf("EEPROM TESTING2: %i\n", eeprom_data);
-			//MCP23017_GPIOB_R
-	
-	
+	eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
+	printf("Trainer Gold Win's: %i\n", eeprom_data);
+		
 	battle_start();
 	
 	while(!game_over){
@@ -1128,10 +1117,12 @@ void pokemon_battle_main(void){
 				for(i = 0; i < 1000000; i++){}
 				lcd_clear_screen(LCD_COLOR_BLACK);
 				lcd_draw_string(win, 35,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-					lcd_draw_string(red_talk, 60,180, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+				lcd_draw_string(red_talk, 60,180, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 				game_over = true;
-					
-				// update Eeprom Score
+				
+			  // update Eeprom Score
+				eeprom_data += 1;
+				eeprom_byte_write(I2C1_BASE, ADDR_START, eeprom_data);
 			}
 		}
 
@@ -1171,7 +1162,9 @@ void pokemon_battle_main(void){
 					printf("...\n");
 					game_over = true;
 					
-				// update Eeprom Score
+					// update Eeprom Score
+					eeprom_data += 1;
+					eeprom_byte_write(I2C1_BASE, ADDR_START, eeprom_data);
 				}
 			}
 		}
