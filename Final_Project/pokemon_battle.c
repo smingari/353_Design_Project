@@ -455,6 +455,8 @@ void pokemon_battle_main(void){
 	char moveAlly;
 	char moveEnemy;
 	char lastMove;
+	bool move_select;
+	int position;
 	char effectMessage1;
 	char effectMessage2;
 	char allyPokemon =  'g';  // Initialize to Gengar
@@ -774,47 +776,70 @@ void pokemon_battle_main(void){
 			effectMessage1 = 'r';
 			lastMove = '0';
 		} 
-
+		
+		
+			move_select = true;
 		// Await user input
-        while(d_pad->left != true){
-            printf("Select a move\n");
+			while(move_select){
+				if(BUTTON_ALERT){
+					BUTTON_ALERT = false;
+					debounce_fsm(d_pad);
+				}
+		
+				if(CURSE_X == 10 && CURSE_Y == 270) {
+            position = 1;
         }
-        d_pad->left = false;
-
-        
+         if (CURSE_X == 10 && CURSE_Y == 300) {
+            position = 2;
+        }
+         if (CURSE_X == 130 && CURSE_Y == 270) {
+            position = 3;
+        }
+         if (CURSE_X == 130 && CURSE_Y == 300) {
+            position = 4;
+        }
+				if(d_pad->left){
+					printf("select\n");
+					move_select = false;
+				}
+			}
+		
+		
         // Player selects the move on the Pokemon
-        if (allyPokemon == 'g' && CURSE_X == 10 && CURSE_Y == 270) {
-            allyMove = 's';  // Shadow Ball for Gengar
+        if (allyPokemon == 'g' && position== 1) {
+            moveAlly = 's';  // Shadow Ball for Gengar
+						printf("shadow\n");
         }
 
         if (allyPokemon == 'g' && CURSE_X == 10 && CURSE_Y == 300) {
-            allyMove = 'h';  // Hyper Beam for Gengar
+            moveAlly = 'h';  // Hyper Beam for Gengar
         }
 
         if (allyPokemon == 'g' && CURSE_X == 130 && CURSE_Y == 270) {
-            allyMove = 'y';  // Psychic for Gengar
+            moveAlly = 'y';  // Psychic for Gengar
         }
 
         if (allyPokemon == 'g' && CURSE_X == 130 && CURSE_Y == 300) {
-            allyMove = 'p';  // Protect for Gengar
+            moveAlly = 'p';  // Protect for Gengar
         }
 
         if (allyPokemon == 'a' && CURSE_X == 10 && CURSE_Y == 270) {
-            allyMove = 't';  // Thunderbolt for Ampharos
+            moveAlly = 't';  // Thunderbolt for Ampharos
         }
 
         if (allyPokemon == 'a' && CURSE_X == 10 && CURSE_Y == 300) {
-            allyMove = 'z';  // Zap Cannon for Ampharos
+            moveAlly = 'z';  // Zap Cannon for Ampharos
         }
 
         if (allyPokemon == 'a' && CURSE_X == 130 && CURSE_Y == 270) {
-            allyMove = 'd';  // Dragon Pulse for Ampharos
+            moveAlly = 'd';  // Dragon Pulse for Ampharos
         }
 
         if (allyPokemon == 'a' && CURSE_X == 130 && CURSE_Y == 300) {
-            allyMove = 'g';  // Power Gem for Ampharos
+            moveAlly = 'g';  // Power Gem for Ampharos
         }
-		
+			
+	
 		switch(moveAlly) 
 		{
 			// All under the assumption Pokemon health is 120 long

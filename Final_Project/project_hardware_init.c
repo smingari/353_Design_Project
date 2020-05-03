@@ -29,9 +29,6 @@ void initialize_hardware(void){
 	init_serial_debug(true, true);
 	eeprom_init();
 	ft6x06_init();
-	
-	
-
 	uart_init(UART0_BASE, true, true);
 
 	// initialize peripherals 
