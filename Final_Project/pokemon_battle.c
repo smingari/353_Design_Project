@@ -553,7 +553,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 		} 
 
 		if (effect != '0') {
-
+			lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 			switch (effect) {
 			
 			case 'm':
@@ -590,6 +590,8 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			default :
 			break;
 			}
+			for (i = 0; i < 5000000; i++) {}
+			
 		}
 	}
 	return;
@@ -814,7 +816,7 @@ void pokemon_battle_main(void){
 				effectMessage2 = '0';	
 
 				if(allyPokemon == 'g') {
-					damageT = 55;
+					damageT = 0;
 				}
 
 				else {
@@ -967,12 +969,12 @@ void pokemon_battle_main(void){
 			printf("test\n");
 			effectMessage1 = '0'; // No special effect
 			if (enemyPokemon == 'c') {
-				damageD = 65;
+				damageD = 120;
 			}
 
 			// Lapras damage
 			else {
-				damageD = 40;
+				damageD = 0;
 			}
 
 			break;
@@ -1121,6 +1123,7 @@ void pokemon_battle_main(void){
 				lcd_clear_screen(LCD_COLOR_BLACK);
 				lcd_draw_string(win, 35,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 				lcd_draw_string(red_talk, 60,180, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+				printf("...\n");
 				game_over = true;
 				
 			  // update Eeprom Score
@@ -1147,7 +1150,6 @@ void pokemon_battle_main(void){
 					pokemon_display &= 0xC0;
 					lcd_clear_screen(LCD_COLOR_BLACK);
 					lcd_draw_string(lose, 30,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-					lcd_draw_string(lose2, 30,170, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 					game_over = true;	
 				}
 			}
