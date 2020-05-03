@@ -501,7 +501,7 @@ void faintPokemon(char pokemon, int faints) {
 		// If Gengar fainted
 		case 'g':
 		// Slowly draw white box over Pokemon for "faint" animation
-		for (i = 0; i < 100; i++) {
+		for (i = 0; i < 80; i++) {
 			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
 			for (j = 0; j < 100000; j++) {}
 		}
@@ -511,15 +511,18 @@ void faintPokemon(char pokemon, int faints) {
 
 		// "Go Ampharos!"
 		lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
-		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_WHITE, LCD_COLOR_YELLOW);
+		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_YELLOW, LCD_COLOR_WHITE);
 
+		// Reset the Health Bar
+		lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
+		ALLY_POKEMON_HEALTH = 120;
 		return;
 
 
 		// If Ampharos fainted
 		case 'a':
 
-		for (i = 0; i < 100; i++) {
+		for (i = 0; i < 80; i++) {
 			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
 			for (j = 0; j < 100000; j++) {}
 		}
@@ -544,6 +547,11 @@ void faintPokemon(char pokemon, int faints) {
 		// "Go Lapras!"
 		lcd_draw_image(POKEMON_X_ENEMY, laprasWidthPixels, POKEMON_Y_ENEMY,
 		laprasHeightPixels,laprasBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLUE);
+
+		// Reset Health Bar
+		lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
+		ENEMY_POKEMON_HEALTH = 120;
+
 
 		return;
 
@@ -711,27 +719,7 @@ void pokemon_battle_main(void){
 			d_pad->right = false;
 		}
 		
-		
-	
-
-
-		//lcd_draw_image(POKEMON_X_ALLY, laprasWidthPixels,POKEMON_Y_ALLY,
-		//laprasHeightPixels,laprasBitmaps,LCD_COLOR_BLACK,LCD_COLOR_BLUE);	
-
-		//lcd_draw_image(120, redWidthPixels,160,
-		//redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);	
-
-		//lcd_draw_image(60, gengarWidthPixels,160,
-		//gengarHeightPixels,gengarBitmaps,LCD_COLOR_WHITE,LCD_COLOR_BLACK);	
-
-		// AMPHAROS WHAT IS WRONG WITH YOU
-		//lcd_draw_image(180, ampharosWidthPixels,160,
-		//ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_WHITE,LCD_COLOR_YELLOW);
-
-
-		//lcd_draw_string(start, 50,50, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		//enableLeds(0xFF);
-		
 
 		// All under the assumption Pokemon health is 120 long
 		
@@ -1099,7 +1087,7 @@ void pokemon_battle_main(void){
 
 
 		if (status == 'f') 		{
-			status = '0';
+			status = 'n';
 			faintPokemon(enemyPokemon, enemyFaints);  // 'Enemy' Pokemon fainted 
 			enemyFaints += 1;
 			if (enemyFaints == 1) {
@@ -1112,29 +1100,30 @@ void pokemon_battle_main(void){
 			}
 		}
 
-		printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
-		status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
+		if (status != 'n') {
+			printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
+			status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
+			if (status == 'f') {
+				status = '0';
+				faintPokemon(allyPokemon, allyFaints);  // Ally Pokemon fainted
+				allyFaints += 1;
+				if (allyFaints == 1) {
+					allyPokemon = 'a';
+				}
 
-		if (status == 'f') {
-			status = '0';
-			faintPokemon(allyPokemon, allyFaints);  // Ally Pokemon fainted
-			allyFaints += 1;
-			if (allyFaints == 1) {
-				allyPokemon = 'a';
-			}
-
-			else {
+				else {
 				// WE LOSE
-			}
+				}
 			
-		}
+			}
 
-		else if (status == 'g') {
-			status = '0';
-			faintPokemon(allyPokemon, allyFaints);  // 'Enemy' Pokemon fainted 
-			enemyFaints += 1;
-			if (enemyFaints == 2) {
-				// WE WIN
+			else if (status == 'g') {
+				status = '0';
+				faintPokemon(allyPokemon, allyFaints);  // 'Enemy' Pokemon fainted 
+				enemyFaints += 1;
+				if (enemyFaints == 2) {
+					// WE WIN
+				}
 			}
 		}
 
