@@ -41,7 +41,7 @@ bool io_expander_init()
 	i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_WRITE);//set slave addr to be address of MCP23017_DEV_ID(0x27)
 	 
 	//FOR LEDS
-	//io_expander_write_reg(MCP23017_IOCONA_R, 0);
+	io_expander_write_reg(MCP23017_IOCONA_R, 0);
 	io_expander_write_reg(MCP23017_IODIRA_R, 0);
 	
 	//pipe pushbuttons to sw2
@@ -109,7 +109,7 @@ void disableLeds(void) {
 
 
 void enableLeds(uint8_t leds) {
-	io_expander_write_reg(MCP23017_GPIOA_R,0xFF);
+	io_expander_write_reg(MCP23017_GPIOA_R, leds);
 }
 /*
 

@@ -15,7 +15,7 @@ volatile uint16_t POKEMON_Y_ALLY = 220;
 volatile uint16_t POKEMON_X_ENEMY = 185;
 volatile uint16_t POKEMON_Y_ENEMY = 50;
 volatile uint16_t CURSE_X = 10;
-volatile uint16_t CURSE_Y = 300;
+volatile uint16_t CURSE_Y = 270;
 
 // TOUCH SCREEN CRAP
 uint8_t touch_event;
@@ -158,7 +158,10 @@ void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volati
 void battle_start(void) {
 	int move;
 	int i;
-
+	char start[80] = "Trainer Red  Wants\n";
+	D_Pad* d_pad = malloc(sizeof(D_Pad));
+  bool battle = true;
+	
 	//Draw the player's trainer in its original position
 	lcd_draw_image(70, trainer1WidthPixels, 228,
 		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
@@ -168,8 +171,19 @@ void battle_start(void) {
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 
 	// "Trainer Red Wants to battle"
+	
 	// Wait for button input
-
+	lcd_draw_string(start, 70,150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	while(battle){
+		if(BUTTON_ALERT){
+				BUTTON_ALERT = false;
+				debounce_fsm(d_pad);
+			}
+		if(d_pad->down || d_pad->left || d_pad->right || d_pad->up){
+				battle = false;
+				lcd_draw_rectangle(0, 240, 100, 100, LCD_COLOR_WHITE);
+		}
+	}
 	// Move the trainers across the screen
 	for(move = 0; move < 35; move++) {
 		if (move > 28) {
@@ -231,6 +245,9 @@ void battle_start(void) {
 
 	// Draw Move box
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+	
+	// Pokemon # display with LEDs
+	enableLeds(0xC2); //2 v 2
 		
 	return;
 }
@@ -449,7 +466,7 @@ void pokemon_battle_main(void){
 	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
 	
-	char start[80] = "Fight\n";
+	
 	
 
 	// TOUCH SCREEN CRAP
@@ -471,7 +488,6 @@ uint16_t X_TOUCH,Y_TOUCH;
 
 	while(!game_over){
 		debounce_wait();
-		enableLeds(0xFF);
 
 		// Touch sensor
 		
