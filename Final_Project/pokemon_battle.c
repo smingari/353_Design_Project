@@ -942,36 +942,35 @@ void pokemon_battle_main(void){
 		
 		
         // Player selects the move on the Pokemon
-        if (allyPokemon == 'g' && position== 1) {
+        if (allyPokemon == 'g' && position == 1) {
             moveAlly = 's';  // Shadow Ball for Gengar
-						printf("shadow\n");
         }
 
-        if (allyPokemon == 'g' && CURSE_X == 10 && CURSE_Y == 300) {
+        if (allyPokemon == 'g' && position == 2) {
             moveAlly = 'h';  // Hyper Beam for Gengar
         }
 
-        if (allyPokemon == 'g' && CURSE_X == 130 && CURSE_Y == 270) {
+        if (allyPokemon == 'g' && position == 3) {
             moveAlly = 'y';  // Psychic for Gengar
         }
 
-        if (allyPokemon == 'g' && CURSE_X == 130 && CURSE_Y == 300) {
+        if (allyPokemon == 'g' && position == 4) {
             moveAlly = 'p';  // Protect for Gengar
         }
 
-        if (allyPokemon == 'a' && CURSE_X == 10 && CURSE_Y == 270) {
+        if (allyPokemon == 'a' && position == 1) {
             moveAlly = 't';  // Thunderbolt for Ampharos
         }
 
-        if (allyPokemon == 'a' && CURSE_X == 10 && CURSE_Y == 300) {
+        if (allyPokemon == 'a' && position == 2) {
             moveAlly = 'z';  // Zap Cannon for Ampharos
         }
 
-        if (allyPokemon == 'a' && CURSE_X == 130 && CURSE_Y == 270) {
+        if (allyPokemon == 'a' && position == 3) {
             moveAlly = 'd';  // Dragon Pulse for Ampharos
         }
 
-        if (allyPokemon == 'a' && CURSE_X == 130 && CURSE_Y == 300) {
+        if (allyPokemon == 'a' && position == 4) {
             moveAlly = 'g';  // Power Gem for Ampharos
         }
 			
@@ -1155,10 +1154,8 @@ void pokemon_battle_main(void){
 					lcd_clear_screen(LCD_COLOR_BLACK);
 					lcd_draw_string(lose, 30,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 					lcd_draw_string(lose2, 30,170, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-					game_over = true;
-						
+					game_over = true;	
 				}
-			
 			}
 
 			else if (status == 'g') {
