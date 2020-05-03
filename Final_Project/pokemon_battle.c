@@ -21,6 +21,16 @@ volatile uint16_t CURSE_Y = 270;
 uint8_t touch_event;
 uint16_t X_TOUCH,Y_TOUCH;
 
+
+
+bool paused = false;
+	FILE* file;
+	char input_char;
+
+
+uint16_t TIMER1_COUNT = 0;
+
+
 // POKEMON HEALTH
 int ALLY_POKEMON_HEALTH = 120;
 int ENEMY_POKEMON_HEALTH = 120;
@@ -51,7 +61,8 @@ char slam[80] = "Body Slam";
 char cold[80] = "Sheer Cold";
 
 char miss[80] = "But it missed";
-char super[80] = "It was super effective";
+char super[80] = "It was super";
+char effective[80] = "effective";
 char he_protect_he_attack_but_most_importantly_he_got_your_back[80] = "Gengar protected itself";
 char not_effective[80] = "It was not very effective";
 char no_effect[80] = "It does not affect Gengar";
@@ -65,6 +76,80 @@ typedef struct
     bool left;
     bool right;
 } D_Pad;
+
+
+
+
+void cursor_draw(){
+	if(TIMER3_ALERT){
+		TIMER3_ALERT = false;
+		// draw a bitch
+		lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_BLACK, 0);
+	}
+}
+
+
+
+void check_pause(){
+// Interrupt alert for user input
+		if(UART0_RX_ALERT){
+			UART0_RX_ALERT = false;
+			input_char = fgetc(file); // read user input
+			
+			// Check to see if ' ' has been entered for a pause of game
+			if(input_char == ' '){
+				printf("PAUSED!"); // Print out pause message and enter pause mode
+				paused = true;
+				
+				while(paused){  // game is paused
+					
+					// now wait for new Input
+					if(UART0_RX_ALERT){
+						UART0_RX_ALERT = false;
+						input_char = fgetc(file); 
+
+						// check to se if input is vaild to reusme game
+						if(input_char == ' '){ 
+							paused = false;
+							printf("RESUME!");
+						}
+					}
+				}
+			}		
+		}
+}
+
+	// Touch sensor
+void check_touch(){		
+		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
+		if(touch_event > 0){
+			X_TOUCH = ft6x06_read_x();
+			Y_TOUCH = ft6x06_read_y();
+			printf("touch event: %i\n", touch_event);
+			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
+		}
+    gp_timer_wait(TIMER0_BASE, 5000000);
+}
+
+void blinky_boi(){
+// Timer interrupt alert
+		if(TIMER1_ALERT){
+			
+			TIMER1_ALERT = false; // reset the alert
+			
+			// code to flip the LED
+			
+			if (TIMER1_COUNT == 0){
+				lp_io_set_pin(BLUE_BIT);
+			}	
+			else {
+				lp_io_clear_pin(BLUE_BIT);
+			}
+			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
+			
+		}
+	}
+
 
 
 void debounce_wait(void) 
@@ -82,8 +167,6 @@ bool debounce_fsm(D_Pad* d_pad){
 	static DEBOUNCE_STATES state = DEBOUNCE_ONE;
 	uint8_t button_data;
 	bool pin_logic_level;
-	
-	
 	
 	button_data = io_expander_read_reg(MCP23017_GPIOB_R);
 	//printf("%i\n", button_data);
@@ -157,6 +240,18 @@ bool debounce_fsm(D_Pad* d_pad){
 }
 
 
+void check_button(D_Pad* d_pad){
+
+// stupid button crap
+		if(BUTTON_ALERT){
+			BUTTON_ALERT = false;
+			debounce_fsm(d_pad);
+		}
+
+}
+
+
+
 void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volatile uint16_t *y_coord){
 	switch(direction){
 		case PS2_DIR_UP: // since top is 0 we need to subtract by 1
@@ -193,6 +288,8 @@ void battle_start(void) {
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
   bool battle = true;
 	
+	blinky_boi();
+	check_pause();
 	//Draw the player's trainer in its original position
 	lcd_draw_image(70, trainer1WidthPixels, 228,
 		trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
@@ -206,10 +303,10 @@ void battle_start(void) {
 	// Wait for button input
 	lcd_draw_string(start, 70,150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	while(battle){
-		if(BUTTON_ALERT){
-				BUTTON_ALERT = false;
-				debounce_fsm(d_pad);
-			}
+		blinky_boi();
+		check_pause();
+		debounce_wait();
+		check_button(d_pad);
 		if(d_pad->down || d_pad->left || d_pad->right || d_pad->up){
 				battle = false;
 				lcd_draw_rectangle(0, 240, 100, 100, LCD_COLOR_WHITE);
@@ -217,6 +314,8 @@ void battle_start(void) {
 	}
 	// Move the trainers across the screen
 	for(move = 0; move < 35; move++) {
+		blinky_boi();
+		check_pause();
 		if (move > 28) {
 			lcd_draw_image(70 - move, trainer4WidthPixels, 228,
 				trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
@@ -460,8 +559,9 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			break;
 
 			case 's':
-			// It was super effective
-				lcd_draw_string(super, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			// It was super effective 
+				lcd_draw_string(super, 25, 270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+				lcd_draw_string(effective, 10, 270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'p':
@@ -577,10 +677,9 @@ void faintPokemon(char pokemon, int faints) {
 
 void pokemon_battle_main(void){
 	bool game_over = false;
-	bool paused = false;
-	FILE* file;
-	uint16_t TIMER1_COUNT = 0;
-	D_Pad* d_pad = malloc(sizeof(D_Pad));
+	
+	
+	
 	uint8_t* button_data;
 	uint8_t eeprom_data;
 	uint8_t pokemon_display = 0xC3;
@@ -591,7 +690,7 @@ void pokemon_battle_main(void){
 	int allyFaints = 0;
 	int enemyFaints = 0;
 	int damageRecoil = 0;
-	char input_char;
+	D_Pad* d_pad = malloc(sizeof(D_Pad));
 	char moveAlly;
 	char moveEnemy;
 	char lastMove;
@@ -606,10 +705,6 @@ void pokemon_battle_main(void){
 	int damageD = 0;  // Damage Done
 	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
-
-	// TOUCH SCREEN CRAP
-	uint8_t touch_event;
-	uint16_t X_TOUCH,Y_TOUCH;
 
 
 	// EEPROM TESTING
@@ -630,76 +725,7 @@ void pokemon_battle_main(void){
 		
 		debounce_wait();
 
-		// Touch sensor
-		
-		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
-		if(touch_event > 0){
-			X_TOUCH = ft6x06_read_x();
-			Y_TOUCH = ft6x06_read_y();
-			printf("touch event: %i\n", touch_event);
-			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
-		}
-    
-    gp_timer_wait(TIMER0_BASE, 5000000);
-		
-		
-		// stupid button crap
-		if(BUTTON_ALERT){
-			BUTTON_ALERT = false;
-			debounce_fsm(d_pad);
-		}
-		
-		// Interrupt alert for user input
-		if(UART0_RX_ALERT){
-			UART0_RX_ALERT = false;
-			input_char = fgetc(file); // read user input
-			
-			// Check to see if ' ' has been entered for a pause of game
-			if(input_char == ' '){
-				printf("PAUSED!"); // Print out pause message and enter pause mode
-				paused = true;
-				
-				while(paused){  // game is paused
-					
-					// now wait for new Input
-					if(UART0_RX_ALERT){
-						UART0_RX_ALERT = false;
-						input_char = fgetc(file); 
-
-						// check to se if input is vaild to reusme game
-						if(input_char == ' '){ 
-							paused = false;
-							printf("RESUME!");
-						}
-					}
-				}
-			}		
-		}
-		
-
-		// Timer interrupt alert
-		if(TIMER1_ALERT){
-			
-			TIMER1_ALERT = false; // reset the alert
-			
-			// code to flip the LED
-			
-			if (TIMER1_COUNT == 0){
-				lp_io_set_pin(BLUE_BIT);
-			}	
-			else {
-				lp_io_clear_pin(BLUE_BIT);
-			}
-			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
-			
-		}
-		
-		if(TIMER3_ALERT){
-			TIMER3_ALERT = false;
-			// draw a bitch
-			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_BLACK, 0);
-		}
-		//
+	
 		
 		if(d_pad->up == true){
 			printf("up\n");
@@ -890,11 +916,12 @@ void pokemon_battle_main(void){
 		
 			move_select = true;
 		// Await user input
-			while(move_select){
-				if(BUTTON_ALERT){
-					BUTTON_ALERT = false;
-					debounce_fsm(d_pad);
-				}
+			while(move_select){		
+				blinky_boi();
+				check_pause();
+				debounce_wait();
+				cursor_draw();
+				check_button(d_pad);
 		
 				if(CURSE_X == 10 && CURSE_Y == 270) {
             position = 1;
@@ -908,7 +935,7 @@ void pokemon_battle_main(void){
          if (CURSE_X == 130 && CURSE_Y == 300) {
             position = 4;
         }
-				if(d_pad->left){
+				if(d_pad->left){  // select move
 					printf("select\n");
 					move_select = false;
 				}
@@ -1100,6 +1127,7 @@ void pokemon_battle_main(void){
 			else {
 				// WE WIN
 				pokemon_display &= 0x03;
+				
 			}
 		}
 
