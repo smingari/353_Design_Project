@@ -247,7 +247,7 @@ void battle_start(void) {
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 	
 	// Pokemon # display with LEDs
-	enableLeds(0xC2); //2 v 2
+	enableLeds(0xC3); //2 v 2
 		
 	return;
 }
@@ -452,7 +452,6 @@ void pokemon_battle_main(void){
 	int enemyFaints = 0;
 	int damageRecoil = 0;
 	char input_char;
-	char input[80];
 	char moveAlly;
 	char moveEnemy;
 	char lastMove;
@@ -466,12 +465,19 @@ void pokemon_battle_main(void){
 	int damageT = 0;  // Damage Taken
 	int ALLY_HEALTH_MAX = 120;
 	
+	char shadow_ball[80] = "Shadow Ball";
+	char hyper_beam[80] = "Hyper Beam";
+	char psychic[80] = "Psychic";
+	char protect[80] = "Protect";
 	
-	
+	char thunderbolt[80] = "Thunderbolt";
+	char zap[80] = "Zap Cannon";
+  char dragon[80] = "Dragon Pulse";
+	char gem[80] = "Power Gem";
 
 	// TOUCH SCREEN CRAP
-uint8_t touch_event;
-uint16_t X_TOUCH,Y_TOUCH;
+	uint8_t touch_event;
+	uint16_t X_TOUCH,Y_TOUCH;
 
 
 	// EEPROM TESTING
@@ -487,6 +493,9 @@ uint16_t X_TOUCH,Y_TOUCH;
 	battle_start();
 
 	while(!game_over){
+		
+		
+		
 		debounce_wait();
 
 		// Touch sensor
@@ -602,8 +611,28 @@ uint16_t X_TOUCH,Y_TOUCH;
 		
 
 		// All under the assumption Pokemon health is 120 long
+		
+		
+		
+		// Clean all text
+		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		
+		
+		if (allyPokemon == 'g') {
+			lcd_draw_string(shadow_ball, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(hyper_beam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(psychic, 145,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(protect, 145,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);	
+    }
 
-		//n = rand() % 4; // Choose move for the enemy Pokemon
+    else {
+			lcd_draw_string(thunderbolt, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(zap, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(dragon, 145,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(gem, 145,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+    } 
+
+		n = rand() % 4; // Choose move for the enemy Pokemon
 		switch(n) 
 		{
 			// All under the assumption Pokemon health is 120 long
