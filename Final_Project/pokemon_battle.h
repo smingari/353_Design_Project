@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "ps2.h"
+#include "buttons.h"
 
 extern volatile bool TIMER1_ALERT;
 extern volatile bool TIMER3_ALERT;

@@ -22,8 +22,110 @@ uint8_t touch_event;
 uint16_t X_TOUCH,Y_TOUCH;
 
 // POKEMON HEALTH
-ALLY_POKEMON_HEALTH = 120;
-ENEMY_POKEMON_HEALTH = 120;
+int ALLY_POKEMON_HEALTH = 120;
+int ENEMY_POKEMON_HEALTH = 120;
+
+
+
+
+
+typedef struct
+{
+    bool up;
+    bool down;
+    bool left;
+    bool right;
+} D_Pad;
+
+
+void debounce_wait(void) 
+{
+  int i = 10000;
+  // Delay
+  while(i > 0)
+  {
+    i--;
+  }
+}
+
+
+bool debounce_fsm(D_Pad* d_pad){
+	static DEBOUNCE_STATES state = DEBOUNCE_ONE;
+	uint8_t button_data;
+	bool pin_logic_level;
+	
+	
+	
+	button_data = io_expander_read_reg(MCP23017_GPIOB_R);
+	printf("%i\n", button_data);
+	if(((0x0F) & button_data) > 0)	
+		pin_logic_level = true; // pressed
+	else
+		pin_logic_level = false; // a 0 non pressed
+	
+	
+	  switch (state)
+  {
+    case DEBOUNCE_ONE:
+    {
+			if(pin_logic_level){
+				state = DEBOUNCE_1ST_ZERO;
+				//printf("go to 1st\n");
+			}
+			else{
+				//printf("go reset\n");
+				state = DEBOUNCE_ONE;
+			}
+      break;
+    }
+    case DEBOUNCE_1ST_ZERO:
+    {
+      if(!pin_logic_level){
+				state = DEBOUNCE_ONE;
+				//printf("go reset\n");
+			}
+			else{
+				//printf("go 2nd\n");
+
+				state = DEBOUNCE_2ND_ZERO;
+			}	
+      break;
+    }
+    case DEBOUNCE_2ND_ZERO:
+    {
+      if(pin_logic_level){
+				state = DEBOUNCE_PRESSED;
+				//printf("go final\n");
+			}
+			else {
+				state = DEBOUNCE_ONE;
+				//printf("go reset\n");
+			}
+      break;
+    }
+    case DEBOUNCE_PRESSED:
+    {
+      state = DEBOUNCE_ONE;
+      break;
+    }
+    default:
+    {
+      while(1){};
+    }
+  }
+
+	if(state == DEBOUNCE_1ST_ZERO){
+		d_pad->up = button_data & 0x01;
+		d_pad->down = button_data & 0x02;
+		d_pad->left = button_data & 0x04;
+		d_pad->right = button_data & 0x08;
+		//printf("button data up: %i\n", d_pad->up);
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 
 //typedef struct {
@@ -132,7 +234,7 @@ void battle_start(void) {
 	// Draw initial healths of the Pokemon
 
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
-	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN;
+	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
 
 	return;
 }
@@ -178,6 +280,7 @@ char updateHealth(int damage, int recoil, char side) {
 }
 
 void printMoveMessage(char pokemon, char move, char effect) {
+	int i;
 	if (effect == 'r') {
 		// Recharge message
 	}
@@ -202,7 +305,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 		break;
 
 		default:
-
+		break;
 	}
 
 		switch (move) {
@@ -271,7 +374,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			break;
 
 			default: 
-		
+			break;
 		}
 
 		for (i = 0; i < 5000000; i++) {
@@ -306,7 +409,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			break;
 
 			default :
-
+			break;
 			}
 		}
 
@@ -323,6 +426,7 @@ void pokemon_battle_main(void){
 	bool paused = false;
 	FILE* file;
 	uint16_t TIMER1_COUNT = 0;
+	D_Pad* d_pad = malloc(sizeof(D_Pad));
 	uint8_t* button_data;
 	uint8_t eeprom_data;
 	int i = 0;
@@ -368,8 +472,8 @@ void pokemon_battle_main(void){
 	battle_start();
 
 	while(!game_over){
-			
-	enableLeds(0xFF);
+		debounce_wait();
+		enableLeds(0xFF);
 
 		// Touch sensor
 		/*
@@ -447,6 +551,26 @@ void pokemon_battle_main(void){
 		}
 		//
 		
+		if(d_pad->up == true){
+			printf("up\n");
+			d_pad->up = false;
+		}
+		
+		if(d_pad->down == true){
+			printf("down\n");
+			d_pad->down = false;
+		}
+		
+		if(d_pad->left == true){
+			printf("left\n");
+			d_pad->left = false;
+		}
+		if(d_pad->right == true){
+			printf("right\n");
+			d_pad->right = false;
+		}
+		
+		
 		// BOX 3/4 screen bottom left	
 		//lcd_draw_box(0,180,(ROWS-50), 50, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 
@@ -492,7 +616,7 @@ void pokemon_battle_main(void){
 				moveEnemy = '5';
 				r = rand() % 5;
 
-				if (r = 0) {
+				if (r == 0) {
 					effectMessage2 = 'm'; // 20% chance to miss
 					damageT = 0;
 				}		
@@ -541,7 +665,7 @@ void pokemon_battle_main(void){
 				moveEnemy = '3';
 				effectMessage2 = '0';
 				r = rand() % 6;
-				if (r = 0) {
+				if (r == 0) {
 					effectMessage2 = 'm'; // 15% chance to miss
 					damageT = 0;
 				}		
@@ -604,6 +728,7 @@ void pokemon_battle_main(void){
 			break;
 
 			default:
+				break;
 
 		}
 
@@ -734,6 +859,7 @@ void pokemon_battle_main(void){
 			break;
 
 			default:
+			break;
 
 		}
 

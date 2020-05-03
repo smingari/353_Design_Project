@@ -47,7 +47,7 @@ bool io_expander_init()
 	//pipe pushbuttons to sw2
 	io_expander_write_reg(MCP23017_IODIRB_R, 0xFF);//make pushbuttons to be input
 	
-//	io_expander_write_reg(MCP23017_IPOLB_R, 0xFF); // Polarity flips everything
+	io_expander_write_reg(MCP23017_IPOLB_R, 0xFF); // Polarity flips everything
 	
 	
 	//io_expander_write_reg(MCP23017_IOCONB_R, 0);//make pushbuttons to compare with previous value
@@ -62,17 +62,6 @@ bool io_expander_init()
 	io_expander_read_reg(MCP23017_INTCAPB_R);//read the cap register in every initialization to clear interrupt
 	return true;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 uint8_t io_expander_read_reg(uint8_t addr) {
@@ -123,58 +112,6 @@ void enableLeds(uint8_t leds) {
 	io_expander_write_reg(MCP23017_GPIOA_R,0xFF);
 }
 /*
-uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
-	static DEBOUNCE_STATES state = DEBOUNCE_ONE;	
-	static uint8_t curr_btn_val = BTN_NONE;
-	static uint8_t last_btn_val = BTN_NONE;
-		
-	curr_btn_val = buttons_pressed;
-	
-	switch(state) {
-		case DEBOUNCE_ONE:
-			if(curr_btn_val != BTN_NONE) {
-				state = DEBOUNCE_1ST_ZERO;
-				last_btn_val = curr_btn_val;
-			}
-			return BTN_NONE;
-			
-		case DEBOUNCE_1ST_ZERO:
-			if(curr_btn_val == last_btn_val) state = DEBOUNCE_2ND_ZERO;
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			break;
-			
-		case DEBOUNCE_2ND_ZERO:
-			if(curr_btn_val == last_btn_val) state = DEBOUNCE_PRESSED;
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			return BTN_NONE;
-			
-		case DEBOUNCE_PRESSED:
-			if(curr_btn_val == last_btn_val) {
-				state = DEBOUNCE_DONE;
-			}
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			return curr_btn_val;
-			
-		case DEBOUNCE_DONE:
-			if(curr_btn_val == last_btn_val) {
-				state = DEBOUNCE_DONE;
-			}
-			else {
-				last_btn_val = curr_btn_val;
-				state = DEBOUNCE_ONE;
-			}
-			return BTN_NONE;
-	}
-	
-}
+
 
 */
