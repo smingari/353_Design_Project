@@ -287,7 +287,7 @@ void battle_start(void) {
 	int i;
 	char start[80] = "Trainer Red  Wants to Battle";
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
-  bool battle = true;
+  	bool battle = true;
 	
 	blinky_boi();
 	check_pause();
@@ -894,13 +894,6 @@ void pokemon_battle_main(void){
 				break;
 
 		}
-
-		// Need to implement no options for the player - actually I have a solution
-		if (lastMove == 'h') {
-			effectMessage1 = 'r';
-			lastMove = '0';
-		} 
-		
 		
 			move_select = true;
 		// Await user input
@@ -963,6 +956,10 @@ void pokemon_battle_main(void){
             moveAlly = 'g';  // Power Gem for Ampharos
         }
 			
+		if (lastMove == 'h') {
+			effectMessage1 = 'r';
+			lastMove = '0';
+		} 
 	
 		switch(moveAlly) 
 		{
@@ -984,17 +981,22 @@ void pokemon_battle_main(void){
 
 			
 			case 'h': // Hyper Beam for Gengar
-
-			effectMessage1 = '0';
-			if (enemyPokemon == 'c') {
-				damageD = 85;
+			if (effectMessage1 == 'r') {
+				damageD = 0;
+				allyMove = '0';
 			}
 
 			else {
-				damageD = 60;
-			}
+				effectMessage1 = '0';
+				if (enemyPokemon == 'c') {
+					damageD = 85;
+				}
 
-			break;
+				else {
+					damageD = 60;
+				}
+
+				break;
 
 
 			case 'y': // Psychic for Gengar
