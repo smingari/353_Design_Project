@@ -123,15 +123,17 @@ void check_pause(){
 }
 
 	// Touch sensor
-void check_touch(){		
+bool check_touch(){		
 		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
 		if(touch_event > 0){
 			X_TOUCH = ft6x06_read_x();
 			Y_TOUCH = ft6x06_read_y();
 			printf("touch event: %i\n", touch_event);
 			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
+			return true;
 		}
     gp_timer_wait(TIMER0_BASE, 5000000);
+		return false;
 }
 
 void blinky_boi(){
@@ -308,7 +310,7 @@ void battle_start(void) {
 		check_pause();
 		debounce_wait();
 		check_button(d_pad);
-		if(d_pad->down || d_pad->left || d_pad->right || d_pad->up){
+		if(check_touch() || d_pad->down || d_pad->left || d_pad->right || d_pad->up){
 				battle = false;
 				lcd_draw_rectangle(0, 240, 100, 100, LCD_COLOR_WHITE);
 		}
