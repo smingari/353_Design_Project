@@ -956,10 +956,6 @@ void pokemon_battle_main(void){
             moveAlly = 'g';  // Power Gem for Ampharos
         }
 			
-		if (lastMove == 'h') {
-			effectMessage1 = 'r';
-			lastMove = '0';
-		} 
 	
 		switch(moveAlly) 
 		{
@@ -981,22 +977,16 @@ void pokemon_battle_main(void){
 
 			
 			case 'h': // Hyper Beam for Gengar
-			if (effectMessage1 == 'r') {
-				damageD = 0;
-				allyMove = '0';
+
+			effectMessage1 = '0';
+			if (enemyPokemon == 'c') {
+				damageD = 85;
 			}
 
 			else {
-				effectMessage1 = '0';
-				if (enemyPokemon == 'c') {
-					damageD = 85;
-				}
-
-				else {
-					damageD = 60;
-				}
-
-				break;
+				damageD = 60;
+			}
+			break;
 
 
 			case 'y': // Psychic for Gengar
@@ -1092,6 +1082,11 @@ void pokemon_battle_main(void){
 
 		}
 
+		if (lastMove == 'h') {
+			damageD = 0;
+			effectMessage1 = 'r';
+		} 
+
 		lastMove = moveAlly;
 		if (moveEnemy == '7' && effectMessage2 != 'p') {
 			damageRecoil = 10;
@@ -1102,6 +1097,10 @@ void pokemon_battle_main(void){
 
 		status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
+		// Just in case player tried to use Hyper Beam twice
+		if (effectMessage1 == 'r') {
+			lastMove = '0';
+		}
 
 		if (status == 'f') 		{
 			status = 'n';
