@@ -68,7 +68,10 @@ char not_effective[80] = "It was not very effective";
 char no_effect[80] = "It does not affect Gengar";
 char recoil[80] = "It hurt itself with recoil";
 
-
+char lose[80] = "All of your pokemon have fainted";
+char lose2[80] = "You blacked out";
+char win[80] = "Trainer Red has been defeated";
+char red_talk[80] = " ... ";
 typedef struct
 {
     bool up;
@@ -284,7 +287,7 @@ void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volati
 void battle_start(void) {
 	int move;
 	int i;
-	char start[80] = "Trainer Red  Wants\n to Battle";
+	char start[80] = "Trainer Red  Wants to Battle";
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
   bool battle = true;
 	
@@ -301,7 +304,7 @@ void battle_start(void) {
 	// "Trainer Red Wants to battle"
 	
 	// Wait for button input
-	lcd_draw_string(start, 70,150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	lcd_draw_string(start, 40, 150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	while(battle){
 		blinky_boi();
 		check_pause();
@@ -588,7 +591,6 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			break;
 			}
 		}
-
 	}
 	return;
 }
@@ -651,7 +653,6 @@ void faintPokemon(char pokemon, int faints) {
 		// Reset Health Bar
 		lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
 		ENEMY_POKEMON_HEALTH = 120;
-
 
 		return;
 
@@ -718,7 +719,7 @@ void pokemon_battle_main(void){
 	
 	
 	battle_start();
-
+	
 	while(!game_over){
 		
 		enableLeds(pokemon_display);
@@ -745,8 +746,6 @@ void pokemon_battle_main(void){
 			printf("right\n");
 			d_pad->right = false;
 		}
-		
-		//enableLeds(0xFF);
 
 		// All under the assumption Pokemon health is 120 long
 		
@@ -1127,7 +1126,13 @@ void pokemon_battle_main(void){
 			else {
 				// WE WIN
 				pokemon_display &= 0x03;
-				
+				for(i = 0; i < 1000000; i++){}
+				lcd_clear_screen(LCD_COLOR_BLACK);
+				lcd_draw_string(win, 35,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+					lcd_draw_string(red_talk, 60,180, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+				game_over = true;
+					
+				// update Eeprom Score
 			}
 		}
 
@@ -1144,8 +1149,14 @@ void pokemon_battle_main(void){
 				}
 
 				else {
-				// WE LOSE
+					// WE LOSE
+					for(i = 0; i < 1000000; i++){}
 					pokemon_display &= 0xC0;
+					lcd_clear_screen(LCD_COLOR_BLACK);
+					lcd_draw_string(lose, 30,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+					lcd_draw_string(lose2, 30,170, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+					game_over = true;
+						
 				}
 			
 			}
@@ -1157,6 +1168,13 @@ void pokemon_battle_main(void){
 				if (enemyFaints == 2) {
 					// WE WIN
 					pokemon_display &= 0x03;
+					for(i = 0; i < 1000000; i++){}
+					lcd_clear_screen(LCD_COLOR_BLACK);
+					lcd_draw_string(win, 35,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+					printf("...\n");
+					game_over = true;
+					
+				// update Eeprom Score
 				}
 			}
 		}
@@ -1165,5 +1183,7 @@ void pokemon_battle_main(void){
 		damageT = 0;
 		damageRecoil = 0;
 	}
-		
+	// End of game
+	enableLeds(pokemon_display);
+	while(1){}
 }
