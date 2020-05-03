@@ -583,6 +583,7 @@ void pokemon_battle_main(void){
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
 	uint8_t* button_data;
 	uint8_t eeprom_data;
+	uint8_t pokemon_display = 0xC3;
 	int i = 0;
 	int j;
 	int n = 9; // Temporary value so that nothing happens
@@ -625,7 +626,7 @@ void pokemon_battle_main(void){
 
 	while(!game_over){
 		
-		
+		enableLeds(pokemon_display);
 		
 		debounce_wait();
 
@@ -1090,6 +1091,7 @@ void pokemon_battle_main(void){
 			status = 'n';
 			faintPokemon(enemyPokemon, enemyFaints);  // 'Enemy' Pokemon fainted 
 			enemyFaints += 1;
+			pokemon_display &= 0x83;
 			if (enemyFaints == 1) {
 				enemyPokemon = 'l';
 
@@ -1097,6 +1099,7 @@ void pokemon_battle_main(void){
 
 			else {
 				// WE WIN
+				pokemon_display &= 0x03;
 			}
 		}
 
@@ -1106,6 +1109,7 @@ void pokemon_battle_main(void){
 			if (status == 'f') {
 				status = '0';
 				faintPokemon(allyPokemon, allyFaints);  // Ally Pokemon fainted
+				pokemon_display &= 0xC1; 
 				allyFaints += 1;
 				if (allyFaints == 1) {
 					allyPokemon = 'a';
@@ -1113,6 +1117,7 @@ void pokemon_battle_main(void){
 
 				else {
 				// WE LOSE
+					pokemon_display &= 0xC0;
 				}
 			
 			}
@@ -1123,6 +1128,7 @@ void pokemon_battle_main(void){
 				enemyFaints += 1;
 				if (enemyFaints == 2) {
 					// WE WIN
+					pokemon_display &= 0x03;
 				}
 			}
 		}
