@@ -395,8 +395,8 @@ void battle_start(void) {
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
 
-	lcd_draw_string(gengar, 100, 205, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-	lcd_draw_string(charizard, 10, 70, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	lcd_draw_string(gengar, 150, 210, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	lcd_draw_string(charizard, 15, 30, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 
 	// Draw Move box
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
@@ -655,9 +655,11 @@ void faintPokemon(char pokemon, int faints) {
 		}
 
 		// "Go Ampharos!"
+		lcd_draw_box(150,80,200,40, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
 		lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
 		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_YELLOW, LCD_COLOR_WHITE);
-		lcd_draw_string(ampharos, 100, 205, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		lcd_draw_string(ampharos, 150, 210, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		
 
 		// Reset the Health Bar
 		lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
@@ -677,6 +679,7 @@ void faintPokemon(char pokemon, int faints) {
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(amphFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		lcd_draw_box(140,80,200,40, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
 		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
@@ -703,9 +706,11 @@ void faintPokemon(char pokemon, int faints) {
 		}
 
 		// "Go Lapras!"
+		lcd_draw_box(0,80, 0, 40 , LCD_COLOR_WHITE, LCD_COLOR_WHITE,2);
 		lcd_draw_image(POKEMON_X_ENEMY, laprasWidthPixels, POKEMON_Y_ENEMY,
 		laprasHeightPixels,laprasBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLUE);
-		lcd_draw_string(lapras, 10, 70, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		lcd_draw_string(lapras, 10, 30, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		
 
 		// Reset Health Bar
 		lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
@@ -724,6 +729,7 @@ void faintPokemon(char pokemon, int faints) {
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(laprasFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		lcd_draw_box(0,80, 0, 40 , LCD_COLOR_WHITE, LCD_COLOR_WHITE,2);
 		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
@@ -983,7 +989,6 @@ void pokemon_battle_main(void){
             position = 4;
         }
 				if(d_pad->left){  // select move
-					printf("select\n");
 					move_select = false;
 				}
 			}
