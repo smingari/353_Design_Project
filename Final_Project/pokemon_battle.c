@@ -35,11 +35,16 @@ uint16_t TIMER1_COUNT = 0;
 int ALLY_POKEMON_HEALTH = 120;
 int ENEMY_POKEMON_HEALTH = 120;
 
+char gengar[20] = "GENGAR";
+char ampharos[20] = "AMPHAROS";
+char charizard[20] = "CHARIZARD";
+char lapras[20] = "LAPRAS";
+
 char gengar_used[80] = "Gengar used";
 char ampharos_used[80] = "Ampharos used";
 char charizard_used[80] = "Charizard used";
 char lapras_used[80] = "Lapras used";
-char genagr_recharge[80] = "Gengar is recharging";
+char gengar_recharge[80] = "Gengar is recharging";
 char shadow_ball[80] = "Shadow Ball";
 char hyper_beam[80] = "Hyper Beam";
 char psychic[80] = "Psychic";
@@ -89,7 +94,6 @@ typedef struct
 void cursor_draw(){
 	if(TIMER3_ALERT){
 		TIMER3_ALERT = false;
-		// draw a bitch
 		lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_BLACK, 0);
 	}
 }
@@ -333,6 +337,7 @@ void battle_start(void) {
 	for(move = 0; move < 35; move++) {
 		blinky_boi();
 		check_pause();
+		// Our trainer's animation
 		if (move > 28) {
 			lcd_draw_image(70 - move, trainer4WidthPixels, 228,
 				trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
@@ -389,6 +394,9 @@ void battle_start(void) {
 
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
+
+	lcd_draw_string(gengar, 100, 205, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	lcd_draw_string(charizard, 10, 70, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 
 	// Draw Move box
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
@@ -457,7 +465,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 	
 	if (effect == 'r') {
 		// Recharge message
-		lcd_draw_string(genagr_recharge, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		lcd_draw_string(gengar_recharge, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	}
 
 	else {
@@ -649,6 +657,7 @@ void faintPokemon(char pokemon, int faints) {
 		// "Go Ampharos!"
 		lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
 		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_YELLOW, LCD_COLOR_WHITE);
+		lcd_draw_string(ampharos, 100, 205, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 
 		// Reset the Health Bar
 		lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
@@ -696,6 +705,7 @@ void faintPokemon(char pokemon, int faints) {
 		// "Go Lapras!"
 		lcd_draw_image(POKEMON_X_ENEMY, laprasWidthPixels, POKEMON_Y_ENEMY,
 		laprasHeightPixels,laprasBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLUE);
+		lcd_draw_string(lapras, 10, 70, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 
 		// Reset Health Bar
 		lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
