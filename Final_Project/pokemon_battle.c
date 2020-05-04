@@ -129,34 +129,32 @@ void check_pause(){
 		}
 }
 
-	// Touch sensor
+// Touch sensor
 bool check_touch(){		
-		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
-		if(touch_event > 0){
-			return true;
-		}
+	touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
+	if(touch_event > 0){
+		return true;
+	}
     gp_timer_wait(TIMER0_BASE, 5000000);
 		return false;
 }
 
 void blinky_boi(){
-// Timer interrupt alert
-		if(TIMER1_ALERT){
+	// Timer interrupt alert
+	if(TIMER1_ALERT){			
+		TIMER1_ALERT = false; // reset the alert
 			
-			TIMER1_ALERT = false; // reset the alert
-			
-			// code to flip the LED
-			
-			if (TIMER1_COUNT == 0){
-				lp_io_set_pin(BLUE_BIT);
-			}	
-			else {
-				lp_io_clear_pin(BLUE_BIT);
-			}
-			TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
-			
+		// Code to flip the LED	
+		if (TIMER1_COUNT == 0){
+			lp_io_set_pin(BLUE_BIT);
+		}	
+		else {
+			lp_io_clear_pin(BLUE_BIT);
 		}
+		TIMER1_COUNT = (TIMER1_COUNT + 1) % 2;
+			
 	}
+}
 
 void debounce_wait(void) 
 {
@@ -182,8 +180,8 @@ bool debounce_fsm(D_Pad* d_pad){
 		pin_logic_level = false; // a 0 non pressed
 	
 	
-	  switch (state)
-  {
+	switch (state) {
+
     case DEBOUNCE_ONE:
     {
 			if(pin_logic_level){
@@ -240,7 +238,8 @@ bool debounce_fsm(D_Pad* d_pad){
 		//printf("button data up: %i\n", d_pad->up);
 		return true;
 	}
-	else{
+
+	else {
 		return false;
 	}
 }
@@ -248,7 +247,7 @@ bool debounce_fsm(D_Pad* d_pad){
 
 void check_button(D_Pad* d_pad){
 
-// stupid button crap
+		// Buttons
 		if(BUTTON_ALERT){
 			BUTTON_ALERT = false;
 			debounce_fsm(d_pad);
@@ -286,21 +285,21 @@ void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volati
 	
 }
 
-
+// Function to initialize the battle
 void battle_start(void) {
 	int move;
 	int i;
-	char start[80] = "Trainer Red  Wants to Battle";
+	char start[80] = "Trainer Red  Wants to Battle"; // Opening message
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
-  bool battle = true;
-	char* str = "Trainer Gold  Wins: ";
+  	bool battle = true;
+	char* str = "Trainer Gold  Wins: "; // Keeps track of player's wins
 	char wins[80];
 	char score[80];
 	uint8_t eeprom_data;
 	
 	
 	
-	blinky_boi();
+	blinky_boi(); // Blinking LED
 	check_pause();
 	//Draw the player's trainer in its original position
 	lcd_draw_image(70, trainer1WidthPixels, 228,
@@ -310,7 +309,7 @@ void battle_start(void) {
 	lcd_draw_image(170, redWidthPixels, 50,
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 
-	// "Trainer Red Wants to battle"
+	// Keeps score of player's wins
 	eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 	
 	
@@ -319,10 +318,11 @@ void battle_start(void) {
 	strcpy(score, str);
 	strcat(score, wins);
 		
-		
+	
 	lcd_draw_string(score, 40,170, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-	// Wait for button input
 	lcd_draw_string(start, 40, 150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+
+	// Wait for button input
 	while(battle){
 		blinky_boi();
 		check_pause();
@@ -337,15 +337,16 @@ void battle_start(void) {
 	for(move = 0; move < 35; move++) {
 		blinky_boi();
 		check_pause();
-		// Our trainer's animation
-		if (move > 28) {
+
+		// Our Trainer's animation
+		if (move > 28) {  // Part 4 of animation
 			lcd_draw_image(70 - move, trainer4WidthPixels, 228,
 				trainerHeightPixels,trainer4Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 			lcd_draw_image(170 + move, redWidthPixels, 50,
 				redHeightPixels,redBitmaps,LCD_COLOR_WHITE, LCD_COLOR_RED);
 		}
 
-		else if (move > 18) 
+		else if (move > 18) // Part 3 of animation
 		{
 			lcd_draw_image(70 - move, trainer3WidthPixels, 228,
 				trainerHeightPixels,trainer3Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
@@ -353,20 +354,21 @@ void battle_start(void) {
 				redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 		}
 
-		else if (move > 8) {
+		else if (move > 8) {  // Part 2 of animation
 			lcd_draw_image(70 - move, trainer2WidthPixels, 228,
 				trainerHeightPixels,trainer2Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 			lcd_draw_image(170 + move, redWidthPixels, 50,
 				redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 		}
 
-		else {
+		else {  // Part 1 of animation
 			lcd_draw_image(70 - move, trainer1WidthPixels, 228,
 				trainerHeightPixels,trainer1Bitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 			lcd_draw_image(170 + move, redWidthPixels, 50,
 				redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 		}
 
+		// Arbitrary delay to slow the game down
 		for (i = 0; i < 100000; i++) {
 		}
 	}
@@ -377,6 +379,7 @@ void battle_start(void) {
 	lcd_draw_image(170 + move, redWidthPixels, 50,
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_WHITE);
 	
+	// Delay
 	for (i = 0; i < 400000; i++) {
 		}
 
@@ -391,14 +394,14 @@ void battle_start(void) {
 	}
 
 	// Draw initial healths of the Pokemon
-
 	lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
 	lcd_draw_rectangle(10, 120, 50, 15, LCD_COLOR_GREEN);
 
+	// Draw Pokemon Names
 	lcd_draw_string(gengar, 150, 210, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	lcd_draw_string(charizard, 15, 30, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 
-	// Draw Move box
+	// Draw Move Box
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 	
 	// Pokemon # display with LEDs
@@ -407,10 +410,12 @@ void battle_start(void) {
 	return;
 }
 
+// Function that updates health bars of Pokemon.  Also checks for faints
 char updateHealth(int damage, int recoil, char side) {
 	int j;
-	blinky_boi();
+	blinky_boi();  // Blinking LED
 	check_pause();
+	// If the ENEMY is taking damage
 	if(side == 'E') {
 		while(damage > 0) {
 			blinky_boi();
@@ -420,21 +425,24 @@ char updateHealth(int damage, int recoil, char side) {
 			damage--;
 			for(j = 0; j < 100000; j++){
 			}
+
+			// Check if Pokemon fainted
 			if (ENEMY_POKEMON_HEALTH == 0) {
-				return 'f';
+				return 'f'; 
 			}
 		}
 	}
 
+	// If WE are taking damage
 	else{
-		//printf("damage: %i", damage);
 		while(damage > 0) {
 			blinky_boi();
 			check_pause();
 			lcd_draw_rectangle(100 + ALLY_POKEMON_HEALTH, 120 - ALLY_POKEMON_HEALTH, 225, 15, LCD_COLOR_WHITE);
 			ALLY_POKEMON_HEALTH--;
-			
 			damage--;
+
+			// Check for Body Slam on Lapras causing recoil damage
 			if(recoil > 0) {
 				lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
 				ENEMY_POKEMON_HEALTH--;
@@ -444,10 +452,12 @@ char updateHealth(int damage, int recoil, char side) {
 			for(j = 0; j < 100000; j++){
 			}
 
+			// Check if our Pokemon fainted
 			if (ALLY_POKEMON_HEALTH == 0) {
 				return 'f';
 			}
 
+			// Check if recoil caused Lapras to faint
 			if(ENEMY_POKEMON_HEALTH == 0) {
 				return 'g';
 			}
@@ -456,6 +466,9 @@ char updateHealth(int damage, int recoil, char side) {
 	return '0';
 }
 
+// Function that prints the move each Pokemon uses in the text box
+// Also prints the effect of said move
+// Format Example: "Gengar used _____" , "It's super effective"
 void printMoveMessage(char pokemon, char move, char effect) {	
 	int i;
 	//printf("move message");
@@ -850,7 +863,6 @@ void pokemon_battle_main(void){
 			else {  // Hydro Pump for Lapras
 				moveEnemy = '5';
 				r = rand() % 5;
-				printf("hydo pump test\n");
 				if (r == 0) {
 					effectMessage2 = 'm'; // 20% chance to miss
 					damageT = 0;
