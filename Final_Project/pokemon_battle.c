@@ -125,10 +125,6 @@ void check_pause(){
 bool check_touch(){		
 		touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
 		if(touch_event > 0){
-			X_TOUCH = ft6x06_read_x();
-			Y_TOUCH = ft6x06_read_y();
-			printf("touch event: %i\n", touch_event);
-			printf("X value: %i, Y value: %i\n",X_TOUCH,Y_TOUCH);  // just testing so far add game use later
 			return true;
 		}
     gp_timer_wait(TIMER0_BASE, 5000000);
@@ -288,7 +284,13 @@ void battle_start(void) {
 	int i;
 	char start[80] = "Trainer Red  Wants to Battle";
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
-  	bool battle = true;
+  bool battle = true;
+	char* str = "Trainer Gold Win's: ";
+	char wins[80];
+	char score[80];
+	uint8_t eeprom_data;
+	
+	
 	
 	blinky_boi();
 	check_pause();
@@ -301,7 +303,16 @@ void battle_start(void) {
 		redHeightPixels,redBitmaps,LCD_COLOR_WHITE,LCD_COLOR_RED);
 
 	// "Trainer Red Wants to battle"
+	eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 	
+	
+	//sprintf(wins,"%d", eeprom_data);
+	
+	strcpy(score, str);
+	strcat(score, wins);
+		
+		
+	lcd_draw_string(score, 110,150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	// Wait for button input
 	lcd_draw_string(start, 40, 150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	while(battle){
@@ -733,6 +744,9 @@ void pokemon_battle_main(void){
 	char allyPokemon =  'g';  // Initialize to Gengar
 	char enemyPokemon = 'c';  // Initialize to Charizard
 	char status = '0';
+	
+	
+	bool score_bool = true;
 
 	int damageD = 0;  // Damage Done
 	int damageT = 0;  // Damage Taken
@@ -743,6 +757,8 @@ void pokemon_battle_main(void){
 	eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 	printf("Trainer Gold Win's: %i\n", eeprom_data);
 		
+		
+	
 	battle_start();
 	
 	while(!game_over){
@@ -751,30 +767,7 @@ void pokemon_battle_main(void){
 		
 		debounce_wait();
 
-	
-		
-		if(d_pad->up == true){
-			printf("up\n");
-			d_pad->up = false;
-		}
-		
-		if(d_pad->down == true){
-			printf("down\n");
-			d_pad->down = false;
-		}
-		
-		if(d_pad->left == true){
-			printf("left\n");
-			d_pad->left = false;
-		}
-		if(d_pad->right == true){
-			printf("right\n");
-			d_pad->right = false;
-		}
-
-		// All under the assumption Pokemon health is 120 long
-		
-		
+		// All under the assumption Pokemon health is 120 long	
 		
 		// Clean all text
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);

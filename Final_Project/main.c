@@ -51,11 +51,10 @@ int
 main(void)
 {
 	char greeting1[80] = "\nHello there! Welcome to the world of Pokemon!\n";
-	char greeting2[80] = "My name is Oak! People call me the pokemon Prof!\n"; 
-	char greeting3[80] = "This world is inhabited by creatures called Pokemon!\n";
-  char greeting4[80] = "For some people, Pokemon are pets. Others use them for fights.\n";
-  char greeting5[80] = "Myself...I study Pokemon as a profession.\n";
-	char paused[] = "PASUED!";
+	char greeting2[80] = "To start the battle tap the screen or hit a directional button\n"; 
+	char greeting3[80] = "To pause your adventrue hit the sapace bar.\n";
+  char greeting4[80] = "When you are ready to resume your adventure press space again\n";
+  char greeting5[80] = "A world of dreams and adventures with Pokemon awaits! Let's go!\n";
 	
 	DisableInterrupts();
 	initialize_hardware();
