@@ -39,7 +39,7 @@ char gengar_used[80] = "gengar used";
 char ampharos_used[80] = "ampharos used";
 char charizard_used[80] = "charizard used";
 char lapras_used[80] = "lapras used";
-
+char genagr_recharge[80] = "gengar is recharging";
 char shadow_ball[80] = "Shadow Ball";
 char hyper_beam[80] = "Hyper Beam";
 char psychic[80] = "Psychic";
@@ -61,8 +61,7 @@ char slam[80] = "Body Slam";
 char cold[80] = "Sheer Cold";
 
 char miss[80] = "But it missed";
-char super[80] = "It was super";
-char effective[80] = "effective";
+char super[80] = "It was super effective";
 char he_protect_he_attack_but_most_importantly_he_got_your_back[80] = "Gengar protected itself";
 char not_effective[80] = "It was not very effective";
 char no_effect[80] = "It does not affect Gengar";
@@ -387,9 +386,12 @@ void battle_start(void) {
 
 char updateHealth(int damage, int recoil, char side) {
 	int j;
-	
+	blinky_boi();
+	check_pause();
 	if(side == 'E') {
 		while(damage > 0) {
+			blinky_boi();
+			check_pause();
 			lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
 			ENEMY_POKEMON_HEALTH--;
 			damage--;
@@ -402,9 +404,13 @@ char updateHealth(int damage, int recoil, char side) {
 	}
 
 	else{
+		printf("damage: %i", damage);
 		while(damage > 0) {
+			blinky_boi();
+			check_pause();
 			lcd_draw_rectangle(100 + ALLY_POKEMON_HEALTH, 120 - ALLY_POKEMON_HEALTH, 225, 15, LCD_COLOR_WHITE);
 			ALLY_POKEMON_HEALTH--;
+			
 			damage--;
 			if(recoil > 0) {
 				lcd_draw_rectangle(10 + ENEMY_POKEMON_HEALTH, 120 - ENEMY_POKEMON_HEALTH, 50, 15, LCD_COLOR_WHITE);
@@ -429,12 +435,14 @@ char updateHealth(int damage, int recoil, char side) {
 
 void printMoveMessage(char pokemon, char move, char effect) {	
 	int i;
-	
+	printf("move message");
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-	
+	blinky_boi();
+	check_pause();
 	
 	if (effect == 'r') {
 		// Recharge message
+		lcd_draw_string(genagr_recharge, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	}
 
 	else {
@@ -553,6 +561,8 @@ void printMoveMessage(char pokemon, char move, char effect) {
 		} 
 
 		if (effect != '0') {
+			blinky_boi();
+			check_pause();
 			lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 			switch (effect) {
 			
@@ -564,7 +574,6 @@ void printMoveMessage(char pokemon, char move, char effect) {
 			case 's':
 			// It was super effective 
 				lcd_draw_string(super, 25, 270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-				lcd_draw_string(effective, 10, 270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
 			case 'p':
@@ -582,7 +591,7 @@ void printMoveMessage(char pokemon, char move, char effect) {
 				lcd_draw_string(no_effect, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break; 
 
-			case 'r':
+			case 'u':
 			// It hurt itself with recoil
 				lcd_draw_string(recoil, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
@@ -600,18 +609,26 @@ void printMoveMessage(char pokemon, char move, char effect) {
 void faintPokemon(char pokemon, int faints) {
 	int i;
 	int j;
+	
+	blinky_boi();
+	check_pause();
 	switch (pokemon) {
 		
 		// If Gengar fainted
 		case 'g':
 		// Slowly draw white box over Pokemon for "faint" animation
 		for (i = 0; i < 80; i++) {
+			blinky_boi();
+			check_pause();
 			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
 			for (j = 0; j < 100000; j++) {}
 		}
 
 		// Wait - REPLACE WITH "Gengar has fainted".
-		for (j = 0; j < 3000000; j++){}
+		for (j = 0; j < 300000; j++){
+			blinky_boi();
+			check_pause();
+		}
 
 		// "Go Ampharos!"
 		lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
@@ -627,12 +644,20 @@ void faintPokemon(char pokemon, int faints) {
 		case 'a':
 
 		for (i = 0; i < 80; i++) {
+			blinky_boi();
+			check_pause();
 			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 100000; j++) {}
+			for (j = 0; j < 100000; j++) {
+			blinky_boi();
+			check_pause();
+			}
 		}
 
 		// Wait - REPLACE WITH "Ampharos has fainted".
-		for (j = 0; j < 3000000; j++){}
+		for (j = 0; j < 300000; j++){
+			blinky_boi();
+			check_pause();
+		}
 
 		return;
 
@@ -640,13 +665,20 @@ void faintPokemon(char pokemon, int faints) {
 		// If Charizard fainted
 		case 'c':
 
-		for (i = 0; i < 100; i++) {
+		for (i = 0; i < 80; i++) {
+			blinky_boi();
+			check_pause();
 			lcd_draw_rectangle(150, 85, 0, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 100000; j++) {}
-		}
+			for (j = 0; j < 100000; j++) {
+				blinky_boi();
+				check_pause();}
+			}
 
 		// Wait - REPLACE WITH "Charizard has fainted".
-		for (j = 0; j < 3000000; j++){}
+		for (j = 0; j < 300000; j++){
+			blinky_boi();
+			check_pause();
+		}
 
 		// "Go Lapras!"
 		lcd_draw_image(POKEMON_X_ENEMY, laprasWidthPixels, POKEMON_Y_ENEMY,
@@ -661,12 +693,20 @@ void faintPokemon(char pokemon, int faints) {
 		case 'l':
 
 		for (i = 0; i < 100; i++) {
+			blinky_boi();
+			check_pause();
 			lcd_draw_rectangle(150, 85, 0, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 100000; j++) {}
+			for (j = 0; j < 10000; j++) {
+				blinky_boi();
+				check_pause();
+			}
 		}
 
 		// Wait - REPLACE WITH "Charizard has fainted".
-		for (j = 0; j < 3000000; j++){}
+		for (j = 0; j < 100000; j++){
+			blinky_boi();
+			check_pause();
+		}
 
 
 		return;
@@ -782,7 +822,7 @@ void pokemon_battle_main(void){
 			else {  // Hydro Pump for Lapras
 				moveEnemy = '5';
 				r = rand() % 5;
-
+				printf("hydo pump test\n");
 				if (r == 0) {
 					effectMessage2 = 'm'; // 20% chance to miss
 					damageT = 0;
@@ -816,7 +856,7 @@ void pokemon_battle_main(void){
 				effectMessage2 = '0';	
 
 				if(allyPokemon == 'g') {
-					damageT = 0;
+					damageT = 55;
 				}
 
 				else {
@@ -854,7 +894,7 @@ void pokemon_battle_main(void){
 				}
 
 				else {
-					effectMessage2 = 'r';  // It hurt itself with recoil
+					effectMessage2 = 'u';  // It hurt itself with recoil
 					damageT = 80;
 				}
 			}
@@ -969,12 +1009,12 @@ void pokemon_battle_main(void){
 			printf("test\n");
 			effectMessage1 = '0'; // No special effect
 			if (enemyPokemon == 'c') {
-				damageD = 120;
+				damageD = 65;
 			}
 
 			// Lapras damage
 			else {
-				damageD = 0;
+				damageD = 40;
 			}
 
 			break;

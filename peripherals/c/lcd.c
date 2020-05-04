@@ -867,7 +867,7 @@ void lcd_draw_circle(int16_t x0, int16_t y0, int16_t r, uint32_t color) {
 
         lcd_draw_line(x0 + y, y0 + x, x0 - y, y0 + x, color);
         lcd_draw_line(x0 + y, y0 - x, x0 - y, y0 - x, color);
-    }
+    } 
 }
 
 
