@@ -35,11 +35,11 @@ uint16_t TIMER1_COUNT = 0;
 int ALLY_POKEMON_HEALTH = 120;
 int ENEMY_POKEMON_HEALTH = 120;
 
-char gengar_used[80] = "gengar used";
-char ampharos_used[80] = "ampharos used";
-char charizard_used[80] = "charizard used";
-char lapras_used[80] = "lapras used";
-char genagr_recharge[80] = "gengar is recharging";
+char gengar_used[80] = "Gengar used";
+char ampharos_used[80] = "Ampharos used";
+char charizard_used[80] = "Charizard used";
+char lapras_used[80] = "Lapras used";
+char genagr_recharge[80] = "Gengar is recharging";
 char shadow_ball[80] = "Shadow Ball";
 char hyper_beam[80] = "Hyper Beam";
 char psychic[80] = "Psychic";
@@ -67,6 +67,10 @@ char not_effective[80] = "It was not very effective";
 char no_effect[80] = "It does not affect Gengar";
 char recoil[80] = "It hurt itself with recoil";
 
+char gengarFaint[80] = "Gengar has fainted";
+char amphFaint[80] = "Ampharos has fainted";
+char charFaint[80] = "Charizard has fainted";
+char laprasFaint[80] = "Lapras has fainted";
 char lose[80] = "All of your pokemon have fainted";
 char lose2[80] = "You blacked out";
 char win[80] = "Trainer Red has been defeated";
@@ -635,8 +639,9 @@ void faintPokemon(char pokemon, int faints) {
 			for (j = 0; j < 100000; j++) {}
 		}
 
-		// Wait - REPLACE WITH "Gengar has fainted".
-		for (j = 0; j < 300000; j++){
+		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		lcd_draw_string(gengarFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		for (j = 0; j < 4000000; j++){
 			blinky_boi();
 			check_pause();
 		}
@@ -661,8 +666,9 @@ void faintPokemon(char pokemon, int faints) {
 			for (j = 0; j < 100000; j++) {}
 		}
 
-		// Wait - REPLACE WITH "Ampharos has fainted".
-		for (j = 0; j < 300000; j++){
+		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		lcd_draw_string(amphFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		for (j = 0; j < 4000000; j++){
 			blinky_boi();
 			check_pause();
 		}
@@ -680,7 +686,8 @@ void faintPokemon(char pokemon, int faints) {
 			for (j = 0; j < 100000; j++) {}
 			}
 
-		// Wait - REPLACE WITH "Charizard has fainted".
+		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		lcd_draw_string(charFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 		for (j = 0; j < 300000; j++){
 			blinky_boi();
 			check_pause();
@@ -705,8 +712,9 @@ void faintPokemon(char pokemon, int faints) {
 			for (j = 0; j < 10000; j++) {}
 		}
 
-		// Wait - REPLACE WITH "Charizard has fainted".
-		for (j = 0; j < 100000; j++){
+		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		lcd_draw_string(amphFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		for (j = 0; j < 4000000; j++){
 			blinky_boi();
 			check_pause();
 		}
