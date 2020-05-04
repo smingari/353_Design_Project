@@ -21,13 +21,12 @@ volatile uint16_t CURSE_Y = 270;
 uint8_t touch_event;
 uint16_t X_TOUCH,Y_TOUCH;
 
-
-
+// Used for user Input 
 bool paused = false;
-	FILE* file;
-	char input_char;
+FILE* file;
+char input_char;
 
-
+// Used for the Blink-182 timer
 uint16_t TIMER1_COUNT = 0;
 
 
@@ -35,6 +34,7 @@ uint16_t TIMER1_COUNT = 0;
 int ALLY_POKEMON_HEALTH = 120;
 int ENEMY_POKEMON_HEALTH = 120;
 
+// String that are used are offten 
 char gengar[20] = "GENGAR";
 char ampharos[20] = "AMPHAROS";
 char charizard[20] = "CHARIZARD";
@@ -45,26 +45,26 @@ char ampharos_used[80] = "Ampharos used";
 char charizard_used[80] = "Charizard used";
 char lapras_used[80] = "Lapras used";
 char gengar_recharge[80] = "Gengar is recharging";
+
+// Move List
 char shadow_ball[80] = "Shadow Ball";
 char hyper_beam[80] = "Hyper Beam";
 char psychic[80] = "Psychic";
 char protect[80] = "Protect";
-	
 char thunderbolt[80] = "Thunderbolt";
 char zap[80] = "Zap Cannon";
 char dragon[80] = "Dragon Pulse";
 char gem[80] = "Power Gem";
-	
 char flame[80] = "Flamethrower";
 char quake[80] = "Earthquake";
 char blast[80] = "Fire Blast";
 char white_claw[80] = "Shadow Claw";
-
 char hydro[80] = "Hydro Pump";
 char ice_ice_baby[80] = "Ice Beam";
 char slam[80] = "Body Slam";
 char cold[80] = "Sheer Cold";
 
+// Attack messages
 char miss[80] = "But it missed";
 char super[80] = "It was super effective";
 char he_protect_he_attack_but_most_importantly_he_got_your_back[80] = "Gengar protected itself";
@@ -72,6 +72,7 @@ char not_effective[80] = "It was not very effective";
 char no_effect[80] = "It does not affect Gengar";
 char recoil[80] = "It hurt itself with recoil";
 
+// Fainted pokemon message ... RIP cubone's mom :(
 char gengarFaint[80] = "Gengar has fainted";
 char amphFaint[80] = "Ampharos has fainted";
 char charFaint[80] = "Charizard has fainted";
@@ -80,6 +81,8 @@ char lose[80] = "All of your pokemon have fainted";
 char lose2[80] = "You blacked out";
 char win[80] = "Trainer Red has been defeated";
 char red_talk[80] = " ... ";
+
+// Structue for button input
 typedef struct
 {
     bool up;
@@ -90,7 +93,10 @@ typedef struct
 
 
 
-
+/*********************************************************
+/ This method checks for the TIMER3 Alert which signals 
+/ the updating of the cursor image
+*********************************************************/
 void cursor_draw(){
 	if(TIMER3_ALERT){
 		TIMER3_ALERT = false;
@@ -99,7 +105,10 @@ void cursor_draw(){
 }
 
 
-
+/*********************************************************
+/ This method checks for the UART Alert from interrupt handler 
+/ that signals the updating of user input into the serial debugger
+*********************************************************/
 void check_pause(){
 // Interrupt alert for user input
 		if(UART0_RX_ALERT){
@@ -129,16 +138,25 @@ void check_pause(){
 		}
 }
 
-// Touch sensor
+/*********************************************************
+/ This method is used when waiting for user input on the 
+/ touch screen. It calls the ft6x06 that read the status 
+/ register
+*********************************************************/
 bool check_touch(){		
-	touch_event = ft6x06_read_td_status(); // FIX TOUCH SENSOR DOUBLE TOUCH FOR SOME REASON
+	touch_event = ft6x06_read_td_status(); // Read status to detect touch
 	if(touch_event > 0){
 		return true;
 	}
-    gp_timer_wait(TIMER0_BASE, 5000000);
+    gp_timer_wait(TIMER0_BASE, 5000000); // wait so we aren't flooded with touch
 		return false;
 }
 
+
+/*********************************************************
+/ This method recieves the signal sent from the TIMER1
+/ interrupt handler and toggles the lp gpio LED on and off
+*********************************************************/
 void blinky_boi(){
 	// Timer interrupt alert
 	if(TIMER1_ALERT){			
@@ -156,6 +174,10 @@ void blinky_boi(){
 	}
 }
 
+
+/*********************************************************
+/ Used to implement the debounce FSM 
+*********************************************************/
 void debounce_wait(void) 
 {
   int i = 10000;
@@ -167,29 +189,31 @@ void debounce_wait(void)
 }
 
 
+/*********************************************************
+/ This method is used to debounce the push buttons from
+/ I/O expander 
+*********************************************************/
 bool debounce_fsm(D_Pad* d_pad){
 	static DEBOUNCE_STATES state = DEBOUNCE_ONE;
 	uint8_t button_data;
 	bool pin_logic_level;
 	
-	button_data = io_expander_read_reg(MCP23017_GPIOB_R);
-	//printf("%i\n", button_data);
-	if(((0x0F) & button_data) > 0)	
+	button_data = io_expander_read_reg(MCP23017_GPIOB_R); // Read the GPIOB port on I/O expander
+	if(((0x0F) & button_data) > 0)	// Push button data detected
 		pin_logic_level = true; // pressed
 	else
 		pin_logic_level = false; // a 0 non pressed
 	
 	
+	// State machine for the debounce 
 	switch (state) {
 
     case DEBOUNCE_ONE:
     {
 			if(pin_logic_level){
 				state = DEBOUNCE_1ST_ZERO;
-				//printf("go to 1st\n");
 			}
 			else{
-				//printf("go reset\n");
 				state = DEBOUNCE_ONE;
 			}
       break;
@@ -198,11 +222,8 @@ bool debounce_fsm(D_Pad* d_pad){
     {
       if(!pin_logic_level){
 				state = DEBOUNCE_ONE;
-				//printf("go reset\n");
 			}
 			else{
-				//printf("go 2nd\n");
-
 				state = DEBOUNCE_2ND_ZERO;
 			}	
       break;
@@ -211,11 +232,9 @@ bool debounce_fsm(D_Pad* d_pad){
     {
       if(pin_logic_level){
 				state = DEBOUNCE_PRESSED;
-				//printf("go final\n");
 			}
 			else {
 				state = DEBOUNCE_ONE;
-				//printf("go reset\n");
 			}
       break;
     }
@@ -230,12 +249,12 @@ bool debounce_fsm(D_Pad* d_pad){
     }
   }
 
+	// Beautiful masking logic on the push buttons
 	if(state == DEBOUNCE_1ST_ZERO){
 		d_pad->up = button_data & 0x01;
 		d_pad->down = button_data & 0x02;
 		d_pad->left = button_data & 0x04;
 		d_pad->right = button_data & 0x08;
-		//printf("button data up: %i\n", d_pad->up);
 		return true;
 	}
 
@@ -244,39 +263,43 @@ bool debounce_fsm(D_Pad* d_pad){
 	}
 }
 
-
+/*********************************************************
+/ This method recieves the interrupt handler signal from
+/ from GPIO_F handler 
+*********************************************************/
 void check_button(D_Pad* d_pad){
-
 		// Buttons
 		if(BUTTON_ALERT){
 			BUTTON_ALERT = false;
-			debounce_fsm(d_pad);
+			debounce_fsm(d_pad);  // Call debounce on the buttons
 		}
-
 }
 
 
-
+/*********************************************************
+/ This method updates the cordinates of the cursor that
+/ the user controls with the PS2 joystick
+*********************************************************/
 void move_curse(volatile PS2_DIR_t direction, volatile uint16_t *x_coord, volatile uint16_t *y_coord){
 	switch(direction){
-		case PS2_DIR_UP: // since top is 0 we need to subtract by 1
-			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
-			*y_coord = 270;
+		case PS2_DIR_UP: 
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0); // white out old box
+			*y_coord = 270; // only can go up so set to the top row
 			break;
 			
-		case PS2_DIR_DOWN: // y increases as we move down so +1
-			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
-			*y_coord = 300;
+		case PS2_DIR_DOWN: 
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0); // white out old box
+			*y_coord = 300; // can only go down to set to bottom row
 			break;
 			
-		case PS2_DIR_RIGHT: // X increases in the right direction so +1
-			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
-			*x_coord = 130;
+		case PS2_DIR_RIGHT:
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0); // white out old box
+			*x_coord = 130; // can only go right so shift to far right coloum 
 			break;
 			
-		case PS2_DIR_LEFT: // left corresponds to 0 so -1
-			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
-			*x_coord = 10;
+		case PS2_DIR_LEFT: 
+			lcd_draw_box(CURSE_X,5,CURSE_Y,5, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0); // white out old box
+			*x_coord = 10; // // can only go left so shift to far left coloum 
 			break;
 		
 		default: // Center and init don't require movement so don't touch x or y
@@ -291,7 +314,7 @@ void battle_start(void) {
 	int i;
 	char start[80] = "Trainer Red  Wants to Battle"; // Opening message
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
-  	bool battle = true;
+  bool battle = true;
 	char* str = "Trainer Gold  Wins: "; // Keeps track of player's wins
 	char wins[80];
 	char score[80];
