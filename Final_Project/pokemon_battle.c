@@ -471,170 +471,177 @@ char updateHealth(int damage, int recoil, char side) {
 // Format Example: "Gengar used _____" , "It's super effective"
 void printMoveMessage(char pokemon, char move, char effect) {	
 	int i;
-	//printf("move message");
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-	blinky_boi();
+	blinky_boi();  // Blinking LED
 	check_pause();
 	
+	// If Gengar is recharging
 	if (effect == 'r') {
 		// Recharge message
 		lcd_draw_string(gengar_recharge, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	}
 
 	else {
+		// Prints 'Pokemon used'
 		switch(pokemon) {
 
 		case 'g': 
-		// Print Gengar used
+			// Print 'Gengar used'
 			lcd_draw_string(gengar_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		break;
+			break;
 
 		case 'a':
-		// 'Ampharos used'
+			// 'Ampharos used'
 			lcd_draw_string(ampharos_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		break;
+			break;
 
 		case 'c':
-		// 'Charizard used'
+			// 'Charizard used'
 			lcd_draw_string(charizard_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		break;
+			break;
 
 		case 'l':
-		// 'Lapras used'
+			// 'Lapras used'
 			lcd_draw_string(lapras_used, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		break;
+			break;
 
 		default:
-		break;
+			break;
 	}
 
-		switch (move) {
-			case '1':
+	// Prints out the move
+	switch (move) {
+		case '1':
 			// Flamethrower
-				lcd_draw_string(flame, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(flame, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '2':
+		case '2':
 			// Earthquake
-				lcd_draw_string(quake, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(quake, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '3':
+		case '3':
 			// Fire Blast
-				lcd_draw_string(blast, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(blast, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '4':
+		case '4':
 			// Shadow Claw
-				lcd_draw_string(white_claw, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(white_claw, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '5':
+		case '5':
 			// Hydro Pump
-				lcd_draw_string(hydro, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(hydro, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '6':
+		case '6':
 			// Ice Beam
-				lcd_draw_string(ice_ice_baby, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(ice_ice_baby, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '7':
+		case '7':
 			// Body Slam
-				lcd_draw_string(slam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(slam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case '8':
+		case '8':
 			// Sheer Cold
-				lcd_draw_string(cold, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(cold, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 's':
+		case 's':
 			// Shadow Ball
-				lcd_draw_string(shadow_ball, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(shadow_ball, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 'h':
+		case 'h':
 			// Hyper Beam
-				lcd_draw_string(hyper_beam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(hyper_beam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 'y':
+		case 'y':
 			// Psychic
-				lcd_draw_string(psychic, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(psychic, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 'p':
+		case 'p':
 			// Protect
-				lcd_draw_string(protect, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(protect, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 't':
+		case 't':
 			// Thunderbolt
-				lcd_draw_string(thunderbolt, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(thunderbolt, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 'z':
+		case 'z':
 			// Zap Cannon
-				lcd_draw_string(zap, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(zap, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 'd':
+		case 'd':
 			// Dragon Pulse
-				lcd_draw_string(dragon, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(dragon, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			case 'g':
+		case 'g':
 			// Power Gem
-				lcd_draw_string(gem, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+			lcd_draw_string(gem, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			break;
 
-			default: 
+		default: 
 			break;
 		}
 
+		// Arbitrary delay to read text
 		for (i = 0; i < 5000000; i++) {
 		} 
 
+		// Checks if there is an effect message
 		if (effect != '0') {
 			blinky_boi();
 			check_pause();
 			lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+
+			// Prints out the effect message
 			switch (effect) {
 			
 			case 'm':
-			// But it missed
+				// But it missed
 				lcd_draw_string(miss, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-			break;
+				break;
 
 			case 's':
-			// It was super effective 
+				// It was super effective 
 				lcd_draw_string(super, 25, 270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-			break;
+				break;
 
 			case 'p':
-			// Gengar protected itself
+				// Gengar protected itself
 				lcd_draw_string(he_protect_he_attack_but_most_importantly_he_got_your_back, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-			break;
+				break;
 
 			case 'n':
-			// It was not very effective
+				// It was not very effective
 				lcd_draw_string(not_effective, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-			break;
+				break;
 
 			case 'd':
-			// It does not affect Gengar
+				// It does not affect Gengar
 				lcd_draw_string(no_effect, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-			break; 
+				break; 
 
 			case 'u':
-			// It hurt itself with recoil
+				// It hurt itself with recoil
 				lcd_draw_string(recoil, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-			break;
+				break;
 
 			default :
-			break;
+				break;
 			}
+
 			for (i = 0; i < 5000000; i++) {}
 			
 		}
@@ -642,16 +649,56 @@ void printMoveMessage(char pokemon, char move, char effect) {
 	return;
 }
 
+// Function to animate the death of each Pokemon
+// Also initializes the state of the next Pokemon if possible
 void faintPokemon(char pokemon, int faints) {
 	int i;
 	int j;
-	
-	blinky_boi();
+	blinky_boi();  // Blinking LED
 	check_pause();
+
+	// Check which Pokemon fainted
 	switch (pokemon) {
 		
 		// If Gengar fainted
 		case 'g':
+			// Slowly draw white box over Pokemon for "faint" animation
+			for (i = 0; i < 80; i++) {
+				blinky_boi();
+				check_pause();
+				lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
+				for (j = 0; j < 100000; j++) {}
+			}
+
+			// Print out "Gengar has fainted"
+			lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+			lcd_draw_string(gengarFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+
+			// Delay for readability
+			for (j = 0; j < 1000000; j++){
+				blinky_boi();
+				check_pause();
+			}
+
+			// Erase Gengar's name
+			lcd_draw_box(150,80,200,40, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+
+			// Initialize Ampharos
+			lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
+			ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_YELLOW, LCD_COLOR_WHITE);
+			// Ampharos name
+			lcd_draw_string(ampharos, 150, 210, LCD_COLOR_BLACK, LCD_COLOR_WHITE); 
+		
+			// Reset the Health Bar
+			lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
+			ALLY_POKEMON_HEALTH = 120;
+
+			return;
+
+
+	// If Ampharos fainted
+	case 'a':
+
 		// Slowly draw white box over Pokemon for "faint" animation
 		for (i = 0; i < 80; i++) {
 			blinky_boi();
@@ -661,38 +708,13 @@ void faintPokemon(char pokemon, int faints) {
 		}
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-		lcd_draw_string(gengarFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		for (j = 0; j < 1000000; j++){
-			blinky_boi();
-			check_pause();
-		}
 
-		// "Go Ampharos!"
-		lcd_draw_box(150,80,200,40, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
-		lcd_draw_image(POKEMON_X_ALLY, ampharosWidthPixels,POKEMON_Y_ALLY,
-		ampharosHeightPixels,ampharosBitmaps,LCD_COLOR_YELLOW, LCD_COLOR_WHITE);
-		lcd_draw_string(ampharos, 150, 210, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		
-
-		// Reset the Health Bar
-		lcd_draw_rectangle(100, 120, 225, 15, LCD_COLOR_GREEN);
-		ALLY_POKEMON_HEALTH = 120;
-		return;
-
-
-		// If Ampharos fainted
-		case 'a':
-
-		for (i = 0; i < 80; i++) {
-			blinky_boi();
-			check_pause();
-			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 100000; j++) {}
-		}
-
-		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
+		// 'Ampharos has fainted'
 		lcd_draw_string(amphFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+
+		// Erase Ampharos's name
 		lcd_draw_box(140,80,200,40, LCD_COLOR_WHITE, LCD_COLOR_WHITE, 0);
+
 		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
@@ -701,9 +723,10 @@ void faintPokemon(char pokemon, int faints) {
 		return;
 
 
-		// If Charizard fainted
-		case 'c':
+	// If Charizard fainted
+	case 'c':
 
+		// Charizard faint 'animation'
 		for (i = 0; i < 80; i++) {
 			blinky_boi();
 			check_pause();
@@ -711,15 +734,19 @@ void faintPokemon(char pokemon, int faints) {
 			for (j = 0; j < 100000; j++) {}
 			}
 
+		// Charizard has fainted
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(charFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+
 		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
 		}
 
-		// "Go Lapras!"
+		// Erase Charizard name
 		lcd_draw_box(0,80, 0, 40 , LCD_COLOR_WHITE, LCD_COLOR_WHITE,2);
+
+		// Initialize Lapras
 		lcd_draw_image(POKEMON_X_ENEMY, laprasWidthPixels, POKEMON_Y_ENEMY,
 		laprasHeightPixels,laprasBitmaps,LCD_COLOR_WHITE, LCD_COLOR_BLUE);
 		lcd_draw_string(lapras, 10, 30, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
@@ -731,8 +758,10 @@ void faintPokemon(char pokemon, int faints) {
 
 		return;
 
-		case 'l':
+	// If Lapras fainted
+	case 'l':
 
+		// Lapras faint 'animation'
 		for (i = 0; i < 100; i++) {
 			blinky_boi();
 			check_pause();
@@ -740,24 +769,29 @@ void faintPokemon(char pokemon, int faints) {
 			for (j = 0; j < 10000; j++) {}
 		}
 
+		// 'Lapras has fainted'
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(laprasFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+
+		// Erase Lapras's name
 		lcd_draw_box(0,80, 0, 40 , LCD_COLOR_WHITE, LCD_COLOR_WHITE,2);
+
 		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
 		}
 
-
 		return;
 
 		default:
-		break;
+			break;
 
 		return;
 	}
 }
 
+// Main method for the game.  Simulates a single battle
+// from the popular videogame series 'Pokemon"
 void pokemon_battle_main(void){
 	bool game_over = false;
 	uint8_t* button_data;
@@ -781,8 +815,7 @@ void pokemon_battle_main(void){
 	char allyPokemon =  'g';  // Initialize to Gengar
 	char enemyPokemon = 'c';  // Initialize to Charizard
 	char status = '0';
-	
-	
+
 	bool score_bool = true;
 
 	int damageD = 0;  // Damage Done
@@ -790,53 +823,48 @@ void pokemon_battle_main(void){
 	int ALLY_HEALTH_MAX = 120;
 
 
-	// EEPROM TESTING
+	// EEPROM
 	eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 	printf("Trainer Gold Win's: %i\n", eeprom_data);
 		
-		
-	
+	// Initializes the game state
 	battle_start();
 	
+
 	while(!game_over){
 		
 		enableLeds(pokemon_display);
 		
 		debounce_wait();
 		
-		if(d_pad->up == true){	
-			//printf("up\n");	
+		if(d_pad->up == true){		
 			d_pad->up = false;	
 		}	
 
 		if(d_pad->down == true){	
-			//printf("down\n");	
 			d_pad->down = false;	
 		}	
 
-		if(d_pad->left == true){	
-			//printf("left\n");	
+		if(d_pad->left == true){
 			d_pad->left = false;	
 		}	
-		if(d_pad->right == true){	
-			//printf("right\n");	
+		if(d_pad->right == true){		
 			d_pad->right = false;	
-		}
-
-		// All under the assumption Pokemon health is 120 long	
+		}	
 		
-		// Clean all text
+		// Clean the text box
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		
-		
+		// Set up text box display for Gengar's moves
 		if (allyPokemon == 'g') {
 			lcd_draw_string(shadow_ball, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			lcd_draw_string(hyper_beam, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			lcd_draw_string(psychic, 145,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			lcd_draw_string(protect, 145,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);	
-    }
+    	}	
 
-    else {
+		// Set up text box display for Ampharos's moves
+    	else {
 			lcd_draw_string(thunderbolt, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			lcd_draw_string(zap, 25,300, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 			lcd_draw_string(dragon, 145,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
@@ -846,167 +874,176 @@ void pokemon_battle_main(void){
 		n = rand() % 4; // Choose move for the enemy Pokemon
 		switch(n) 
 		{
-			// All under the assumption Pokemon health is 120 long
+			// All damage is under the assumption Pokemon health is 120 long
 			case 0:
 
-			effectMessage2 = '0';
-			if (enemyPokemon == 'c') {  // Flamethrower for Charizard
-				moveEnemy = '1';
-				if(allyPokemon == 'g') {
-					damageT = 55;
-				}
-				else {
-					damageT = 70;
-				}
-			}
-
-			else {  // Hydro Pump for Lapras
-				moveEnemy = '5';
-				r = rand() % 5;
-				if (r == 0) {
-					effectMessage2 = 'm'; // 20% chance to miss
-					damageT = 0;
-				}		
-
-				else if(allyPokemon == 'g') {
-					damageT = 75;
+				effectMessage2 = '0';  // No special effect
+				if (enemyPokemon == 'c') {  // Flamethrower for Charizard
+					moveEnemy = '1';
+					if(allyPokemon == 'g') {
+						damageT = 55;
+					}
+					else {
+						damageT = 70;
+					}
 				}
 
-				else {
-					damageT = 95;
+				else {  // Hydro Pump for Lapras
+					moveEnemy = '5';
+					r = rand() % 5;
+					if (r == 0) {
+						effectMessage2 = 'm'; // 20% chance to miss
+						damageT = 0;
+					}		
+
+					// If our Pokemon is Gengar
+					else if(allyPokemon == 'g') {
+						damageT = 75;
+					}
+
+					// If our Pokemon is Ampharos
+					else {
+						damageT = 95;
+					}
 				}
-			}
-	
+
 			case 1:
 
-			if (enemyPokemon == 'c') {  // Earthquake for Charizard
-				moveEnemy = '2';
-				effectMessage2 = 's';
+				if (enemyPokemon == 'c') {  // Earthquake for Charizard
+					moveEnemy = '2';
+					effectMessage2 = 's';  // Super effective
 
-				if(allyPokemon == 'g') {
-					damageT = 80;
-				}
-				else {
-					damageT = 110;
-				}
-			}
-
-			else {  // Ice Beam
-				moveEnemy = '6';
-				effectMessage2 = '0';	
-
-				if(allyPokemon == 'g') {
-					damageT = 55;
+					if(allyPokemon == 'g') {
+						damageT = 80;
+					}
+					else {
+						damageT = 110;
+					}
 				}
 
-				else {
-					damageT = 70;
-				}
-			}
+				else {  // Ice Beam
+					moveEnemy = '6';
+					effectMessage2 = '0';	
 
-			break;
+					if(allyPokemon == 'g') {
+						damageT = 55;
+					}
+
+					else {
+						damageT = 70;
+					}
+				}
+
+				break;
 
 			case 2:
 
-			if (enemyPokemon == 'c') {  // Fire Blast for Charizard
-				moveEnemy = '3';
-				effectMessage2 = '0';
-				r = rand() % 6;
-				if (r == 0) {
-					effectMessage2 = 'm'; // 15% chance to miss
-					damageT = 0;
-				}		
+				if (enemyPokemon == 'c') {  // Fire Blast for Charizard
+					moveEnemy = '3';
+					effectMessage2 = '0';
+					r = rand() % 6;
+					if (r == 0) {
+						effectMessage2 = 'm'; // 15% chance to miss
+						damageT = 0;  // Missing does no damage
+					}		
 
-				else if(allyPokemon == 'g') {
-					damageT = 80;
+					else if(allyPokemon == 'g') {
+						damageT = 80;
+					}
+
+					else {
+						damageT = 100;
+					}
 				}
 
-				else {
-					damageT = 100;
-				}
-			}
+				else {  // Body Slam for Lapras
+					moveEnemy = '7';
+					if(allyPokemon == 'g') {
+						effectMessage2 = 'd'; // Does not affect Ghost types 
+						damageT = 0;
+					}
 
-			else {  // Body Slam for Lapras
-				moveEnemy = '7';
-				if(allyPokemon == 'g') {
-					effectMessage2 = 'd'; // Does not affect Ghost types 
-					damageT = 0;
+					else {
+						effectMessage2 = 'u';  // It hurt itself with recoil
+						damageT = 80;
+					}
 				}
-
-				else {
-					effectMessage2 = 'u';  // It hurt itself with recoil
-					damageT = 80;
-				}
-			}
 			
-			break;
-
+				break;
 
 			case 3:
 
-			if (enemyPokemon == 'c') {  // Thunderpunch for Charizard
-				moveEnemy = '4';
-				effectMessage2 = '0';
+				if (enemyPokemon == 'c') {  // Thunderpunch for Charizard
+					moveEnemy = '4';
+					effectMessage2 = '0';
 
-				if(allyPokemon == 'g') {
-					damageT = 50;
+					if(allyPokemon == 'g') {
+						damageT = 50;
+					}
+
+					else {
+						effectMessage2 = 'n'; // Not very effective
+						damageT = 30;
+					}
 				}
 
-				else {
-					effectMessage2 = 'n'; // Not very effective
-					damageT = 30;
-				}
-			}
+				else {  // Sheer Cold for Lapras
+					moveEnemy = '8';
+					r = rand() % 3;
 
-			else {  // Sheer Cold for Lapras
-				moveEnemy = '8';
-				r = rand() % 3;
-				if (r != 2) {
-					effectMessage2 = 'm'; // 66% chance to miss
-					damageT = 0;
-				}		
+					if (r != 2) {
+						effectMessage2 = 'm'; // 66% chance to miss
+						damageT = 0;
+					}		
 
-				else {
-				effectMessage2 = '1';  // 1-hit KO
-				damageT = 120;
-				}
-			}
+					else {
+						effectMessage2 = '0';  
+						damageT = 120;  // 1-hit KO
+					}
+				}	
 			
-			break;
+				break;
 
 			default:
 				break;
 
 		}
 		
-			move_select = true;
-		// Await user input
-			while(move_select){		
-				blinky_boi();
-				check_pause();
-				debounce_wait();
-				cursor_draw();
-				check_button(d_pad);
-		
-				if(CURSE_X == 10 && CURSE_Y == 270) {
-            position = 1;
-        }
-         if (CURSE_X == 10 && CURSE_Y == 300) {
-            position = 2;
-        }
-         if (CURSE_X == 130 && CURSE_Y == 270) {
-            position = 3;
-        }
-         if (CURSE_X == 130 && CURSE_Y == 300) {
-            position = 4;
-        }
-				if(d_pad->left){  // select move
-					move_select = false;
-				}
+		move_select = true;
+		// Await user input for the move
+		while(move_select){		
+			blinky_boi();
+			check_pause();
+			debounce_wait();
+			cursor_draw();
+			check_button(d_pad);
+
+			// Top Left Move
+			if(CURSE_X == 10 && CURSE_Y == 270) {
+         	   position = 1;
+        	}
+
+			// Bottom Left Move
+         	if (CURSE_X == 10 && CURSE_Y == 300) {
+            	position = 2;
+        	}
+
+			// Top Right Move
+         	if (CURSE_X == 130 && CURSE_Y == 270) {
+            	position = 3;
+        	}
+
+			// Bottom Right Move
+         	if (CURSE_X == 130 && CURSE_Y == 300) {
+            	position = 4;
+        	}
+
+			if(d_pad->left){  // Select move
+				move_select = false;
 			}
+		}
 		
-		
-        // Player selects the move on the Pokemon
+        // Assigns player's move selection to appropriate char
         if (allyPokemon == 'g' && position == 1) {
             moveAlly = 's';  // Shadow Ball for Gengar
         }
@@ -1040,143 +1077,151 @@ void pokemon_battle_main(void){
         }
 			
 	
+		// Assigns damage values based on player's move and enemy Pokemon
 		switch(moveAlly) 
 		{
 			// All under the assumption Pokemon health is 120 long
-			// I know how to do crits later if we want
 			case 's': // Shadow Ball for Gengar
-			effectMessage1 = '0'; // No special effect
-			if (enemyPokemon == 'c') {
-				damageD = 65;
-			}
 
-			// Lapras damage
-			else {
-				damageD = 40;
-			}
+				effectMessage1 = '0'; // No special effect
 
-			break;
+				// Enemy Pokemon is Charizard
+				if (enemyPokemon == 'c') {
+					damageD = 65;
+				}
 
+				// Enemy Pokemon is Lapras
+				else {
+					damageD = 40;
+				}
+
+				break;
 			
 			case 'h': // Hyper Beam for Gengar
 
-			effectMessage1 = '0';
-			if (enemyPokemon == 'c') {
-				damageD = 85;
-			}
+				effectMessage1 = '0';
+				if (enemyPokemon == 'c') {
+					damageD = 85;
+				}
 
-			else {
-				damageD = 60;
-			}
-			break;
+				else {
+					damageD = 60;
+				}
 
+				break;
 
 			case 'y': // Psychic for Gengar
 			
-			effectMessage1 = '0';
-			if(enemyPokemon == 'c') {
-				damageD = 55;
-			}
+				effectMessage1 = '0';
+				if(enemyPokemon == 'c') {
+					damageD = 55;
+				}
 			
-			else {
-				damageD = 35;
-			}
+				else {
+					damageD = 35;
+				}
 
-			break;
-
+				break;
 
 			case 'p': // Protect for Gengar
 
-			if (lastMove == 'p') {
-				effectMessage1 = 'm';
-			}
+				// Can't use Protect 2 turns in a row
+				if (lastMove == 'p') {
+					effectMessage1 = 'm'; // 'But it missed'
+				}
 
-			else {
-				effectMessage1 = '0';
-				effectMessage2 = 'p';  //  Protect message 
-				damageT = 0;  // Negates damage taken
-			}
+				// If Protect was succesful
+				else {
+					effectMessage1 = '0';
+					effectMessage2 = 'p';  // Protect message 
+					damageT = 0;  // Negates damage taken
+				}
 			
-			break;
+				break;
 
 
 			case 't': // Thunderbolt for Ampharos
 
-			effectMessage1 = 's'; 
-			if (enemyPokemon == 'c') {
-				damageD = 100;
-			}
+				effectMessage1 = 's';  // Super effective to both enemies
+				if (enemyPokemon == 'c') {
+					damageD = 100;
+				}
 
-			else {
-				damageD = 60; 
-			}
+				else {
+					damageD = 60; 
+				}
 
-			break;
-
+				break;
 
 			case 'z': // Zap Cannon for Ampharos
 			
-			effectMessage1 = 's'; // Super effective
-			n = rand() % 2;
-			if (n == 0) {
-				effectMessage1 = 'm';  // Missed
-			}
+				effectMessage1 = 's'; // Super effective
+				n = rand() % 2;
+				if (n == 0) {
+					effectMessage1 = 'm';  // 50% chance to miss
+				}
 
-			else if (enemyPokemon == 'c') {
-				damageD = 120;
-			}
+				// Instantly kills Charizard if successful
+				else if (enemyPokemon == 'c') {
+					damageD = 120;
+				}
 				
-			else {
-				damageD = 80;
-			}
+				else {
+					damageD = 80;
+				}
 
-			break;
+				break;
 
+			// Weakest Move
 			case 'd': // Dragon Pulse for Ampharos
 
-			effectMessage1 = '0'; 
-			if (enemyPokemon == 'c') {
-				damageD = 40;
-			}
+				effectMessage1 = '0'; 
+				if (enemyPokemon == 'c') {
+					damageD = 40;
+				}
 
-			else {
-				damageD = 25;
-			}
+				else {
+					damageD = 25;
+				}
 
-			break;
+				break;
 
 			case 'g':  // Power Gem for Ampharos
 
-			effectMessage1 = 's'; 
-			if (enemyPokemon == 'c') {
-				damageD = 110;
-			}
+				effectMessage1 = 's'; // Super effective against both
 
-			else { 
+				// x4 effective on Charizard 
+				if (enemyPokemon == 'c') {
+					damageD = 110;
+				}
 
-				damageD = 50;
-			}
+				else {
+					damageD = 50;
+				}
 
-			break;
+				break;
 
 			default:
-			break;
+				break;
 
 		}
 
+		// Using Hyper Beam loses player their next turn
 		if (lastMove == 'h') {
-			damageD = 0;
-			effectMessage1 = 'r';
+			damageD = 0;  // No damage this turn
+			effectMessage1 = 'r';  // Recharge message
 		} 
 
+		// Keep track of last move
 		lastMove = moveAlly;
+
+		// Recoil Damage on Body Slam
 		if (moveEnemy == '7' && effectMessage2 != 'p') {
 			damageRecoil = 10;
 		}
 
-		
-		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethroweer
-
+		// Ally Pokemon move execution
+		printMoveMessage(allyPokemon, moveAlly, effectMessage1); // E.g.: Charizard used Flamethrower
 		status = updateHealth(damageD, damageRecoil, 'E');  // Updates enemy Pokemon's health
 
 		// Just in case player tried to use Hyper Beam twice
@@ -1184,54 +1229,72 @@ void pokemon_battle_main(void){
 			lastMove = '0';
 		}
 
+		// If enemy Pokemon fainted
 		if (status == 'f') 		{
-			status = 'n';
-			faintPokemon(enemyPokemon, enemyFaints);  // 'Enemy' Pokemon fainted 
+			status = 'n';  // Variable to cancel opponents next move on faint
+			faintPokemon(enemyPokemon, enemyFaints);  
 			enemyFaints += 1;
 			pokemon_display &= 0x83;
+
+			// Switch Pokemon to Lapras
 			if (enemyFaints == 1) {
 				enemyPokemon = 'l';
 
 			}
 
+			// Both Enemy Pokemon fainted
 			else {
 				// WE WIN
 				pokemon_display &= 0x03;
 				for(i = 0; i < 1000000; i++){}
+
+				// Win Screen
 				lcd_clear_screen(LCD_COLOR_BLACK);
 				lcd_draw_string(win, 35,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 				lcd_draw_string(red_talk, 60,180, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 				printf("...\n");
+
 				game_over = true;
 				
-			  // update Eeprom Score
+			  	// Update Eeprom Score
 				eeprom_data += 1;
 				eeprom_byte_write(I2C1_BASE, ADDR_START, eeprom_data);
 			}
 		}
 
+		// Ensures enemy Pokemon is not fainted
 		if (status != 'n') {
+
+			// Enemy's turn
 			printMoveMessage(enemyPokemon, moveEnemy, effectMessage2);
 			status = updateHealth(damageT, damageRecoil, 'A');  // Updates our Pokemon's health
+
+			// If our Pokemon fainted
 			if (status == 'f') {
-				status = '0';
-				faintPokemon(allyPokemon, allyFaints);  // Ally Pokemon fainted
+				status = '0';  // Reset status
+				faintPokemon(allyPokemon, allyFaints); 
 				pokemon_display &= 0xC1; 
 				allyFaints += 1;
+
+				// Change to Ampharos
 				if (allyFaints == 1) {
 					allyPokemon = 'a';
 				}
 
+				// Both our Pokemon fainted - WE LOSE
 				else {
-					// WE LOSE
+					
 					for(i = 0; i < 1000000; i++){}
 					pokemon_display &= 0xC0;
+
+					// Lose Screen
 					lcd_clear_screen(LCD_COLOR_BLACK);
 					lcd_draw_string(lose, 30,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 					game_over = true;	
 				}
 			}
 
+			// Enemy Lapras fainted from Recoil on their turn
 			else if (status == 'g') {
 				status = '0';
 				faintPokemon(enemyPokemon, enemyFaints);  // 'Enemy' Pokemon fainted 
@@ -1240,6 +1303,8 @@ void pokemon_battle_main(void){
 					// WE WIN
 					pokemon_display &= 0x03;
 					for(i = 0; i < 1000000; i++){}
+
+					// Win screen
 					lcd_clear_screen(LCD_COLOR_BLACK);
 					lcd_draw_string(win, 35,150, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 					printf("...\n");
@@ -1252,6 +1317,7 @@ void pokemon_battle_main(void){
 			}
 		}
 
+		// Reset damages
 		damageD = 0;
 		damageT = 0;
 		damageRecoil = 0;
