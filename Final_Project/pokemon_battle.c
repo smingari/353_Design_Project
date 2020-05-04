@@ -647,10 +647,7 @@ void faintPokemon(char pokemon, int faints) {
 			blinky_boi();
 			check_pause();
 			lcd_draw_rectangle(0, 100, 170, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 100000; j++) {
-			blinky_boi();
-			check_pause();
-			}
+			for (j = 0; j < 100000; j++) {}
 		}
 
 		// Wait - REPLACE WITH "Ampharos has fainted".
@@ -669,9 +666,7 @@ void faintPokemon(char pokemon, int faints) {
 			blinky_boi();
 			check_pause();
 			lcd_draw_rectangle(150, 85, 0, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 100000; j++) {
-				blinky_boi();
-				check_pause();}
+			for (j = 0; j < 100000; j++) {}
 			}
 
 		// Wait - REPLACE WITH "Charizard has fainted".
@@ -696,10 +691,7 @@ void faintPokemon(char pokemon, int faints) {
 			blinky_boi();
 			check_pause();
 			lcd_draw_rectangle(150, 85, 0, i, LCD_COLOR_WHITE); 
-			for (j = 0; j < 10000; j++) {
-				blinky_boi();
-				check_pause();
-			}
+			for (j = 0; j < 10000; j++) {}
 		}
 
 		// Wait - REPLACE WITH "Charizard has fainted".
@@ -1220,5 +1212,7 @@ void pokemon_battle_main(void){
 	}
 	// End of game
 	enableLeds(pokemon_display);
-	while(1){}
+	while(1){
+		blinky_boi();
+	}
 }
