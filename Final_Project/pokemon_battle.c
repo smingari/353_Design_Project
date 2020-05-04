@@ -1196,7 +1196,7 @@ void pokemon_battle_main(void){
 
 			else if (status == 'g') {
 				status = '0';
-				faintPokemon(allyPokemon, allyFaints);  // 'Enemy' Pokemon fainted 
+				faintPokemon(enemyPokemon, enemyFaints);  // 'Enemy' Pokemon fainted 
 				enemyFaints += 1;
 				if (enemyFaints == 2) {
 					// WE WIN
