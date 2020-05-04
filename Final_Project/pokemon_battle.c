@@ -289,7 +289,7 @@ void battle_start(void) {
 	char start[80] = "Trainer Red  Wants to Battle";
 	D_Pad* d_pad = malloc(sizeof(D_Pad));
   bool battle = true;
-	char* str = "Trainer Gold Win's: ";
+	char* str = "Trainer Gold  Wins: ";
 	char wins[80];
 	char score[80];
 	uint8_t eeprom_data;
@@ -310,13 +310,13 @@ void battle_start(void) {
 	eeprom_byte_read(I2C1_BASE, ADDR_START, &eeprom_data);
 	
 	
-	//sprintf(wins,"%d", eeprom_data);
+	sprintf(wins,"%d", eeprom_data);
 	
 	strcpy(score, str);
 	strcat(score, wins);
 		
 		
-	lcd_draw_string(score, 110,150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+	lcd_draw_string(score, 40,170, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	// Wait for button input
 	lcd_draw_string(start, 40, 150, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
 	while(battle){
@@ -419,7 +419,7 @@ char updateHealth(int damage, int recoil, char side) {
 	}
 
 	else{
-		printf("damage: %i", damage);
+		//printf("damage: %i", damage);
 		while(damage > 0) {
 			blinky_boi();
 			check_pause();
@@ -450,7 +450,7 @@ char updateHealth(int damage, int recoil, char side) {
 
 void printMoveMessage(char pokemon, char move, char effect) {	
 	int i;
-	printf("move message");
+	//printf("move message");
 	lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 	blinky_boi();
 	check_pause();
@@ -641,7 +641,7 @@ void faintPokemon(char pokemon, int faints) {
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(gengarFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		for (j = 0; j < 4000000; j++){
+		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
 		}
@@ -668,7 +668,7 @@ void faintPokemon(char pokemon, int faints) {
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(amphFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		for (j = 0; j < 4000000; j++){
+		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
 		}
@@ -688,7 +688,7 @@ void faintPokemon(char pokemon, int faints) {
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
 		lcd_draw_string(charFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		for (j = 0; j < 300000; j++){
+		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
 		}
@@ -713,8 +713,8 @@ void faintPokemon(char pokemon, int faints) {
 		}
 
 		lcd_draw_box(0,240,(ROWS-70), 70, LCD_COLOR_BLUE, LCD_COLOR_WHITE,2);
-		lcd_draw_string(amphFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
-		for (j = 0; j < 4000000; j++){
+		lcd_draw_string(laprasFaint, 25,270, LCD_COLOR_BLACK, LCD_COLOR_WHITE);
+		for (j = 0; j < 1000000; j++){
 			blinky_boi();
 			check_pause();
 		}
@@ -774,6 +774,25 @@ void pokemon_battle_main(void){
 		enableLeds(pokemon_display);
 		
 		debounce_wait();
+		
+		if(d_pad->up == true){	
+			//printf("up\n");	
+			d_pad->up = false;	
+		}	
+
+		if(d_pad->down == true){	
+			//printf("down\n");	
+			d_pad->down = false;	
+		}	
+
+		if(d_pad->left == true){	
+			//printf("left\n");	
+			d_pad->left = false;	
+		}	
+		if(d_pad->right == true){	
+			//printf("right\n");	
+			d_pad->right = false;	
+		}
 
 		// All under the assumption Pokemon health is 120 long	
 		
@@ -999,7 +1018,6 @@ void pokemon_battle_main(void){
 			// All under the assumption Pokemon health is 120 long
 			// I know how to do crits later if we want
 			case 's': // Shadow Ball for Gengar
-			printf("test\n");
 			effectMessage1 = '0'; // No special effect
 			if (enemyPokemon == 'c') {
 				damageD = 65;
