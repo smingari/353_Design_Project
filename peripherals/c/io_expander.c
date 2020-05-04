@@ -5,9 +5,6 @@
 #include "io_expander.h"
 #include "buttons.h"
 
-
-
-
 bool io_expander_init()
 {
 	i2c_status_t i2c_status;
@@ -48,16 +45,12 @@ bool io_expander_init()
 	io_expander_write_reg(MCP23017_IODIRB_R, 0xFF);//make pushbuttons to be input
 	
 	io_expander_write_reg(MCP23017_IPOLB_R, 0xFF); // Polarity flips everything
-	
-	
-	//io_expander_write_reg(MCP23017_IOCONB_R, 0);//make pushbuttons to compare with previous value
 	io_expander_write_reg(MCP23017_GPINTENB_R, 0xFF); // INTERRUPT ON CHANGE
-	io_expander_write_reg(MCP23017_GPPUB_R, 0x0F);//enable pull-up of pushbuttons 06?
-	//io_expander_write_reg(MCP23017_DEFVALA_R, 0xFF);
+	io_expander_write_reg(MCP23017_GPPUB_R, 0x0F);//enable pull-up of pushbuttons
 	
 	//enable edge-triggering interrupts of all 4 GPIOB pushbutton ports
 	if(!gpio_config_falling_edge_irq(GPIOF_BASE, PF0)) return false;
-	NVIC_SetPriority(GPIOF_IRQn, 2);
+	NVIC_SetPriority(GPIOF_IRQn, 2); // Set interrupt priority 
 	NVIC_EnableIRQ(GPIOF_IRQn);
 	io_expander_read_reg(MCP23017_INTCAPB_R);//read the cap register in every initialization to clear interrupt
 	return true;
@@ -69,18 +62,22 @@ uint8_t io_expander_read_reg(uint8_t addr) {
 	i2c_status_t i2c_status;
 	while(I2CMasterBusy(I2C1_BASE)){};
 		    
+	// Set slave addr to IO expander	
 	i2c_status = i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_WRITE); 
 	if (i2c_status != I2C_OK )
 		return i2c_status;
 		
+	
 	i2c_status = i2cSendByte(I2C1_BASE, addr, I2C_MCS_START | I2C_MCS_RUN);
 	if ( i2c_status != I2C_OK )
 		return i2c_status;
 	
+	
 	i2c_status = i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_READ);
 	if ( i2c_status != I2C_OK )
 		return i2c_status;
-			
+	
+  // read data 	
 	i2c_status = i2cGetByte(I2C1_BASE, &data_read, I2C_MCS_START | I2C_MCS_RUN | I2C_MCS_STOP);
 	if ( i2c_status != I2C_OK )
 		return i2c_status;
@@ -91,27 +88,31 @@ void io_expander_write_reg(uint8_t reg, uint8_t data) {
 	i2c_status_t i2c_status;
   
   while (I2CMasterBusy(I2C1_BASE)){}
+		
+	// set slave addr to write
 	i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_WRITE);
-
+	
+	// send start signal
 	i2cSendByte(I2C1_BASE, reg, I2C_MCS_START | I2C_MCS_RUN);
 	
+	// send end signal  
 	i2cSendByte(I2C1_BASE, data, I2C_MCS_RUN | I2C_MCS_STOP);
 	
 }
 
 
-
-
+/***********************************
+/ Turns off all LEDs on IO expander
+************************************/
 										
 void disableLeds(void) {
 	io_expander_write_reg(MCP23017_GPIOA_R, 0x00);
 }
 
-
+/***********************************
+/ Turns on LEDs on IO expander based 
+/ on hex number passed
+************************************/
 void enableLeds(uint8_t leds) {
 	io_expander_write_reg(MCP23017_GPIOA_R, leds);
 }
-/*
-
-
-*/

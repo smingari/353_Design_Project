@@ -23,7 +23,7 @@
 #include "driver_defines.h"
 
 
-// CANT WRITE TO DRIVER_DEFINES ¯\_(:/)_/¯
+// CAN'T WRITE TO DRIVER_DEFINES ¯\_(:/)_/¯
 
 //*****************************************************************************
 //
@@ -471,10 +471,6 @@ bool  gpio_config_falling_edge_irq(uint32_t gpioBase, uint8_t pins)
 {
   GPIOA_Type  *gpioPort;
 
-  // ADD CODE
-  // Verify that the base address is a valid GPIO base address
-  // using the verify_base_addr function provided above
-	
 	if(verify_base_addr(gpioBase)){
 		gpioPort = (GPIOA_Type *) gpioBase;
 		

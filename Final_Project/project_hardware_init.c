@@ -26,9 +26,13 @@ void initialize_hardware(void){
 	
 	// initialize launch pad
 	lp_io_init();
+	
+	// initialize I2C devices
 	init_serial_debug(true, true);
 	eeprom_init();
 	ft6x06_init();
+	
+	// initalize uart
 	uart_init(UART0_BASE, true, true);
 
 	// initialize peripherals 
@@ -38,6 +42,8 @@ void initialize_hardware(void){
 	io_expander_init();
   ps2_initialize();
 	
+	
+	// Start timers
 	gp_timer_config_32(TIMER1_BASE, PERIODIC, SEC_ONE, false, true); // Game Light LED
 	gp_timer_config_16(TIMER4_BASE, PERIODIC, CHECK_ADC, false, true, ADC_PRESCALE);  // ADC timer
 	gp_timer_config_32(TIMER3_BASE, PERIODIC, 500000, false, true);      // Cursor timer
