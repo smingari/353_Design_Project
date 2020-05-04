@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "launchpad_io.h"
 
-
+// Button Debounce state machine
 typedef enum 
 {
   DEBOUNCE_ONE,

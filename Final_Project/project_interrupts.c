@@ -58,45 +58,49 @@ PS2_DIR_t ps2_get_direction(void)
 	}
 }
 
-
+//*****************************************************************************
+// TIMER1 Handler
+//*****************************************************************************
 void TIMER1A_Handler(void){
-	status = TIMER1->MIS & TIMER_MIS_TATOMIS;
-		if(status) {
-			TIMER1_ALERT = true;
-		}
-		TIMER1->ICR |= TIMER_ICR_TATOCINT;
+	// turn alert on
+	TIMER1_ALERT = true;
+
+	// clear interrupt
+	TIMER1->ICR |= TIMER_ICR_TATOCINT;
 }
 
-
+//*****************************************************************************
+// TIMER3 Handler
+//*****************************************************************************
 void TIMER3A_Handler(void)
 {		
-	TIMER3_ALERT = true; // update the image
+	TIMER3_ALERT = true; // Alert to update the image
 	
+	// update cursor coordinates
 	move_curse(PS2_DIR, &CURSE_X, &CURSE_Y);
 		
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT;  
 }
 
-
-
-
-
+//*****************************************************************************
+// TIMER4 Handler
+//*****************************************************************************
 void TIMER4A_Handler(void){
 	// Clear the interrupt
 	ADC0->PSSI|= ADC_PSSI_SS2; // SS2 Initiate
+	
+	// Clear the interrupt
 	TIMER4->ICR |= TIMER_ICR_TATOCINT;
 }
 
-
-
-//io expander maybe?
+//IO_Expander 
 void GPIOF_Handler(void){
 	if(GPIOF->MIS & (PF0 & GPIO_ICR_GPIO_M)){
 		// buttons alert
 		BUTTON_ALERT = true;
 		
-		// reset io icr to some how
+		// Clear the interrupt
 		GPIOF->ICR |= (PF0 & GPIO_ICR_GPIO_M); // Clear Pin0 interrupt 
 	}
 }

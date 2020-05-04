@@ -60,7 +60,7 @@ main(void)
 	initialize_hardware();
 	EnableInterrupts();
 	printf("\n\r******************************\n\r");
-  printf("ECE353 HW3 Spring 2020\n\r");
+  printf("ECE353 Final Project Spring 2020\n\r");
   printf("Salvatore Mingari, Cristian Sanchez");
   printf("\n\r");
   printf("******************************\n\r"); 
